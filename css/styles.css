@@ -1,6 +1,4 @@
-/* ========================================
-   WIZARDLY — Tienda Arcana
-   ======================================== */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap');
 
@@ -445,4 +443,75 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+/* ========================================
+   REDES FLOTANTES (BARRA LATERAL)
+   ======================================== */
+.social-float {
+    position: fixed;
+    left: 20px;          /* Pégala a la izquierda */
+    top: 50%;            /* Centrada verticalmente */
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column; /* Coloca los íconos en columna */
+    gap: 14px;
+    z-index: 999;        /* Siempre por encima del contenido */
+}
+
+.social-float a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(13, 7, 23, 0.8);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(184, 137, 45, 0.3);
+    color: #a08c9e;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.social-float a:hover {
+    transform: scale(1.15) translateX(4px);
+    border-color: #d9a93d;
+    color: #d9a93d;
+    box-shadow: 0 0 25px rgba(217, 169, 61, 0.3);
+    background: rgba(217, 169, 61, 0.15);
+}
+
+/* Ajuste para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .social-float {
+        left: 10px;
+        gap: 10px;
+    }
+    .social-float a {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
+
+/* Footer simplificado (sin redes) */
+.footer-mini {
+    background: var(--bg-card, #0d0717);
+    border-top: 1px solid var(--border, rgba(184, 137, 45, 0.2));
+    padding: 20px 20px;
+    text-align: center;
+    margin-top: 0;
+}
+.footer-mini p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.78rem;
+    color: var(--text-muted, #a08c9e);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+.footer-mini p span {
+    color: var(--gold, #d9a93d);
+    font-weight: 600;
 }
