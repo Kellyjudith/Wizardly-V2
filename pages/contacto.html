@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Contacto</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/contacto.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html" class="active">Contacto</a></li>
+                <li><a href="login.html" class="btn-login">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO CONTACTO -->
+    <section class="hero-contacto">
+        <canvas id="stardust"></canvas>
+        <div class="hero-content">
+            <span class="hero-eyebrow">✦ Estamos aquí ✦</span>
+            <h2>Contáctanos</h2>
+            <p>Escríbenos y un maestro arcano te responderá antes del próximo ciclo lunar.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PRINCIPAL -->
+    <section class="contacto-section">
+
+        <!-- FORMULARIO -->
+        <div class="contacto-grid">
+
+            <div class="form-card">
+                <span class="section-eyebrow">✦ Envía tu mensaje ✦</span>
+                <h3>Escríbenos</h3>
+
+                <div class="campo">
+                    <label for="nombre">Nombre</label>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <input type="text" id="nombre" placeholder="Tu nombre arcano">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="correo">Correo</label>
+                    <div class="input-wrap">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="correo" placeholder="tu@correo.com">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="mensaje">Mensaje</label>
+                    <div class="input-wrap textarea-wrap">
+                        <i class="fa-solid fa-scroll"></i>
+                        <textarea id="mensaje" rows="5" placeholder="Escribe tu consulta mágica..."></textarea>
+                    </div>
+                </div>
+
+                <button class="btn-enviar" onclick="enviarMensaje()">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar Mensaje
+                </button>
+
+                <!-- Toast de confirmación -->
+                <div class="toast" id="toast">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Mensaje enviado — ¡Nos pondremos en contacto pronto!
+                </div>
+
+            </div>
+
+            <!-- REDES SOCIALES -->
+            <div class="redes-card">
+                <span class="section-eyebrow">✦ Síguenos ✦</span>
+                <h3>Redes Sociales</h3>
+
+                <p class="redes-desc">Únete a nuestra comunidad arcana y no te pierdas ningún conjuro nuevo.</p>
+
+                <div class="redes-lista">
+
+                    <a href="https://facebook.com" target="_blank" class="red-item red-fb">
+                        <div class="red-icon"><i class="fa-brands fa-facebook-f"></i></div>
+                        <div class="red-info">
+                            <span class="red-nombre">Facebook</span>
+                            <span class="red-handle">@WizardlyMx</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
+                    </a>
+
+                    <a href="https://instagram.com" target="_blank" class="red-item red-ig">
+                        <div class="red-icon"><i class="fa-brands fa-instagram"></i></div>
+                        <div class="red-info">
+                            <span class="red-nombre">Instagram</span>
+                            <span class="red-handle">@wizardly.mx</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
+                    </a>
+
+                    <a href="https://tiktok.com" target="_blank" class="red-item red-tt">
+                        <div class="red-icon"><i class="fa-brands fa-tiktok"></i></div>
+                        <div class="red-info">
+                            <span class="red-nombre">TikTok</span>
+                            <span class="red-handle">@wizardly.mx</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
+                    </a>
+
+                    <a href="https://twitter.com" target="_blank" class="red-item red-tw">
+                        <div class="red-icon"><i class="fa-brands fa-x-twitter"></i></div>
+                        <div class="red-info">
+                            <span class="red-nombre">X / Twitter</span>
+                            <span class="red-handle">@WizardlyMx</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
+                    </a>
+
+                    <a href="https://youtube.com" target="_blank" class="red-item red-yt">
+                        <div class="red-icon"><i class="fa-brands fa-youtube"></i></div>
+                        <div class="red-info">
+                            <span class="red-nombre">YouTube</span>
+                            <span class="red-handle">Wizardly Arcano</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2025 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function enviarMensaje() {
+            const nombre  = document.getElementById('nombre').value.trim();
+            const correo  = document.getElementById('correo').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+
+            if (!nombre || !correo || !mensaje) {
+                alert('Por favor completa todos los campos antes de enviar.');
+                return;
+            }
+
+            const toast = document.getElementById('toast');
+            toast.classList.add('visible');
+
+            // Limpiar campos
+            document.getElementById('nombre').value  = '';
+            document.getElementById('correo').value  = '';
+            document.getElementById('mensaje').value = '';
+
+            // Ocultar toast después de 4 segundos
+            setTimeout(() => toast.classList.remove('visible'), 4000);
+        }
+    </script>
+
+</body>
+</html>

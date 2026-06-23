@@ -4,77 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Tienda Mágica</title>
 
-    <title>Wizardly - Tienda Mágica</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="images/favicon/favicon.jpeg">
-
-    <!-- CSS -->
+    <link rel="icon" href="Wizardly/images/favicon/favicon.jpeg" type="image/png">
     <link rel="stylesheet" href="css/styles.css">
-
-    <!-- Iconos -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- ENCABEZADO -->
+    <!-- NAVBAR -->
     <header>
-
         <nav class="navbar">
 
-            <!-- Logo -->
-            <div class="logo">
+            <a href="index.html" class="logo">
+                <img src="images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
 
-                <img src="images/logo/logo.png" alt="Logo Wizardly">
-
-                <h1>Wizardly</h1>
-
-            </div>
-
-            <!-- Menú -->
             <ul class="menu">
-
-                <li><a href="index.html">Inicio</a></li>
-
+                <li><a href="index.html" class="active">Inicio</a></li>
                 <li><a href="pages/catalogo.html">Catálogo</a></li>
-
                 <li><a href="pages/nosotros.html">Nosotros</a></li>
-
                 <li><a href="pages/contacto.html">Contacto</a></li>
-
-                <li><a href="pages/login.html">Iniciar Sesión</a></li>
-
+                <li><a href="pages/login.html" class="btn-login">Iniciar Sesión</a></li>
             </ul>
 
         </nav>
-
     </header>
 
-    <!-- HERO PRINCIPAL -->
-
+    <!-- HERO -->
     <section class="hero">
 
+        <canvas id="stardust"></canvas>
+
         <div class="hero-content">
-
+            <span class="hero-eyebrow">✦ Establecido en el año 1347 ✦</span>
             <h2>Bienvenido al Mercado Arcano</h2>
-
-            <p>
-                La magia al alcance de todos.
-            </p>
-
-            <a href="pages/catalogo.html" class="btn">
-                Ver Productos
-            </a>
-
+            <p>Donde los secretos del cosmos se vuelven accesibles. Conjuros, reliquias y artefactos para el mago moderno.</p>
+            <a href="pages/catalogo.html" class="btn">Ver Productos</a>
+            <div class="hero-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
         </div>
 
     </section>
 
+    <!-- HISTORIA + INFO -->
+    <section class="section-historia">
+
+        <div class="section-header">
+            <span class="section-eyebrow">✦ Nuestra esencia ✦</span>
+            <h3>Más de seis siglos de magia</h3>
+        </div>
+
+        <div class="ornament-divider"><span>✦</span></div>
+
+        <div class="info-grid">
+
+            <!-- Historia -->
+            <div class="info-card card-historia">
+                <span class="card-icon">📜</span>
+                <h4>Nuestra Historia</h4>
+                <p>
+                    Wizardly nació en 1347 cuando la archimaga Seraphina Coldwell fundó un pequeño puesto
+                    en el mercado de las sombras de Edimburgo, vendiendo pociones de clarividencia y
+                    pergaminos encantados a viajeros de los reinos del norte. Con el paso de los siglos,
+                    el modesto puesto se convirtió en el emporio arcano más respetado del mundo conocido,
+                    expandiéndose más allá del velo físico para llegar hoy a cualquier rincón donde la
+                    magia sea necesitada.
+                </p>
+            </div>
+
+            <!-- Misión -->
+            <div class="info-card card-mision">
+                <span class="card-icon">⚗️</span>
+                <h4>Qué Vendemos</h4>
+                <p>
+                    Varitas talladas en madera de saúco, pociones de metamorfosis, grimorios de hechizos
+                    ancestrales, cristales de adivinación, amuletos de protección y todo cuanto un
+                    practicante de las artes arcanas pueda necesitar — certificado y con garantía mágica.
+                </p>
+            </div>
+
+            <!-- Horarios -->
+            <div class="info-card card-horarios">
+                <span class="card-icon">🕯️</span>
+                <h4>Horarios</h4>
+                <address>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-moon"></i>
+                        <span>Lunes a Viernes<br>9:00 am — 8:00 pm</span>
+                    </div>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Sábados<br>10:00 am — 6:00 pm</span>
+                    </div>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-ban"></i>
+                        <span>Domingos y solsticios<br>Cerrado</span>
+                    </div>
+                </address>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="info-card card-ubicacion">
+                <span class="card-icon">🗺️</span>
+                <h4>Encuéntranos</h4>
+                <address>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Callejón de la Niebla 13, Barrio de las Sombras, Aguascalientes, México</span>
+                    </div>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>contacto@wizardly.mx</span>
+                    </div>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+52 (449) 777-0013</span>
+                    </div>
+                </address>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
     <script src="js/script.js"></script>
 
 </body>
-
 </html>
