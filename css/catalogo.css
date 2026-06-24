@@ -1,0 +1,237 @@
+/* ========================================
+   CATÁLOGO — estilos exclusivos
+   ======================================== */
+
+/* ── HERO CATÁLOGO ── */
+.hero-catalogo {
+    min-height: 42vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(160deg, rgba(112,26,255,0.1) 0%, rgba(10,4,18,0) 60%),
+        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+        url('../images/banner/banner-principal.jpg') center/cover no-repeat;
+    padding-top: 90px;
+}
+.hero-catalogo .hero-content { padding: 40px 24px; }
+.hero-catalogo .hero-eyebrow { opacity: 1; animation: none; }
+.hero-catalogo h2            { opacity: 1; animation: none; }
+.hero-catalogo p             { opacity: 1; animation: none; }
+
+/* ── SECCIÓN CATÁLOGO ── */
+.catalogo-section {
+    background: var(--bg-surface);
+    padding: 60px 80px 100px;
+    position: relative;
+}
+.catalogo-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* ── GRID DE PRODUCTOS ── */
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ── TARJETA DE PRODUCTO ── */
+.producto-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 20px 24px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.producto-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    border-color: var(--gold-dim);
+}
+
+.producto-card img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #1a0d2e;
+    margin-bottom: 16px;
+}
+
+.producto-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+}
+
+.producto-precio {
+    font-family: 'Jim Nightshade', cursive;
+    font-size: 1.4rem;
+    color: var(--text-main);
+    margin-bottom: 16px;
+}
+
+.btn-detalle {
+    display: inline-block;
+    padding: 10px 30px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+    color: #0a0412;
+    border-radius: 40px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-detalle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(217,169,61,0.4);
+}
+
+/* ── RESPONSIVE CATÁLOGO ── */
+@media (max-width: 860px) {
+    .catalogo-section { padding: 40px 24px 80px; }
+    .catalogo-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+}
+@media (max-width: 480px) {
+    .catalogo-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .producto-card { padding: 14px; }
+    .producto-card h3 { font-size: 0.95rem; }
+    .producto-precio { font-size: 1.1rem; }
+    .btn-detalle { font-size: 0.6rem; padding: 8px 18px; }
+}
+
+/* ========================================
+   DETALLE DE PRODUCTO
+   ======================================== */
+
+.hero-detalle {
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background:
+        linear-gradient(160deg, rgba(112,26,255,0.08) 0%, rgba(10,4,18,0) 60%),
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+    padding-top: 90px;
+}
+.hero-detalle .hero-content { padding: 30px 24px; }
+.hero-detalle .hero-eyebrow { opacity: 1; animation: none; }
+.hero-detalle h2            { opacity: 1; animation: none; font-size: clamp(1.8rem, 3vw, 2.6rem); }
+
+.detalle-section {
+    background: var(--bg-surface);
+    padding: 60px 80px 100px;
+}
+.detalle-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.detalle-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    align-items: start;
+}
+
+.detalle-imagen img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 16px;
+    background: #1a0d2e;
+}
+
+.detalle-info h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.detalle-precio {
+    font-family: 'Jim Nightshade', cursive;
+    font-size: 1.8rem;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+.detalle-descripcion {
+    font-family: 'Jim Nightshade', cursive;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+}
+
+.btn-regresar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 32px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.btn-regresar:hover {
+    background: rgba(246,213,122,0.08);
+    box-shadow: 0 0 20px rgba(246,213,122,0.15);
+}
+
+.detalle-error {
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--lilac);
+    padding: 40px 0;
+}
+
+/* ── RESPONSIVE DETALLE ── */
+@media (max-width: 768px) {
+    .detalle-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px;
+    }
+    .detalle-section { padding: 40px 24px 80px; }
+    .detalle-info h3 { font-size: 1.5rem; }
+    .detalle-precio { font-size: 1.4rem; }
+    .detalle-descripcion { font-size: 1rem; }
+}

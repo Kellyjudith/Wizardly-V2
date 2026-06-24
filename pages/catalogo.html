@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Catálogo</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/catalogo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ===== REDES SOCIALES FLOTANTES ===== -->
+    <div class="social-float">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://twitter.com" target="_blank" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html" class="active">Catálogo</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html" class="btn-login">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO CATÁLOGO -->
+    <section class="hero-catalogo">
+        <canvas id="stardust"></canvas>
+        <div class="hero-content">
+            <span class="hero-eyebrow">✦ Explora nuestro arsenal ✦</span>
+            <h2>Catálogo Arcano</h2>
+            <p>Selecciona un artefacto y conoce sus secretos.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CATÁLOGO -->
+    <section class="catalogo-section">
+        <div class="catalogo-grid" id="productos-container">
+            <!-- Los productos se inyectan con JavaScript -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        //  LISTA DE PRODUCTOS (puedes agregar, modificar o eliminar)
+        // ============================================================
+        const productos = [
+            { id: 1, nombre: "Varita de Saúco", precio: 350.00, descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix. Ideal para hechizos de protección.", imagen: "https://picsum.photos/seed/1/300/300" },
+            { id: 2, nombre: "Poción de Invisibilidad", precio: 85.50, descripcion: "Brewed con extracto de cola de tritón y polvo de luna. Oculta al bebedor durante 1 hora.", imagen: "https://picsum.photos/seed/2/300/300" },
+            { id: 3, nombre: "Grimorio de Hechizos Antiguos", precio: 420.00, descripcion: "Recopilación de conjuros olvidados, escrito en pergamino de dragón. Incluye sellos de protección.", imagen: "https://picsum.photos/seed/3/300/300" },
+            { id: 4, nombre: "Cristal de Adivinación", precio: 199.99, descripcion: "Cuarzo transparente de las montañas de Zafiro. Permite vislumbrar futuros posibles.", imagen: "https://picsum.photos/seed/4/300/300" },
+            { id: 5, nombre: "Amuleto de Protección", precio: 65.00, descripcion: "Colgante de plata con runas élficas. Repelente de energías negativas y mal de ojo.", imagen: "https://picsum.photos/seed/5/300/300" },
+            { id: 6, nombre: "Caldero de Cobre", precio: 275.00, descripcion: "Caldero reforzado con anillos de bronce, apto para pociones de alto nivel.", imagen: "https://picsum.photos/seed/6/300/300" },
+            { id: 7, nombre: "Mapa del Tesoro Escondido", precio: 120.00, descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos. Se actualiza con cada luna llena.", imagen: "https://picsum.photos/seed/7/300/300" },
+            { id: 8, nombre: "Pluma de Fénix", precio: 450.00, descripcion: "Pluma auténtica de un fénix milenario. Utilizada en varitas y grimorios de alto rango.", imagen: "https://picsum.photos/seed/8/300/300" }
+        ];
+
+        // ============================================================
+        //  GENERAR TARJETAS DE PRODUCTO
+        // ============================================================
+        const container = document.getElementById('productos-container');
+
+        if (container) {
+            productos.forEach(prod => {
+                // Crear tarjeta
+                const card = document.createElement('div');
+                card.className = 'producto-card';
+
+                // Imagen
+                const img = document.createElement('img');
+                img.src = prod.imagen;
+                img.alt = prod.nombre;
+                img.loading = 'lazy';
+                card.appendChild(img);
+
+                // Nombre
+                const nombre = document.createElement('h3');
+                nombre.textContent = prod.nombre;
+                card.appendChild(nombre);
+
+                // Precio
+                const precio = document.createElement('p');
+                precio.className = 'producto-precio';
+                precio.textContent = `$${prod.precio.toFixed(2)} MXN`;
+                card.appendChild(precio);
+
+                // Botón Ver detalle
+                const btn = document.createElement('a');
+                btn.className = 'btn-detalle';
+                btn.href = `detalle.html?id=${prod.id}`;
+                btn.textContent = 'Ver detalle';
+                card.appendChild(btn);
+
+                container.appendChild(card);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
