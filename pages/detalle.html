@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizardly — Detalle del producto</title>
 
-    <link rel="icon" href="../images/favicon/favicon.jpeg" type="image/png">
+    <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,11 +39,13 @@
                 </div>
             </a>
             <ul class="menu">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html" class="active">Catálogo</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="login.html" class="btn-login">Iniciar Sesión</a></li>
+             <li><a href="../index.html">Inicio</a></li>
+<li><a href="catalogo.html">Catálogo</a></li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+<li><a href="registro.html">Registrarse</a></li>
+<li><a href="login.html" class="btn-login">Iniciar Sesión</a></li>
+
             </ul>
         </nav>
     </header>
@@ -62,25 +64,25 @@
             <!-- Aquí se inyecta el producto -->
         </div>
     </section>
-
+<script src="../js/script.js"></script>
     <!-- FOOTER -->
     <footer class="footer-mini">
         <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
     </footer>
-
+<script src="../js/script.js"></script>
     <script>
         // ============================================================
         //  MISMA LISTA DE PRODUCTOS (debe coincidir con catalogo.html)
         // ============================================================
         const productos = [
-            { id: 1, nombre: "Varita de Saúco", precio: 350.00, descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix. Ideal para hechizos de protección.", imagen: "https://picsum.photos/seed/1/400/400" },
-            { id: 2, nombre: "Poción de Invisibilidad", precio: 85.50, descripcion: "Brewed con extracto de cola de tritón y polvo de luna. Oculta al bebedor durante 1 hora.", imagen: "https://picsum.photos/seed/2/400/400" },
-            { id: 3, nombre: "Grimorio de Hechizos Antiguos", precio: 420.00, descripcion: "Recopilación de conjuros olvidados, escrito en pergamino de dragón. Incluye sellos de protección.", imagen: "https://picsum.photos/seed/3/400/400" },
-            { id: 4, nombre: "Cristal de Adivinación", precio: 199.99, descripcion: "Cuarzo transparente de las montañas de Zafiro. Permite vislumbrar futuros posibles.", imagen: "https://picsum.photos/seed/4/400/400" },
-            { id: 5, nombre: "Amuleto de Protección", precio: 65.00, descripcion: "Colgante de plata con runas élficas. Repelente de energías negativas y mal de ojo.", imagen: "https://picsum.photos/seed/5/400/400" },
-            { id: 6, nombre: "Caldero de Cobre", precio: 275.00, descripcion: "Caldero reforzado con anillos de bronce, apto para pociones de alto nivel.", imagen: "https://picsum.photos/seed/6/400/400" },
-            { id: 7, nombre: "Mapa del Tesoro Escondido", precio: 120.00, descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos. Se actualiza con cada luna llena.", imagen: "https://picsum.photos/seed/7/400/400" },
-            { id: 8, nombre: "Pluma de Fénix", precio: 450.00, descripcion: "Pluma auténtica de un fénix milenario. Utilizada en varitas y grimorios de alto rango.", imagen: "https://picsum.photos/seed/8/400/400" }
+            { id: 1, nombre: "Varita de Saúco", precio: 350.00, descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix. Ideal para hechizos de protección.", imagen: "../images/varita sauco.webp"},
+            { id: 2, nombre: "Poción de Invisibilidad", precio: 85.50, descripcion: "Brewed con extracto de cola de tritón y polvo de luna. Oculta al bebedor durante 1 hora.", imagen: "../images/pocion invisiobilidad.jpg" },
+            { id: 3, nombre: "Grimorio de Hechizos Antiguos", precio: 420.00, descripcion: "Recopilación de conjuros olvidados, escrito en pergamino de dragón. Incluye sellos de protección.", imagen: "../images/grimorio.jpg" },
+            { id: 4, nombre: "Cristal de Adivinación", precio: 199.99, descripcion: "Cuarzo transparente de las montañas de Zafiro. Permite vislumbrar futuros posibles.", imagen: "../images/cristal de adivinacion.webp" },
+            { id: 5, nombre: "Amuleto de Protección", precio: 65.00, descripcion: "Colgante de plata con runas élficas. Repelente de energías negativas y mal de ojo.", imagen: "../images/amuleto de proteccion.jpeg" },
+            { id: 6, nombre: "Caldero de Cobre", precio: 275.00, descripcion: "Caldero reforzado con anillos de bronce, apto para pociones de alto nivel.", imagen: "../images/Caldero.jpg" },
+            { id: 7, nombre: "Mapa del Tesoro Escondido", precio: 120.00, descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos. Se actualiza con cada luna llena.", imagen: "../images/mapa del tesoro.jpg" },
+            { id: 8, nombre: "Pluma de Fénix", precio: 450.00, descripcion: "Pluma auténtica de un fénix milenario. Utilizada en varitas y grimorios de alto rango.", imagen: "../images/pluma de fenix.jpg"}
         ];
 
         // ============================================================
@@ -118,18 +120,162 @@
                         <h3>${producto.nombre}</h3>
                         <p class="detalle-precio">$${producto.precio.toFixed(2)} MXN</p>
                         <p class="detalle-descripcion">${producto.descripcion}</p>
-                        <a href="catalogo.html" class="btn-regresar">
-                            <i class="fa-solid fa-arrow-left"></i> Regresar al catálogo
-                        </a>
-                    </div>
+                       
+
+    <a href="catalogo.html" class="btn">
+        Regresar
+    </a>
+
+    <button class="btn" id="btn-carrito">
+        Agregar al carrito
+    </button>
+
+
                 </div>
             `;
         }
 
         // Ejecutar al cargar
         mostrarDetalle();
-    </script>
+    
+    const btnCarrito = document.getElementById('btn-carrito');
 
+    btnCarrito.addEventListener('click', () => {
+
+        // Crear mensaje
+        const mensaje = document.createElement('div');
+
+        mensaje.textContent = "✨ ¡El artefacto ha sido agregado al carruaje!";
+
+        mensaje.classList.add('mensaje-carrito');
+
+        document.body.appendChild(mensaje);
+
+        // Mostrar animación
+        setTimeout(() => {
+            mensaje.classList.add('mostrar');
+        }, 100);
+
+        // Ocultarlo después de 3 segundos
+        setTimeout(() => {
+            mensaje.classList.remove('mostrar');
+
+            setTimeout(() => {
+                mensaje.remove();
+            }, 500);
+
+        }, 3000);
+
+    });
+</script>
+<script>
+    // ============================================================
+    //  LISTA DE PRODUCTOS
+    // ============================================================
+    const productos = [
+        {
+            id: 1,
+            nombre: "Varita de Saúco",
+            precio: 350.00,
+            descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix.",
+            imagen: "../images/varita sauco.webp"
+        },
+        {
+            id: 2,
+            nombre: "Poción de Invisibilidad",
+            precio: 85.50,
+            descripcion: "Brewed con extracto de cola de tritón y polvo de luna.",
+            imagen: "../images/pocion invisiobilidad.jpg"
+        },
+        {
+            id: 3,
+            nombre: "Grimorio de Hechizos Antiguos",
+            precio: 420.00,
+            descripcion: "Recopilación de conjuros olvidados.",
+            imagen: "../images/grimorio.jpg"
+        },
+        {
+            id: 4,
+            nombre: "Cristal de Adivinación",
+            precio: 199.99,
+            descripcion: "Cuarzo transparente de las montañas de Zafiro.",
+            imagen: "../images/cristal de adivinacion.webp"
+        },
+        {
+            id: 5,
+            nombre: "Amuleto de Protección",
+            precio: 65.00,
+            descripcion: "Colgante de plata con runas élficas.",
+            imagen: "../images/Amuleto de proteccion.jpeg"
+        },
+        {
+            id: 6,
+            nombre: "Caldero de Cobre",
+            precio: 275.00,
+            descripcion: "Caldero reforzado con anillos de bronce.",
+            imagen: "../images/Caldero.jpg"
+        },
+        {
+            id: 7,
+            nombre: "Mapa del Tesoro Escondido",
+            precio: 120.00,
+            descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos.",
+            imagen: "../images/mapa del tesoro.jpg"
+        },
+        {
+            id: 8,
+            nombre: "Pluma de Fénix",
+            precio: 450.00,
+            descripcion: "Pluma auténtica de un fénix milenario.",
+            imagen: "../images/pluma de fenix.jpg"
+            
+        }
+    ];
+
+    // ============================================================
+    //  GENERAR TARJETAS
+    // ============================================================
+    const container = document.getElementById('productos-container');
+
+    if (container) {
+        productos.forEach(prod => {
+
+            const card = document.createElement('div');
+            card.className = 'producto-card';
+
+            const img = document.createElement('img');
+            img.src = prod.imagen;
+            img.alt = prod.nombre;
+            img.loading = 'lazy';
+            card.appendChild(img);
+
+            const nombre = document.createElement('h3');
+            nombre.textContent = prod.nombre;
+            card.appendChild(nombre);
+
+            const precio = document.createElement('p');
+            precio.className = 'producto-precio';
+            precio.textContent = `$${prod.precio.toFixed(2)} MXN`;
+            card.appendChild(precio);
+
+            const btn = document.createElement('a');
+            btn.className = 'btn-detalle';
+            btn.href = `detalle.html?id=${prod.id}`;
+            btn.textContent = 'Ver detalle';
+            card.appendChild(btn);
+
+            container.appendChild(card);
+        });
+    }
+</script>
+<script src="../js/script.js"></script>
+<!-- Script general del sitio -->
+<script src="../js/script.js"></script>
+
+</body>
+<script src="../js/script.js"></script>
+</html>
+<script src="../js/script.js"></script>
 </body>
 
 </html>

@@ -25,13 +25,23 @@
 
 html { scroll-behavior: smooth; }
 
+/* Cursor normal en toda la página */
 body {
+    cursor: url('../images/magic.png') 16 16, auto;
+
     background-color: var(--bg-deep);
     color: var(--text-main);
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     line-height: 1.7;
     overflow-x: hidden;
+}
+
+/* Cursor cuando el usuario pasa sobre botones o enlaces */
+.btn:hover,
+button:hover,
+a:hover {
+    cursor: url('../images/magic2.png') 16 16, pointer;
 }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -442,7 +452,14 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .hero-eyebrow,
+    .hero h2,
+    .hero p,
+    .btn,
+    .hero-ornament {
+        animation: none !important;
+        opacity: 1 !important;
+    }
 }
 /* ========================================
    REDES FLOTANTES (BARRA LATERAL)
@@ -495,7 +512,36 @@ body {
         font-size: 1rem;
     }
 }
+/* ===============================
+   MENSAJE CARRITO
+   =============================== */
 
+.mensaje-carrito {
+    position: fixed;
+    top: 100px;
+    right: -450px;
+
+    background: rgba(26, 13, 46, 0.95);
+    color: var(--gold);
+
+    border: 1px solid var(--gold-dim);
+
+    padding: 18px 28px;
+
+    border-radius: 15px;
+
+    font-family: 'Cinzel', serif;
+
+    box-shadow: 0 0 25px rgba(246, 213, 122, 0.3);
+
+    z-index: 9999;
+
+    transition: right 0.6s ease;
+}
+
+.mensaje-carrito.mostrar {
+    right: 30px;
+}
 /* Footer simplificado (sin redes) */
 .footer-mini {
     background: var(--bg-card, #0d0717);
@@ -515,7 +561,36 @@ body {
     color: var(--gold, #d9a93d);
     font-weight: 600;
 }
+.sparkle{
+    position: absolute;
+    width: 8px;
+    height: 8px;
 
+    background: #ffd700;
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    animation: magia 1s linear forwards;
+
+    box-shadow:
+        0 0 10px #ffd700,
+        0 0 20px #ffd700;
+}
+
+@keyframes magia{
+
+    0%{
+        opacity:1;
+        transform: scale(1);
+    }
+
+    100%{
+        opacity:0;
+        transform: translateY(-40px) scale(0);
+    }
+
+}
 .btn-detalle {
     
 }

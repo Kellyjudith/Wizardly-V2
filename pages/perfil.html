@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Perfil</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="perfil.html" class="active">Perfil</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+    <!-- PERFIL -->
+    <section class="section-historia">
+
+        <div class="section-header">
+            <span class="section-eyebrow">
+                ✦ Bienvenido de nuevo ✦
+            </span>
+
+            <h2>Perfil del Usuario</h2>
+        </div>
+
+        <div class="info-grid">
+
+            <!-- DATOS -->
+            <div class="info-card">
+
+                <h3>Mis Datos</h3>
+
+                <p><strong>Nombre:</strong> Jovani Arcane</p>
+                <p><strong>Usuario:</strong> @WizardMaster</p>
+                <p><strong>Correo:</strong> usuario@wizardly.com</p>
+
+            </div>
+
+            <!-- COMPRAS -->
+            <div class="info-card">
+
+                <h3>Mis Compras</h3>
+
+                <p>
+                    Próximamente podrás consultar todos tus artefactos adquiridos.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- BOTONES -->
+        <div style="text-align:center; margin-top:50px;">
+
+            <a href="../index.html"
+               class="btn"
+               style="margin-right:15px;">
+                Volver al Inicio
+            </a>
+
+            <button class="btn" onclick="cerrarSesion()">
+                Cerrar Sesión
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>
+            © 2026 <span>Wizardly</span> — Mercado Arcano
+            &nbsp;✦&nbsp; Todos los derechos mágicos reservados
+        </p>
+    </footer>
+
+    <script>
+        function cerrarSesion() {
+            alert("Sesión cerrada correctamente.");
+            window.location.href = "login.html";
+        }
+    </script>
+</script>
+
+<script src="../js/script.js"></script>
+
+</body>
+</body>
+
+</html>

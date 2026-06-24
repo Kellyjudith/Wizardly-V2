@@ -4,21 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wizardly — Iniciar Sesión</title>
+    <title>Wizardly — Registro</title>
 
     <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap"
-        rel="stylesheet">
-
-    <!-- CSS general -->
     <link rel="stylesheet" href="../css/styles.css">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
@@ -26,7 +17,6 @@
 
         body{
             min-height:100vh;
-
             display:flex;
             justify-content:center;
             align-items:center;
@@ -37,13 +27,11 @@
             center/cover no-repeat;
         }
 
-        .login-card{
-
+        .registro-card{
             width:100%;
             max-width:550px;
 
-            background:rgba(20,10,35,.85);
-
+            background: rgba(20, 10, 35, 0.85);
             backdrop-filter: blur(12px);
 
             border:1px solid rgba(246,213,122,.2);
@@ -60,7 +48,6 @@
         }
 
         @keyframes aparecer{
-
             from{
                 opacity:0;
                 transform:translateY(40px);
@@ -72,37 +59,36 @@
             }
         }
 
-        .login-card h2{
+        .registro-card h2{
             text-align:center;
             color:var(--gold);
             font-family:'Cinzel Decorative', serif;
-            font-size:2.2rem;
             margin-bottom:10px;
+            font-size:2.2rem;
         }
 
         .subtitulo{
             text-align:center;
             color:var(--lilac);
-            font-family:'Cinzel', serif;
-            letter-spacing:3px;
             margin-bottom:40px;
+            letter-spacing:3px;
+            font-family:'Cinzel', serif;
         }
 
         .input-group{
-            position:relative;
             margin-bottom:25px;
+            position:relative;
         }
 
         .input-group i{
             position:absolute;
-            left:18px;
             top:50%;
+            left:18px;
             transform:translateY(-50%);
             color:var(--gold);
         }
 
         .input-group input{
-
             width:100%;
             padding:16px 16px 16px 50px;
 
@@ -119,7 +105,6 @@
         }
 
         .input-group input:focus{
-
             outline:none;
 
             border:1px solid var(--gold);
@@ -127,103 +112,100 @@
             box-shadow:0 0 20px rgba(246,213,122,.25);
         }
 
-        .btn-login-magico{
+        .btn-registro{
             width:100%;
+            margin-top:20px;
             border:none;
             cursor:pointer;
-            margin-top:10px;
         }
 
-        .texto-extra{
+        .extra-texto{
             text-align:center;
             margin-top:30px;
             color:var(--text-muted);
         }
 
-        .texto-extra a{
+        .extra-texto a{
             color:var(--gold);
             text-decoration:none;
         }
 
-        .texto-extra a:hover{
+        .extra-texto a:hover{
             text-decoration:underline;
         }
 
     </style>
 
+    <script>
+
+        function registrar(event){
+
+            event.preventDefault();
+
+            alert("✨ Registro exitoso. Bienvenido al Mercado Arcano ✨");
+
+            window.location.href = "login.html";
+        }
+
+    </script>
+
 </head>
 
 <body>
 
-    <div class="login-card">
+    <div class="registro-card">
 
         <div class="subtitulo">
-            ✦ Accede al Mercado Arcano ✦
+            ✦ Únete al Mercado Arcano ✦
         </div>
 
-        <h2>Iniciar Sesión</h2>
+        <h2>Crear Cuenta</h2>
 
-        <form id="loginForm">
+        <form onsubmit="registrar(event)">
 
             <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input
+                    type="text"
+                    placeholder="Nombre completo"
+                    required>
+            </div>
 
+            <div class="input-group">
                 <i class="fa-solid fa-envelope"></i>
-
                 <input
                     type="email"
-                    id="correo"
-                    placeholder="Correo Electrónico"
+                    placeholder="Correo electrónico"
                     required>
-
             </div>
 
             <div class="input-group">
-
-                <i class="fa-solid fa-key"></i>
-
+                <i class="fa-solid fa-lock"></i>
                 <input
                     type="password"
-                    id="password"
-                    placeholder="Contraseña Secreta"
+                    placeholder="Contraseña secreta"
                     required>
-
             </div>
 
-            <button type="submit" class="btn btn-login-magico">
-                Entrar al Mercado
+            <button class="btn btn-registro">
+                Registrarme
             </button>
 
         </form>
 
-        <div class="texto-extra">
+        <div class="extra-texto">
 
-            ¿Aún no eres miembro del gremio?
+            ¿Ya posees una cuenta mágica?
 
             <br><br>
 
-            <a href="registro.html">
-                Crear una cuenta
+            <a href="login.html">
+                Iniciar Sesión
             </a>
 
         </div>
 
     </div>
-
-    <script>
-
-        const formulario = document.getElementById('loginForm');
-
-        formulario.addEventListener('submit', function(e){
-
-            e.preventDefault();
-
-            alert("✨ Bienvenido al Mercado Arcano ✨");
-
-            window.location.href = "perfil.html";
-
-        });
-src="../js/script.js"
-    </script>
 </script>
 
 <script src="../js/script.js"></script>
