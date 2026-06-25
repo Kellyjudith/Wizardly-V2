@@ -594,3 +594,48 @@ a:hover {
 .btn-detalle {
     
 }
+
+.recordar-grupo {
+    margin-bottom: 20px;
+    margin-top: -10px;
+}
+
+.recordar-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    user-select: none;
+}
+
+.recordar-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(246, 213, 122, 0.4);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .3s;
+    flex-shrink: 0;
+}
+
+.recordar-label input[type="checkbox"]:checked + .checkmark {
+    background: rgba(246, 213, 122, 0.2);
+    border-color: var(--gold);
+}
+
+.recordar-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: bold;
+}
