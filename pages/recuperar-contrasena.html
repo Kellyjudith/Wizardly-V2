@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Recuperar Contraseña</title>
+
+    <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
+                url('../images/banner/banner-principal.jpg')
+                center/cover no-repeat;
+        }
+
+        .recuperar-card {
+            width: 100%;
+            max-width: 550px;
+            background: rgba(20, 10, 35, .85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(246, 213, 122, .2);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow:
+                0 0 40px rgba(192, 132, 252, .15),
+                0 0 80px rgba(246, 213, 122, .08);
+            animation: aparecer 1s ease;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .recuperar-card h2 {
+            text-align: center;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: var(--lilac);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .descripcion {
+            text-align: center;
+            color: var(--text-muted);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .06);
+            color: white;
+            border: 1px solid transparent;
+            transition: .3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 20px rgba(246, 213, 122, .25);
+        }
+
+        .btn-recuperar {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Banner de éxito */
+        .banner-exito {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            background: rgba(192, 132, 252, .12);
+            border: 1px solid rgba(192, 132, 252, .4);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            animation: aparecer .6s ease;
+        }
+
+        .banner-exito.visible {
+            display: flex;
+        }
+
+        .banner-exito .icono-exito {
+            font-size: 2.8rem;
+            color: var(--gold);
+            animation: pulso 1.5s ease infinite;
+        }
+
+        @keyframes pulso {
+            0%, 100% { transform: scale(1);   opacity: 1; }
+            50%       { transform: scale(1.1); opacity: .8; }
+        }
+
+        .banner-exito h3 {
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .banner-exito p {
+            color: var(--text-muted);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .banner-exito .correo-enviado {
+            color: var(--lilac);
+            font-weight: 700;
+        }
+
+        .volver-link {
+            display: block;
+            text-align: center;
+            margin-top: 28px;
+            color: var(--gold);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: .3s;
+        }
+
+        .volver-link:hover {
+            text-decoration: underline;
+            opacity: .8;
+        }
+
+        .volver-link i {
+            margin-right: 6px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="recuperar-card">
+
+        <div class="subtitulo">✦ Restaura tu Acceso ✦</div>
+
+        <h2>Recuperar Contraseña</h2>
+
+        <p class="descripcion">
+            Ingresa tu correo electrónico y te enviaremos
+            las instrucciones para restablecer tu contraseña.
+        </p>
+
+        <!-- Formulario -->
+        <form id="recuperarForm">
+
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input
+                    type="email"
+                    id="correoRecuperar"
+                    placeholder="Tu Correo Electrónico"
+                    required>
+            </div>
+
+            <button type="submit" class="btn btn-recuperar">
+                Enviar Instrucciones
+            </button>
+
+        </form>
+
+        <!-- Banner de éxito (oculto hasta enviar) -->
+        <div class="banner-exito" id="bannerExito">
+            <i class="fa-solid fa-envelope-circle-check icono-exito"></i>
+            <h3>¡Correo Enviado!</h3>
+            <p>
+                Hemos enviado las instrucciones a<br>
+                <span class="correo-enviado" id="correoMostrado"></span>
+            </p>
+            <p>Revisa tu bandeja de entrada y sigue los pasos del mensaje.</p>
+        </div>
+
+        <a href="login.html" class="volver-link">
+            <i class="fa-solid fa-arrow-left"></i>
+            Volver al inicio de sesión
+        </a>
+
+    </div>
+
+    <script>
+
+        const form = document.getElementById('recuperarForm');
+        const banner = document.getElementById('bannerExito');
+        const correoMostrado = document.getElementById('correoMostrado');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const correo = document.getElementById('correoRecuperar').value;
+
+            // Muestra el correo en el banner
+            correoMostrado.textContent = correo;
+
+            // Oculta el formulario y muestra el banner
+            form.style.display = 'none';
+            banner.classList.add('visible');
+        });
+
+    </script>
+
+</body>
+</html>

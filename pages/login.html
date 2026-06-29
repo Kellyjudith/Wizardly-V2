@@ -148,6 +148,26 @@
         .texto-extra a:hover{
             text-decoration:underline;
         }
+        .recordar-grupo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: -10px;
+}
+
+.link-recuperar {
+    color: var(--lilac);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.link-recuperar:hover {
+    color: var(--gold);
+    text-decoration: underline;
+}
 
     </style>
 
@@ -195,7 +215,11 @@
         <span class="checkmark"></span>
         Recordar contraseña
     </label>
+    <a href="recuperar-contrasena.html" class="link-recuperar">
+        ¿Olvidaste tu contraseña?
+    </a>
 </div>
+
 
             <button type="submit" class="btn btn-login-magico">
                 Entrar al Mercado
