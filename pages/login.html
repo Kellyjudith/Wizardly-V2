@@ -249,17 +249,22 @@
 
             e.preventDefault();
 
-            alert("✨ Bienvenido al Mercado Arcano ✨");
+           const mensaje = document.getElementById('mensaje-login');
 
-            window.location.href = "perfil.html";
+mensaje.classList.add('mostrar');
 
+setTimeout(() => {
+    window.location.href = "perfil.html";
+}, 2000);
         });
 src="../js/script.js"
     </script>
 </script>
 
 <script src="../js/script.js"></script>
-
+<div id="mensaje-login" class="mensaje-login">
+    ✨ Bienvenido al Mercado Arcano ✨
+</div>
 </body>
 </body>
 

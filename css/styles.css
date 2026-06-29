@@ -157,7 +157,95 @@ a:hover {
     background: rgba(246, 213, 122, 0.1);
     box-shadow: 0 0 18px rgba(246, 213, 122, 0.2);
 }
+.mensaje-login{
+    position: fixed;
+    top: 100px;
+    right: 20px;
 
+    background: rgba(35, 10, 60, 0.95);
+    color: #f4d58d;
+
+    padding: 20px 35px;
+
+    border: 2px solid #d4a017;
+    border-radius: 15px;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 20px rgba(212,160,23,0.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .5s;
+
+    z-index: 9999;
+}
+/* MENSAJE CERRAR SESIÓN */
+
+.mensaje-cierre {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+
+    background: rgba(35, 10, 60, 0.95);
+    color: #f4d58d;
+
+    padding: 20px 35px;
+
+    border: 2px solid #d4a017;
+    border-radius: 15px;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .5s;
+
+    z-index: 9999;
+}
+/* MENSAJE REGISTRO */
+
+.mensaje-registro{
+    position: fixed;
+    top: 100px;
+    right: 20px;
+
+    background: rgba(35, 10, 60, 0.95);
+    color: #f4d58d;
+
+    padding: 20px 35px;
+
+    border: 2px solid #d4a017;
+    border-radius: 15px;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 20px rgba(212,160,23,.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .5s;
+
+    z-index: 9999;
+}
+
+.mensaje-registro.mostrar{
+    opacity: 1;
+    visibility: visible;
+}
+.mensaje-cierre.mostrar {
+    opacity: 1;
+    visibility: visible;
+}
+.mensaje-login.mostrar{
+    opacity: 1;
+    visibility: visible;
+}
 /* ========================================
    HERO
    ======================================== */

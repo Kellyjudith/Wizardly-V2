@@ -90,17 +90,29 @@
         </p>
     </footer>
 
-    <script>
-        function cerrarSesion() {
-            alert("Sesión cerrada correctamente.");
-            window.location.href = "login.html";
-        }
-    </script>
+    <!-- MENSAJE DE CIERRE -->
+<div id="mensaje-cierre" class="mensaje-cierre">
+    ✨ ¡Has abandonado el Mercado Arcano! ✨
+</div>
+
+<script>
+    function cerrarSesion() {
+
+        const mensaje = document.getElementById('mensaje-cierre');
+
+        mensaje.classList.add('mostrar');
+
+        setTimeout(() => {
+            window.location.href = "../index.html";
+        }, 2000);
+
+    }
+</script>
 </script>
 
 <script src="../js/script.js"></script>
 
 </body>
-</body>
+
 
 </html>
