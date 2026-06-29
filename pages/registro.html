@@ -6,147 +6,182 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizardly — Registro</title>
 
+    <!-- Favicon -->
     <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
 
+    <!-- CSS General -->
     <link rel="stylesheet" href="../css/styles.css">
 
+    <!-- Font Awesome -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
-
-        body{
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             background:
-            linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
-            url('../images/banner/banner-principal.jpg')
-            center/cover no-repeat;
+                linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)),
+                url('../images/banner/banner-principal.jpg')
+                center/cover no-repeat;
         }
 
-        .registro-card{
-            width:100%;
-            max-width:550px;
+        .registro-card {
+            width: 100%;
+            max-width: 550px;
 
             background: rgba(20, 10, 35, 0.85);
             backdrop-filter: blur(12px);
 
-            border:1px solid rgba(246,213,122,.2);
+            border: 1px solid rgba(246, 213, 122, .2);
 
-            border-radius:25px;
+            border-radius: 25px;
 
-            padding:50px;
+            padding: 50px;
 
             box-shadow:
-            0 0 40px rgba(192,132,252,.15),
-            0 0 80px rgba(246,213,122,.08);
+                0 0 40px rgba(192, 132, 252, .15),
+                0 0 80px rgba(246, 213, 122, .08);
 
             animation: aparecer 1s ease;
         }
 
-        @keyframes aparecer{
-            from{
-                opacity:0;
-                transform:translateY(40px);
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
             }
 
-            to{
-                opacity:1;
-                transform:translateY(0);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .registro-card h2{
-            text-align:center;
-            color:var(--gold);
-            font-family:'Cinzel Decorative', serif;
-            margin-bottom:10px;
-            font-size:2.2rem;
+        .registro-card h2 {
+            text-align: center;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', serif;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
         }
 
-        .subtitulo{
-            text-align:center;
-            color:var(--lilac);
-            margin-bottom:40px;
-            letter-spacing:3px;
-            font-family:'Cinzel', serif;
+        .subtitulo {
+            text-align: center;
+            color: var(--lilac);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            font-family: 'Cinzel', serif;
         }
 
-        .input-group{
-            margin-bottom:25px;
-            position:relative;
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
         }
 
-        .input-group i{
-            position:absolute;
-            top:50%;
-            left:18px;
-            transform:translateY(-50%);
-            color:var(--gold);
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 18px;
+            transform: translateY(-50%);
+            color: var(--gold);
         }
 
-        .input-group input{
-            width:100%;
-            padding:16px 16px 16px 50px;
+        .input-group input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
 
-            border:none;
-            border-radius:15px;
+            border: none;
+            border-radius: 15px;
 
-            background:rgba(255,255,255,.06);
+            background: rgba(255, 255, 255, .06);
 
-            color:white;
+            color: white;
 
-            border:1px solid transparent;
+            border: 1px solid transparent;
 
-            transition:.3s;
+            transition: .3s;
         }
 
-        .input-group input:focus{
-            outline:none;
+        .input-group input:focus {
+            outline: none;
 
-            border:1px solid var(--gold);
+            border: 1px solid var(--gold);
 
-            box-shadow:0 0 20px rgba(246,213,122,.25);
+            box-shadow: 0 0 20px rgba(246, 213, 122, .25);
         }
 
-        .btn-registro{
-            width:100%;
-            margin-top:20px;
-            border:none;
-            cursor:pointer;
+        .btn-registro {
+            width: 100%;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
         }
 
-        .extra-texto{
-            text-align:center;
-            margin-top:30px;
-            color:var(--text-muted);
+        .extra-texto {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-muted);
         }
 
-        .extra-texto a{
-            color:var(--gold);
-            text-decoration:none;
+        .extra-texto a {
+            color: var(--gold);
+            text-decoration: none;
         }
 
-        .extra-texto a:hover{
-            text-decoration:underline;
+        .extra-texto a:hover {
+            text-decoration: underline;
         }
 
+        /* MENSAJE DE REGISTRO */
+
+        .mensaje-registro {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+
+            background: rgba(35, 10, 60, 0.95);
+            color: #f4d58d;
+
+            padding: 20px 35px;
+
+            border: 2px solid #d4a017;
+            border-radius: 15px;
+
+            font-size: 1.1rem;
+
+            box-shadow: 0 0 20px rgba(212, 160, 23, .5);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: .5s;
+
+            z-index: 9999;
+        }
+
+        .mensaje-registro.mostrar {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 
     <script>
-
-        function registrar(event){
+        function registrar(event) {
 
             event.preventDefault();
 
-            alert("✨ Registro exitoso. Bienvenido al Mercado Arcano ✨");
+            const mensaje = document.getElementById('mensaje-registro');
 
-            window.location.href = "login.html";
+            mensaje.classList.add('mostrar');
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
         }
-
     </script>
 
 </head>
@@ -206,11 +241,15 @@
         </div>
 
     </div>
-</script>
 
-<script src="../js/script.js"></script>
+    <!-- MENSAJE EMERGENTE -->
 
-</body>
+    <div id="mensaje-registro" class="mensaje-registro">
+        ✨ Registro exitoso. Bienvenido al Mercado Arcano ✨
+    </div>
+
+    <script src="../js/script.js"></script>
+
 </body>
 
 </html>

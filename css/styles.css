@@ -8,7 +8,15 @@
     padding: 0;
     box-sizing: border-box;
 }
+html{
+    scroll-behavior: smooth;
+}
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 :root {
     --bg-deep:     #0a0412;
     --bg-surface:  #110820;
@@ -36,7 +44,23 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
 }
+.mapa-magico{
+    margin-top:25px;
+    width:100%;
+}
 
+.mapa-magico img{
+    width:100%;
+    border-radius:18px;
+    border:2px solid rgba(246,213,122,.25);
+    box-shadow:0 0 25px rgba(212,160,23,.2);
+    transition:.4s;
+}
+
+.mapa-magico img:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 35px rgba(212,160,23,.4);
+}
 /* Cursor cuando el usuario pasa sobre botones o enlaces */
 .btn:hover,
 button:hover,
@@ -157,7 +181,95 @@ a:hover {
     background: rgba(246, 213, 122, 0.1);
     box-shadow: 0 0 18px rgba(246, 213, 122, 0.2);
 }
+.mensaje-login{
+    position: fixed;
+    top: 100px;
+    right: 20px;
 
+    background: rgba(35, 10, 60, 0.95);
+    color: #f4d58d;
+
+    padding: 20px 35px;
+
+    border: 2px solid #d4a017;
+    border-radius: 15px;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 20px rgba(212,160,23,0.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .5s;
+
+    z-index: 9999;
+}
+/* MENSAJE CERRAR SESIÓN */
+
+.mensaje-cierre {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+
+    background: rgba(35, 10, 60, 0.95);
+    color: #f4d58d;
+
+    padding: 20px 35px;
+
+    border: 2px solid #d4a017;
+    border-radius: 15px;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .5s;
+
+    z-index: 9999;
+}
+/* MENSAJE REGISTRO */
+
+.mensaje-registro{
+    position: fixed;
+    top: 100px;
+    right: 20px;
+
+    background: rgba(35, 10, 60, 0.95);
+    color: #f4d58d;
+
+    padding: 20px 35px;
+
+    border: 2px solid #d4a017;
+    border-radius: 15px;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 20px rgba(212,160,23,.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .5s;
+
+    z-index: 9999;
+}
+
+.mensaje-registro.mostrar{
+    opacity: 1;
+    visibility: visible;
+}
+.mensaje-cierre.mostrar {
+    opacity: 1;
+    visibility: visible;
+}
+.mensaje-login.mostrar{
+    opacity: 1;
+    visibility: visible;
+}
 /* ========================================
    HERO
    ======================================== */
