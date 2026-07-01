@@ -71,7 +71,43 @@ a:hover {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+.catalogo-filtros{
 
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+padding:45px;
+}
+
+.catalogo-filtros input,
+.catalogo-filtros select{
+
+background:#221133;
+
+color:white;
+
+border:1px solid #d6a642;
+
+padding:15px 18px;
+
+border-radius:15px;
+
+font-size:15px;
+
+min-width:240px;
+
+}
+
+.catalogo-filtros input:focus,
+.catalogo-filtros select:focus{
+
+outline:none;
+
+box-shadow:0 0 18px rgba(255,200,70,.45);
+
+}
 /* ========================================
    NAVBAR
    ======================================== */
@@ -750,4 +786,65 @@ a:hover {
     color: var(--gold);
     font-size: 12px;
     font-weight: bold;
+}
+.catalogo-filtros{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin:40px auto;
+}
+
+.catalogo-filtros input,
+.catalogo-filtros select{
+
+background:#1c1030;
+border:1px solid #cda349;
+color:#fff;
+padding:14px 18px;
+border-radius:12px;
+font-size:15px;
+min-width:220px;
+}
+
+.catalogo-filtros input:focus,
+.catalogo-filtros select:focus{
+
+outline:none;
+box-shadow:0 0 15px rgba(212,175,55,.4);
+
+}
+
+.producto-card{
+
+position:relative;
+
+}
+
+.etiqueta{
+
+position:absolute;
+top:15px;
+left:15px;
+padding:7px 14px;
+border-radius:30px;
+font-size:12px;
+font-weight:bold;
+color:white;
+z-index:10;
+text-transform:uppercase;
+
+}
+
+.nuevo{
+
+background:#2ecc71;
+
+}
+
+.oferta{
+
+background:#e74c3c;
+
 }

@@ -110,7 +110,35 @@
     transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(217,169,61,0.4);
 }
+.badge{
 
+position:absolute;
+
+top:15px;
+
+left:15px;
+
+background:#d6a642;
+
+color:#1a0f28;
+
+font-weight:bold;
+
+padding:6px 15px;
+
+border-radius:30px;
+
+font-size:12px;
+
+z-index:10;
+
+}
+
+.producto-card{
+
+position:relative;
+
+}
 /* ── RESPONSIVE CATÁLOGO ── */
 @media (max-width: 860px) {
     .catalogo-section { padding: 40px 24px 80px; }

@@ -6,280 +6,461 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizardly — Catálogo</title>
 
-     <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
+    <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/catalogo.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body>
 
-    <!-- ===== REDES SOCIALES FLOTANTES ===== -->
+    <!-- REDES -->
     <div class="social-float">
-        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://twitter.com" target="_blank" aria-label="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://youtube.com" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+
+        <a href="https://facebook.com" target="_blank">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+
+        <a href="https://instagram.com" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+
+        <a href="https://tiktok.com" target="_blank">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+
+        <a href="https://twitter.com" target="_blank">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+
+        <a href="https://youtube.com" target="_blank">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+
     </div>
 
     <!-- NAVBAR -->
     <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
-                <div class="logo-text">
-                    <span class="brand">Wizardly</span>
-                    <span class="tagline">Mercado Arcano</span>
-                </div>
-            </a>
-            <ul class="menu">
-                <li><a href="../index.html">Inicio</a></li>
-<li><a href="catalogo.html">Catálogo</a></li>
-<li><a href="../index.html#nosotros">Nosotros</a></li>
-<li><a href="contacto.html">Contacto</a></li>
 
-<li><a href="login.html" class="btn-login">Acceder</a></li>
+        <nav class="navbar">
+
+            <a href="../index.html" class="logo">
+
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+
+                <div class="logo-text">
+
+                    <span class="brand">Wizardly</span>
+
+                    <span class="tagline">
+                        Mercado Arcano
+                    </span>
+
+                </div>
+
+            </a>
+
+            <ul class="menu">
+
+                <li>
+                    <a href="../index.html">
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a href="catalogo.html" class="active">
+                        Catálogo
+                    </a>
+                </li>
+
+                <li>
+                    <a href="../index.html#nosotros">
+                        Nosotros
+                    </a>
+                </li>
+
+                <li>
+                    <a href="contacto.html">
+                        Contacto
+                    </a>
+                </li>
+
+                <li>
+                    <a href="login.html" class="btn-login">
+                        Acceder
+                    </a>
+                </li>
 
             </ul>
+
         </nav>
+
     </header>
 
-    <!-- HERO CATÁLOGO -->
+    <!-- HERO -->
+
     <section class="hero-catalogo">
+
         <canvas id="stardust"></canvas>
+
         <div class="hero-content">
-            <span class="hero-eyebrow">✦ Explora nuestro arsenal ✦</span>
-            <h2>Catálogo Arcano</h2>
-            <p>Selecciona un artefacto y conoce sus secretos.</p>
+
+            <span class="hero-eyebrow">
+
+                ✦ Explora nuestro arsenal ✦
+
+            </span>
+
+            <h2>
+
+                Catálogo Arcano
+
+            </h2>
+
+            <p>
+
+                Selecciona un artefacto y conoce sus secretos.
+
+            </p>
+
         </div>
+
     </section>
 
-    <!-- SECCIÓN CATÁLOGO -->
+    <!-- FILTROS -->
+
+    <section class="catalogo-filtros">
+
+        <input
+            type="text"
+            id="buscador"
+            list="listaProductos"
+            placeholder="Buscar artefacto...">
+
+        <datalist id="listaProductos">
+
+            <option value="Varita de Saúco">
+
+            <option value="Poción de Invisibilidad">
+
+            <option value="Grimorio de Hechizos Antiguos">
+
+            <option value="Cristal de Adivinación">
+
+            <option value="Amuleto de Protección">
+
+            <option value="Caldero de Cobre">
+
+            <option value="Mapa del Tesoro Escondido">
+
+            <option value="Pluma de Fénix">
+
+        </datalist>
+
+        <select id="filtroCategoria">
+
+            <option value="Todos">
+                Todas las categorías
+            </option>
+
+            <option value="Varitas">
+                Varitas
+            </option>
+
+            <option value="Pociones">
+                Pociones
+            </option>
+
+            <option value="Libros">
+                Libros
+            </option>
+
+            <option value="Cristales">
+                Cristales
+            </option>
+
+            <option value="Amuletos">
+                Amuletos
+            </option>
+
+            <option value="Calderos">
+                Calderos
+            </option>
+
+            <option value="Pergaminos">
+                Pergaminos
+            </option>
+
+            <option value="Reliquias">
+                Reliquias
+            </option>
+
+        </select>
+
+        <select id="filtroPrecio">
+
+            <option value="Todos">
+
+                Todos los precios
+
+            </option>
+
+            <option value="100">
+
+                Menos de $100
+
+            </option>
+
+            <option value="300">
+
+                De $100 a $300
+
+            </option>
+
+            <option value="9999">
+
+                Más de $300
+
+            </option>
+
+        </select>
+
+    </section>
+
+    <!-- CATÁLOGO -->
+
     <section class="catalogo-section">
-        <div class="catalogo-grid" id="productos-container">
-            <!-- Los productos se inyectan con JavaScript -->
+
+        <div
+            class="catalogo-grid"
+            id="productos-container">
+
         </div>
+
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer-mini">
-        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
-    </footer>
 
+    <footer class="footer-mini">
+
+        <p>
+
+            © 2026
+
+            <span>Wizardly</span>
+
+            — Mercado Arcano
+
+            ✦
+
+            Todos los derechos mágicos reservados
+
+        </p>
+
+    </footer>
     <script>
-        // ============================================================
-        //  LISTA DE PRODUCTOS (puedes agregar, modificar o eliminar)
-        // ============================================================
-      const productos = [
-    {
-        id: 1,
-        nombre: "Varita de Saúco",
-        precio: 350.00,
-        descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix.",
-        imagen: "../images/varita sauco.webp"
-    },
-    {
-        id: 2,
-        nombre: "Poción de Invisibilidad",
-        precio: 85.50,
-        descripcion: "Brewed con extracto de cola de tritón y polvo de luna.",
-        imagen: "../images/pocion invisiobilidad.jpg"
-    },
-    {
-        id: 3,
-        nombre: "Grimorio de Hechizos Antiguos",
-        precio: 420.00,
-        descripcion: "Recopilación de conjuros olvidados.",
-        imagen: "../images/grimorio.jpg"
-    },
-    {
-        id: 4,
-        nombre: "Cristal de Adivinación",
-        precio: 199.99,
-        descripcion: "Cuarzo transparente de las montañas de Zafiro.",
-        imagen: "../images/cristal de adivinacion.webp"
-    },
-    {
-        id: 5,
-        nombre: "Amuleto de Protección",
-        precio: 65.00,
-        descripcion: "Colgante de plata con runas élficas.",
-        imagen: "../images/Amuleto de proteccion.jpeg"
-    },
-    {
-        id: 6,
-        nombre: "Caldero de Cobre",
-        precio: 275.00,
-        descripcion: "Caldero reforzado con anillos de bronce.",
-        imagen: "../images/Caldero.jpg"
-    },
-    {
-        id: 7,
-        nombre: "Mapa del Tesoro Escondido",
-        precio: 120.00,
-        descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos.",
-        imagen: "../images/mapa del tesoro.jpg"
-    },
-    {
-        id: 8,
-        nombre: "Pluma de Fénix",
-        precio: 450.00,
-        descripcion: "Pluma auténtica de un fénix milenario.",
-        imagen: "../images/pluma de fenix.jpg"
-    }
+
+const productos = [
+
+{
+id:1,
+nombre:"Varita de Saúco",
+precio:350,
+categoria:"Varitas",
+etiqueta:"Nuevo",
+imagen:"../images/varita sauco.webp"
+},
+
+{
+id:2,
+nombre:"Poción de Invisibilidad",
+precio:85.50,
+categoria:"Pociones",
+etiqueta:"Oferta",
+imagen:"../images/pocion invisiobilidad.jpg"
+},
+
+{
+id:3,
+nombre:"Grimorio de Hechizos Antiguos",
+precio:420,
+categoria:"Libros",
+etiqueta:"Nuevo",
+imagen:"../images/grimorio.jpg"
+},
+
+{
+id:4,
+nombre:"Cristal de Adivinación",
+precio:199.99,
+categoria:"Cristales",
+etiqueta:"",
+imagen:"../images/cristal de adivinacion.webp"
+},
+
+{
+id:5,
+nombre:"Amuleto de Protección",
+precio:65,
+categoria:"Amuletos",
+etiqueta:"Oferta",
+imagen:"../images/Amuleto de proteccion.jpeg"
+},
+
+{
+id:6,
+nombre:"Caldero de Cobre",
+precio:275,
+categoria:"Calderos",
+etiqueta:"",
+imagen:"../images/Caldero.jpg"
+},
+
+{
+id:7,
+nombre:"Mapa del Tesoro Escondido",
+precio:120,
+categoria:"Pergaminos",
+etiqueta:"Nuevo",
+imagen:"../images/mapa del tesoro.jpg"
+},
+
+{
+id:8,
+nombre:"Pluma de Fénix",
+precio:450,
+categoria:"Reliquias",
+etiqueta:"Nuevo",
+imagen:"../images/pluma de fenix.jpg"
+}
+
 ];
 
-        // ============================================================
-        //  GENERAR TARJETAS DE PRODUCTO
-        // ============================================================
-        const container = document.getElementById('productos-container');
+const container=document.getElementById("productos-container");
 
-        if (container) {
-            productos.forEach(prod => {
-                // Crear tarjeta
-                const card = document.createElement('div');
-                card.className = 'producto-card';
+function mostrarProductos(lista){
 
-                // Imagen
-                const img = document.createElement('img');
-                img.src = prod.imagen;
-                img.alt = prod.nombre;
-                img.loading = 'lazy';
-                card.appendChild(img);
+container.innerHTML="";
 
-                // Nombre
-                const nombre = document.createElement('h3');
-                nombre.textContent = prod.nombre;
-                card.appendChild(nombre);
+lista.forEach(prod=>{
 
-                // Precio
-                const precio = document.createElement('p');
-                precio.className = 'producto-precio';
-                precio.textContent = `$${prod.precio.toFixed(2)} MXN`;
-                card.appendChild(precio);
+const card=document.createElement("div");
+card.className="producto-card";
 
-                // Botón Ver detalle
-                const btn = document.createElement('a');
-                btn.className = 'btn-detalle';
-                btn.href = `detalle.html?id=${prod.id}`;
-                btn.textContent = 'Ver detalle';
-                card.appendChild(btn);
+card.innerHTML=`
 
-                container.appendChild(card);
-            });
-        }
-       
-    </script>
-<script>
-    // ============================================================
-    //  LISTA DE PRODUCTOS
-    // ============================================================
-    const productos = [
-        {
-            id: 1,
-            nombre: "Varita de Saúco",
-            precio: 350.00,
-            descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix.",
-            imagen: "../images/varita sauco.webp"
-        },
-        {
-            id: 2,
-            nombre: "Poción de Invisibilidad",
-            precio: 85.50,
-            descripcion: "Brewed con extracto de cola de tritón y polvo de luna.",
-            imagen: "../images/pocion invisiobilidad.jpg"
-        },
-        {
-            id: 3,
-            nombre: "Grimorio de Hechizos Antiguos",
-            precio: 420.00,
-            descripcion: "Recopilación de conjuros olvidados.",
-            imagen: "../images/grimorio.jpg"
-        },
-        {
-            id: 4,
-            nombre: "Cristal de Adivinación",
-            precio: 199.99,
-            descripcion: "Cuarzo transparente de las montañas de Zafiro.",
-            imagen: "../images/cristal de adivinacion.webp"
-        },
-        {
-            id: 5,
-            nombre: "Amuleto de Protección",
-            precio: 65.00,
-            descripcion: "Colgante de plata con runas élficas.",
-            imagen: "../images/Amuleto de proteccion.jpeg"
-        },
-        {
-            id: 6,
-            nombre: "Caldero de Cobre",
-            precio: 275.00,
-            descripcion: "Caldero reforzado con anillos de bronce.",
-            imagen: "../images/Caldero.jpg"
-        },
-        {
-            id: 7,
-            nombre: "Mapa del Tesoro Escondido",
-            precio: 120.00,
-            descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos.",
-            imagen: "../images/mapa del tesoro.jpg"
-        },
-        {
-            id: 8,
-            nombre: "Pluma de Fénix",
-            precio: 450.00,
-            descripcion: "Pluma auténtica de un fénix milenario.",
-            imagen: "../images/pluma de fenix.jpg"
-        }
-    ];
+${prod.etiqueta!=""?
+`<span class="etiqueta ${prod.etiqueta.toLowerCase()}">${prod.etiqueta}</span>`:""}
 
-    // ============================================================
-    //  GENERAR TARJETAS
-    // ============================================================
-    const container = document.getElementById('productos-container');
+<img src="${prod.imagen}" alt="${prod.nombre}">
 
-    if (container) {
-        productos.forEach(prod => {
+<h3>${prod.nombre}</h3>
 
-            const card = document.createElement('div');
-            card.className = 'producto-card';
+<p class="producto-precio">
+$${prod.precio.toFixed(2)} MXN
+</p>
 
-            const img = document.createElement('img');
-            img.src = prod.imagen;
-            img.alt = prod.nombre;
-            img.loading = 'lazy';
-            card.appendChild(img);
+<a
+href="detalle.html?id=${prod.id}"
+class="btn-detalle">
+Ver detalle
+</a>
 
-            const nombre = document.createElement('h3');
-            nombre.textContent = prod.nombre;
-            card.appendChild(nombre);
+`;
 
-            const precio = document.createElement('p');
-            precio.className = 'producto-precio';
-            precio.textContent = `$${prod.precio.toFixed(2)} MXN`;
-            card.appendChild(precio);
+container.appendChild(card);
 
-            const btn = document.createElement('a');
-            btn.className = 'btn-detalle';
-            btn.href = `detalle.html?id=${prod.id}`;
-            btn.textContent = 'Ver detalle';
-            card.appendChild(btn);
+});
 
-            container.appendChild(card);
-        });
-    }
+}
+
+mostrarProductos(productos);
+
+const buscador=document.getElementById("buscador");
+const categoria=document.getElementById("filtroCategoria");
+const precio=document.getElementById("filtroPrecio");
+
+function filtrar(){
+
+let lista=productos;
+
+const texto=buscador.value.toLowerCase();
+
+if(texto!=""){
+
+lista=lista.filter(producto=>
+
+producto.nombre.toLowerCase().includes(texto)
+
+);
+
+}
+
+if(categoria.value!="Todos"){
+
+lista=lista.filter(producto=>
+
+producto.categoria===categoria.value
+
+);
+
+}
+
+if(precio.value=="100"){
+
+lista=lista.filter(producto=>
+
+producto.precio<100
+
+);
+
+}
+
+else if(precio.value=="300"){
+
+lista=lista.filter(producto=>
+
+producto.precio>=100 &&
+producto.precio<=300
+
+);
+
+}
+
+else if(precio.value=="9999"){
+
+lista=lista.filter(producto=>
+
+producto.precio>300
+
+);
+
+}
+
+mostrarProductos(lista);
+
+}
+
+buscador.addEventListener("input",filtrar);
+
+categoria.addEventListener("change",filtrar);
+
+precio.addEventListener("change",filtrar);
+
 </script>
 
-<!-- Script general del sitio -->
 <script src="../js/script.js"></script>
 
 </body>
-</html>
-</body>
-
 </html>
