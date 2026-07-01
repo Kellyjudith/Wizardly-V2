@@ -1,0 +1,410 @@
+/* ====================================================
+   IMPORTACIÓN DE FUENTES
+==================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap');
+
+/* ====================================================
+   VARIABLES DE COLOR (USANDO LAS TUYAS)
+==================================================== */
+:root {
+    --bg-deep:     #0a0412;
+    --bg-surface:  #110820;
+    --bg-card:     #1a0d2e;
+    --gold:        #f6d57a;
+    --gold-dim:    #b8892d;
+    --gold-glow:   #d9a93d;
+    --lilac:       #c084fc;
+    --lilac-dim:   #7c3aed;
+    --text-main:   #e2d9f3;
+    --text-muted:  #9d8fba;
+    --border:      rgba(246, 213, 122, 0.18);
+}
+
+/* ====================================================
+   RESET Y ESTILOS GLOBALES
+==================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ====================================================
+   CANVAS DE PARTÍCULAS (fondo)
+==================================================== */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ====================================================
+   CONTENIDO PRINCIPAL
+==================================================== */
+.landing-wrapper{
+    width:100%;
+    max-width:1300px;
+    min-height:100vh;
+    padding:1rem 2rem;
+    display:flex;
+    flex-direction:column;
+}
+
+/* ====================================================
+   NAV con logo imagen
+==================================================== */
+.navbar-landing {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:0.3rem 0 0.8rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo-landing {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.logo-landing img {
+    height: 52px;            /* Ajusta según tu logo */
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(246, 213, 122, 0.4));
+}
+
+.logo-text-landing {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-landing {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(246, 213, 122, 0.3);
+}
+
+.tagline-landing {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+/* ====================================================
+   HERO
+==================================================== */
+.hero {
+    flex: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding:1rem 0;
+    width: 100%;
+   
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(246, 213, 122, 0.12);
+    border: 1px solid rgba(246, 213, 122, 0.25);
+    border-radius: 50px;
+    padding: 0.4rem 1.8rem;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(4px);
+    animation: fadeInUp 1s ease both;
+}
+
+.hero h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(135deg, #f5e6c8, var(--gold), var(--gold-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 60px rgba(246, 213, 122, 0.15);
+    animation: fadeInUp 1s 0.2s both;
+}
+
+.hero h1 span {
+    display: block;
+    font-size: 0.6em;
+    font-weight: 400;
+    letter-spacing: 6px;
+    color: var(--text-muted);
+    -webkit-text-fill-color: var(--text-muted);
+    background: none;
+    text-shadow: none;
+    margin-top: 0.2rem;
+}
+
+.hero-text-grande {
+    font-family: 'Jim Nightshade', cursive;
+    font-size: 1.45rem;
+    font-weight: 400;
+    max-width: 720px;
+    color: var(--text-main);
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.5px;
+    line-height: 1.35;
+    animation: fadeInUp 1s 0.4s both;
+}
+
+.hero-text-grande i {
+    color: var(--gold);
+    margin: 0 0.3rem;
+}
+
+/* ====================================================
+   BOTÓN "CONÓCENOS" (único y con animación)
+==================================================== */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 1s 0.6s both;
+}
+
+.btn-magic {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 2.2rem;
+    border-radius: 50px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: .9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-main);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de borde dorado (estilo botón primario) */
+.btn-magic-primary {
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+    color: var(--bg-deep);
+    box-shadow: 0 0 30px rgba(246, 213, 122, 0.25);
+}
+
+.btn-magic-primary:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 0 50px rgba(246, 213, 122, 0.5);
+}
+
+/* === ANIMACIÓN ESPECIAL PARA "CONÓCENOS" === */
+.btn-conocenos {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(246, 213, 122, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(246, 213, 122, 0.8), 0 0 100px rgba(246, 213, 122, 0.4);
+        transform: scale(1.04);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(246, 213, 122, 0.3);
+    }
+}
+
+/* ====================================================
+   SECCIÓN DESTACADOS (3 columnas siempre horizontales)
+==================================================== */
+.features {
+    width: 100%;
+    max-width: 1200px;               
+    padding: 5rem 1rem 3rem 1rem;
+    display: flex;     
+    align-items:stretch;               
+    flex-wrap: nowrap;                
+    gap: 2rem;                       
+    margin: 1.5rem auto 0;
+    padding-top:1.3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeInUp 1s 0.8s both;
+    overflow-x: auto;                
+    justify-content: center;          
+}
+
+.feature-item {
+    flex: 1;                      
+    min-width: 200px;            
+    max-width: 350px;                 
+    text-align: center;
+    padding: 1.3rem 1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(246, 213, 122, 0.15);
+    transition: all 0.4s ease;
+}
+
+.feature-item:hover {
+    background: rgba(246, 213, 122, 0.08);
+    border-color: rgba(246, 213, 122, 0.4);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.feature-item i {
+    font-size: 3.8rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: block;
+    text-shadow: 0 0 30px rgba(246, 213, 122, 0.3);
+}
+
+.feature-item h4 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.feature-item p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+
+@media (max-width: 768px) {
+    .features {
+        gap: 1rem;
+        padding: 3rem 0.5rem;
+    }
+    .feature-item {
+        min-width: 150px;           
+        padding: 1.5rem 1rem;
+    }
+    .feature-item i {
+        font-size: 2.8rem;
+    }
+    .feature-item h4 {
+        font-size: 1.2rem;
+    }
+    .feature-item p {
+        font-size: 0.9rem;
+        max-width: 200px;
+    }
+}
+
+
+/* ====================================================
+   FOOTER
+==================================================== */
+.footer-landing {
+    width: 100%;
+    padding: 1rem 0.5rem;
+    margin-top: 1cqi;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
+
+.footer-landing span {
+    color: var(--gold);
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-social a {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.footer-social a:hover {
+    color: var(--gold);
+}
+
+/* ====================================================
+   ANIMACIONES
+==================================================== */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ====================================================
+   RESPONSIVE
+==================================================== */
+@media (max-width: 600px) {
+    .navbar-landing {
+        justify-content: center;
+        text-align: center;
+    }
+    .logo-text-landing .brand-landing {
+        font-size: 1.4rem;
+    }
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    .hero-text-grande {
+        font-size: 1.6rem;
+    }
+    .btn-magic {
+        padding: 0.7rem 1.8rem;
+        font-size: 0.85rem;
+    }
+}

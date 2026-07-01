@@ -213,7 +213,6 @@
 
         </form>
 
-        <!-- Banner de éxito (oculto hasta enviar) -->
         <div class="banner-exito" id="bannerExito">
             <i class="fa-solid fa-envelope-circle-check icono-exito"></i>
             <h3>¡Correo Enviado!</h3>
@@ -242,10 +241,9 @@
 
             const correo = document.getElementById('correoRecuperar').value;
 
-            // Muestra el correo en el banner
             correoMostrado.textContent = correo;
 
-            // Oculta el formulario y muestra el banner
+          
             form.style.display = 'none';
             banner.classList.add('visible');
         });
