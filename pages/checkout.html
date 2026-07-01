@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Checkout</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="carrito.html" class="carrito-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="contador-carrito">0</span>
+                </a></li>
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="checkout-placeholder">
+        <canvas id="stardust"></canvas>
+        <div class="checkout-content">
+            <span class="checkout-icono">⚗️</span>
+            <span class="hero-eyebrow">✦ Próximamente ✦</span>
+            <h2>Pasarela de Pago</h2>
+            <p>Estamos conjurando el sistema de pago.<br>Por ahora, tu pedido está guardado en el carrito.</p>
+            <div class="checkout-btns">
+                <a href="carrito.html" class="btn">
+                    <i class="fa-solid fa-arrow-left"></i> Volver al carrito
+                </a>
+                <a href="catalogo.html" class="btn-regresar">
+                    Seguir explorando
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

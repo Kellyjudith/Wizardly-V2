@@ -11,14 +11,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/catalogo.css">
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
@@ -72,27 +72,18 @@
 
             <ul class="menu">
 
-                <li>
-                    <a href="../index.html">
-                        Inicio
-                    </a>
-                </li>
+                <li><a href="../index.html">Inicio</a></li>
+
+                <li><a href="catalogo.html">Catálogo</a></li>
+
+                <li><a href="../index.html#nosotros">Nosotros</a></li>
+
+                <li><a href="contacto.html">Contacto</a></li>
 
                 <li>
-                    <a href="catalogo.html" class="active">
-                        Catálogo
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../index.html#nosotros">
-                        Nosotros
-                    </a>
-                </li>
-
-                <li>
-                    <a href="contacto.html">
-                        Contacto
+                    <a href="carrito.html" class="carrito-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="contador-carrito">0</span>
                     </a>
                 </li>
 
@@ -142,11 +133,7 @@
 
     <section class="catalogo-filtros">
 
-        <input
-            type="text"
-            id="buscador"
-            list="listaProductos"
-            placeholder="Buscar artefacto...">
+        <input type="text" id="buscador" list="listaProductos" placeholder="Buscar artefacto...">
 
         <datalist id="listaProductos">
 
@@ -242,9 +229,7 @@
 
     <section class="catalogo-section">
 
-        <div
-            class="catalogo-grid"
-            id="productos-container">
+        <div class="catalogo-grid" id="productos-container">
 
         </div>
 
@@ -271,97 +256,97 @@
     </footer>
     <script>
 
-const productos = [
+        const productos = [
 
-{
-id:1,
-nombre:"Varita de Saúco",
-precio:350,
-categoria:"Varitas",
-etiqueta:"Nuevo",
-imagen:"../images/varita sauco.webp"
-},
+            {
+                id: 1,
+                nombre: "Varita de Saúco",
+                precio: 350,
+                categoria: "Varitas",
+                etiqueta: "Nuevo",
+                imagen: "../images/varita sauco.webp"
+            },
 
-{
-id:2,
-nombre:"Poción de Invisibilidad",
-precio:85.50,
-categoria:"Pociones",
-etiqueta:"Oferta",
-imagen:"../images/pocion invisiobilidad.jpg"
-},
+            {
+                id: 2,
+                nombre: "Poción de Invisibilidad",
+                precio: 85.50,
+                categoria: "Pociones",
+                etiqueta: "Oferta",
+                imagen: "../images/pocion invisiobilidad.jpg"
+            },
 
-{
-id:3,
-nombre:"Grimorio de Hechizos Antiguos",
-precio:420,
-categoria:"Libros",
-etiqueta:"Nuevo",
-imagen:"../images/grimorio.jpg"
-},
+            {
+                id: 3,
+                nombre: "Grimorio de Hechizos Antiguos",
+                precio: 420,
+                categoria: "Libros",
+                etiqueta: "Nuevo",
+                imagen: "../images/grimorio.jpg"
+            },
 
-{
-id:4,
-nombre:"Cristal de Adivinación",
-precio:199.99,
-categoria:"Cristales",
-etiqueta:"",
-imagen:"../images/cristal de adivinacion.webp"
-},
+            {
+                id: 4,
+                nombre: "Cristal de Adivinación",
+                precio: 199.99,
+                categoria: "Cristales",
+                etiqueta: "",
+                imagen: "../images/cristal de adivinacion.webp"
+            },
 
-{
-id:5,
-nombre:"Amuleto de Protección",
-precio:65,
-categoria:"Amuletos",
-etiqueta:"Oferta",
-imagen:"../images/Amuleto de proteccion.jpeg"
-},
+            {
+                id: 5,
+                nombre: "Amuleto de Protección",
+                precio: 65,
+                categoria: "Amuletos",
+                etiqueta: "Oferta",
+                imagen: "../images/Amuleto de proteccion.jpeg"
+            },
 
-{
-id:6,
-nombre:"Caldero de Cobre",
-precio:275,
-categoria:"Calderos",
-etiqueta:"",
-imagen:"../images/Caldero.jpg"
-},
+            {
+                id: 6,
+                nombre: "Caldero de Cobre",
+                precio: 275,
+                categoria: "Calderos",
+                etiqueta: "",
+                imagen: "../images/Caldero.jpg"
+            },
 
-{
-id:7,
-nombre:"Mapa del Tesoro Escondido",
-precio:120,
-categoria:"Pergaminos",
-etiqueta:"Nuevo",
-imagen:"../images/mapa del tesoro.jpg"
-},
+            {
+                id: 7,
+                nombre: "Mapa del Tesoro Escondido",
+                precio: 120,
+                categoria: "Pergaminos",
+                etiqueta: "Nuevo",
+                imagen: "../images/mapa del tesoro.jpg"
+            },
 
-{
-id:8,
-nombre:"Pluma de Fénix",
-precio:450,
-categoria:"Reliquias",
-etiqueta:"Nuevo",
-imagen:"../images/pluma de fenix.jpg"
-}
+            {
+                id: 8,
+                nombre: "Pluma de Fénix",
+                precio: 450,
+                categoria: "Reliquias",
+                etiqueta: "Nuevo",
+                imagen: "../images/pluma de fenix.jpg"
+            }
 
-];
+        ];
 
-const container=document.getElementById("productos-container");
+        const container = document.getElementById("productos-container");
 
-function mostrarProductos(lista){
+        function mostrarProductos(lista) {
 
-container.innerHTML="";
+            container.innerHTML = "";
 
-lista.forEach(prod=>{
+            lista.forEach(prod => {
 
-const card=document.createElement("div");
-card.className="producto-card";
+                const card = document.createElement("div");
+                card.className = "producto-card";
 
-card.innerHTML=`
+                card.innerHTML = `
 
-${prod.etiqueta!=""?
-`<span class="etiqueta ${prod.etiqueta.toLowerCase()}">${prod.etiqueta}</span>`:""}
+${prod.etiqueta != "" ?
+                        `<span class="etiqueta ${prod.etiqueta.toLowerCase()}">${prod.etiqueta}</span>` : ""}
 
 <img src="${prod.imagen}" alt="${prod.nombre}">
 
@@ -379,88 +364,91 @@ Ver detalle
 
 `;
 
-container.appendChild(card);
+                container.appendChild(card);
 
-});
+            });
 
-}
+        }
 
-mostrarProductos(productos);
+        mostrarProductos(productos);
 
-const buscador=document.getElementById("buscador");
-const categoria=document.getElementById("filtroCategoria");
-const precio=document.getElementById("filtroPrecio");
+        const buscador = document.getElementById("buscador");
+        const categoria = document.getElementById("filtroCategoria");
+        const precio = document.getElementById("filtroPrecio");
 
-function filtrar(){
+        function filtrar() {
 
-let lista=productos;
+            let lista = productos;
 
-const texto=buscador.value.toLowerCase();
+            const texto = buscador.value.toLowerCase();
 
-if(texto!=""){
+            if (texto != "") {
 
-lista=lista.filter(producto=>
+                lista = lista.filter(producto =>
 
-producto.nombre.toLowerCase().includes(texto)
+                    producto.nombre.toLowerCase().includes(texto)
 
-);
+                );
 
-}
+            }
 
-if(categoria.value!="Todos"){
+            if (categoria.value != "Todos") {
 
-lista=lista.filter(producto=>
+                lista = lista.filter(producto =>
 
-producto.categoria===categoria.value
+                    producto.categoria === categoria.value
 
-);
+                );
 
-}
+            }
 
-if(precio.value=="100"){
+            if (precio.value == "100") {
 
-lista=lista.filter(producto=>
+                lista = lista.filter(producto =>
 
-producto.precio<100
+                    producto.precio < 100
 
-);
+                );
 
-}
+            }
 
-else if(precio.value=="300"){
+            else if (precio.value == "300") {
 
-lista=lista.filter(producto=>
+                lista = lista.filter(producto =>
 
-producto.precio>=100 &&
-producto.precio<=300
+                    producto.precio >= 100 &&
+                    producto.precio <= 300
 
-);
+                );
 
-}
+            }
 
-else if(precio.value=="9999"){
+            else if (precio.value == "9999") {
 
-lista=lista.filter(producto=>
+                lista = lista.filter(producto =>
 
-producto.precio>300
+                    producto.precio > 300
 
-);
+                );
 
-}
+            }
 
-mostrarProductos(lista);
+            mostrarProductos(lista);
 
-}
+        }
 
-buscador.addEventListener("input",filtrar);
+        buscador.addEventListener("input", filtrar);
 
-categoria.addEventListener("change",filtrar);
+        categoria.addEventListener("change", filtrar);
 
-precio.addEventListener("change",filtrar);
+        precio.addEventListener("change", filtrar);
 
-</script>
+    </script>
 
-<script src="../js/script.js"></script>
+    script src="../js/carrito.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
 
 </body>
+
 </html>

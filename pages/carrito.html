@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Carrito</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="../index.html#nosotros">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="carrito-link active">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="contador-carrito">0</span>
+                    </a>
+                </li>
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-carrito">
+        <div class="hero-content">
+            <span class="hero-eyebrow">✦ Tu selección ✦</span>
+            <h2>Carrito Arcano</h2>
+        </div>
+    </section>
+
+    <!-- CARRITO -->
+    <section class="carrito-section">
+        <div class="carrito-layout">
+
+            <!-- Lista de productos -->
+            <div class="carrito-lista" id="carrito-lista">
+                <!-- se llena con JS -->
+            </div>
+
+            <!-- Panel lateral: resumen -->
+            <aside class="carrito-resumen">
+                <h3>Resumen del pedido</h3>
+
+                <div class="resumen-linea">
+                    <span>Subtotal</span>
+                    <span id="resumen-subtotal">$0.00</span>
+                </div>
+                <div class="resumen-linea">
+                    <span>Envío mágico</span>
+                    <span class="gratis">Gratis</span>
+                </div>
+                <div class="resumen-divider"></div>
+                <div class="resumen-linea total">
+                    <span>Total</span>
+                    <span id="resumen-total">$0.00</span>
+                </div>
+
+                <a href="checkout.html" class="btn-pagar" id="btn-pagar">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Ir a pagar
+                </a>
+
+                <a href="catalogo.html" class="btn-seguir">
+                    Seguir comprando
+                </a>
+            </aside>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        function renderCarrito() {
+            const carrito = obtenerCarrito();
+            const lista   = document.getElementById('carrito-lista');
+            const btnPagar = document.getElementById('btn-pagar');
+
+            if (carrito.length === 0) {
+                lista.innerHTML = `
+                    <div class="carrito-vacio">
+                        <span class="vacio-icono">🧙‍♂️</span>
+                        <p>Tu carrito está vacío.</p>
+                        <a href="catalogo.html" class="btn-detalle">Explorar catálogo</a>
+                    </div>
+                `;
+                document.getElementById('resumen-subtotal').textContent = '$0.00 MXN';
+                document.getElementById('resumen-total').textContent    = '$0.00 MXN';
+                btnPagar.style.opacity        = '0.4';
+                btnPagar.style.pointerEvents  = 'none';
+                return;
+            }
+
+            btnPagar.style.opacity       = '1';
+            btnPagar.style.pointerEvents = 'auto';
+            lista.innerHTML = '';
+
+            let subtotal = 0;
+
+            carrito.forEach(item => {
+                subtotal += item.precio * item.cantidad;
+
+                const fila = document.createElement('div');
+                fila.className = 'carrito-item';
+                fila.innerHTML = `
+                    <img src="${item.imagen}" alt="${item.nombre}">
+                    <div class="item-info">
+                        <h4>${item.nombre}</h4>
+                        <p class="item-precio">$${item.precio.toFixed(2)} MXN</p>
+                    </div>
+                    <div class="item-cantidad">
+                        <button onclick="accionCarrito(${item.id}, -1)">−</button>
+                        <span>${item.cantidad}</span>
+                        <button onclick="accionCarrito(${item.id}, 1)">+</button>
+                    </div>
+                    <p class="item-subtotal">$${(item.precio * item.cantidad).toFixed(2)}</p>
+                    <button class="item-eliminar" onclick="eliminarItem(${item.id})" title="Eliminar">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+                lista.appendChild(fila);
+            });
+
+            document.getElementById('resumen-subtotal').textContent = `$${subtotal.toFixed(2)} MXN`;
+            document.getElementById('resumen-total').textContent    = `$${subtotal.toFixed(2)} MXN`;
+        }
+
+        function accionCarrito(id, delta) {
+            cambiarCantidad(id, delta);
+            renderCarrito();
+        }
+
+        function eliminarItem(id) {
+            eliminarDelCarrito(id);
+            renderCarrito();
+        }
+
+        renderCarrito();
+    </script>
+</body>
+</html>
