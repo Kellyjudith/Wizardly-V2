@@ -163,6 +163,36 @@
         }
 
         renderCarrito();
+        //--------------------------------------------------
+// VERIFICAR SESIÓN AL PAGAR
+//--------------------------------------------------
+
+document.getElementById("btn-pagar").addEventListener("click",function(e){
+
+    e.preventDefault();
+
+    const logueado = localStorage.getItem("usuarioLogueado");
+
+    if(logueado==="true"){
+
+        window.location.href="checkout.html";
+
+    }else{
+
+        mostrarNotificacion(
+            "🔒 Debes iniciar sesión para continuar con la compra.",
+            "warning"
+        );
+
+        setTimeout(()=>{
+
+            window.location.href="login.html";
+
+        },1800);
+
+    }
+
+});
     </script>
 </body>
 </html>

@@ -242,21 +242,47 @@
     </div>
 
     <script>
+const formulario = document.getElementById("loginForm");
 
-        const formulario = document.getElementById('loginForm');
+formulario.addEventListener("submit", function(e){
 
-        formulario.addEventListener('submit', function(e){
+    e.preventDefault();
 
-            e.preventDefault();
+    const correo = document.getElementById("correo").value;
 
-           const mensaje = document.getElementById('mensaje-login');
+    // Obtener nombre a partir del correo
+    let nombre = correo.split("@")[0];
 
-mensaje.classList.add('mostrar');
+    nombre =
+        nombre.charAt(0).toUpperCase() +
+        nombre.slice(1);
 
-setTimeout(() => {
-    window.location.href = "perfil.html";
-}, 2000);
-        });
+    // Guardar sesión
+    // Guardar datos del usuario
+localStorage.setItem(
+    "usuarioDatos",
+    JSON.stringify({
+        nombre:nombre,
+        correo:correo
+    })
+);
+
+// Marcar sesión iniciada
+localStorage.setItem("usuarioLogueado","true");
+
+    const mensaje =
+        document.getElementById("mensaje-login");
+
+    mensaje.classList.add("mostrar");
+
+    setTimeout(() => {
+
+        window.location.href = "perfil.html";
+
+    },2000);
+
+});
+        
 src="../js/script.js"
     </script>
 </script>
@@ -265,7 +291,6 @@ src="../js/script.js"
 <div id="mensaje-login" class="mensaje-login">
     ✨ Bienvenido al Mercado Arcano ✨
 </div>
-</body>
 </body>
 
 </html>

@@ -50,35 +50,77 @@
         </nav>
     </header>
 
-   <!-- PERFIL -->
+  <!-- PERFIL -->
 <section class="section-historia">
 
     <div class="section-header">
         <span class="section-eyebrow">✦ Bienvenido de nuevo ✦</span>
-        <h2>Jovani Arcane y La Kelly</h2>
+
+        <h2 id="nombreUsuario">
+            Bienvenido Mago
+        </h2>
     </div>
 
     <!-- RECUADROS -->
-    <div class="info-grid" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+    <div class="info-grid"
+        style="display:flex;justify-content:center;gap:30px;flex-wrap:wrap;">
 
-        <div class="info-card" style="flex: 1 1 300px; max-width: 400px;">
+        <div class="info-card"
+            style="flex:1 1 300px;max-width:400px;">
+
             <h3>Mis Datos</h3>
-            <p><strong>Nombre:</strong> Jovani Arcane</p>
-            <p><strong>Usuario:</strong> @WizardMaster</p>
-            <p><strong>Correo:</strong> usuario@wizardly.com</p>
+
+            <p>
+                <strong>Nombre:</strong>
+                <span id="datoNombre">---</span>
+            </p>
+
+            <p>
+                <strong>Usuario:</strong>
+                <span id="datoUsuario">@WizardMaster</span>
+            </p>
+
+            <p>
+                <strong>Correo:</strong>
+                <span id="datoCorreo">---</span>
+            </p>
+
         </div>
 
-        <div class="info-card" style="flex: 1 1 300px; max-width: 400px;">
+        <div class="info-card"
+            style="flex:1 1 300px;max-width:400px;">
+
             <h3>Mis Compras</h3>
-            <p>Próximamente podrás consultar todos tus artefactos adquiridos.</p>
+
+            <p>
+                Próximamente podrás consultar todos tus
+                artefactos adquiridos.
+            </p>
+
         </div>
 
     </div>
 
-    <!-- BOTONES-->
-    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 50px; flex-wrap: wrap;">
-        <a href="../index.html" class="btn">Volver al Inicio</a>
-        <button class="btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+    <!-- BOTONES -->
+    <div
+        style="display:flex;
+               justify-content:center;
+               gap:20px;
+               margin-top:50px;
+               flex-wrap:wrap;">
+
+        <a href="../index.html" class="btn">
+            Volver al Inicio
+        </a>
+
+        <button
+            onclick="cerrarSesion()"
+            class="btn">
+
+            Cerrar Sesión
+
+        </button>
+
     </div>
 
 </section>
@@ -89,30 +131,60 @@
             &nbsp;✦&nbsp; Todos los derechos mágicos reservados
         </p>
     </footer>
-
-    <!-- MENSAJE DE CIERRE -->
-<div id="mensaje-cierre" class="mensaje-cierre">
-    ✨ ¡Has abandonado el Mercado Arcano! ✨
+<!-- MENSAJE DE CIERRE -->
+<div id="mensaje-cierre" class="mensaje-login">
+    👋 Has cerrado sesión correctamente
 </div>
 
 <script>
-    function cerrarSesion() {
 
-        const mensaje = document.getElementById('mensaje-cierre');
+//===============================
+// CARGAR DATOS DEL USUARIO
+//===============================
 
-        mensaje.classList.add('mostrar');
+const usuario = JSON.parse(localStorage.getItem("usuarioDatos"));
+if(usuario){
 
-        setTimeout(() => {
-            window.location.href = "../index.html";
-        }, 2000);
+    document.getElementById("nombreUsuario").textContent =
+        "Bienvenido, " + usuario.nombre;
 
-    }
+    document.getElementById("datoNombre").textContent =
+        usuario.nombre;
+
+    document.getElementById("datoCorreo").textContent =
+        usuario.correo;
+
+}else{
+
+    // Si intenta entrar al perfil sin iniciar sesión
+    window.location.href = "login.html";
+
+}
+
+
+//===============================
+// CERRAR SESIÓN
+//===============================
+
+function cerrarSesion(){
+
+    localStorage.removeItem("usuarioLogueado");
+localStorage.removeItem("usuarioDatos");
+
+    const mensaje =
+        document.getElementById("mensaje-cierre");
+
+    mensaje.classList.add("mostrar");
+
+    setTimeout(()=>{
+
+        window.location.href="../index.html";
+
+    },1800);
+
+}
+
 </script>
-</script>
-
-<script src="../js/script.js"></script>
-
-</body>
 
 
 </html>
