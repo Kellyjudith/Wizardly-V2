@@ -1,6 +1,6 @@
 // ============================================================
 //  WIZARDLY — carrito.js
-//  Manejo del carrito con localStorage
+// 
 // ============================================================
 
 const CLAVE = 'wizardly_carrito';
@@ -59,7 +59,9 @@ function vaciarCarrito() {
 function actualizarContador() {
     const carrito = obtenerCarrito();
     const total   = carrito.reduce((s, p) => s + p.cantidad, 0);
-    const badge   = document.getElementById('contador-carrito');
+
+    // Busca el badge en el DOM en el momento exacto de llamar la función
+    const badge = document.getElementById('contador-carrito');
     if (!badge) return;
 
     badge.textContent = total;
@@ -68,6 +70,10 @@ function actualizarContador() {
 
 // ── Toast de confirmación ────────────────────────────────────
 function mostrarToastCarrito(nombre) {
+    // Detecta si estamos en /pages/ o en la raíz
+    const enSubcarpeta = window.location.pathname.includes('/pages/');
+    const rutaCarrito  = enSubcarpeta ? 'carrito.html' : 'pages/carrito.html';
+
     let t = document.getElementById('toast-carrito');
     if (!t) {
         t = document.createElement('div');
@@ -75,11 +81,22 @@ function mostrarToastCarrito(nombre) {
         t.className = 'toast-carrito';
         document.body.appendChild(t);
     }
-    t.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>${nombre}</strong> agregado al carrito`;
+
+    t.innerHTML = `
+        <div class="toast-icono"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="toast-texto">
+            <span class="toast-titulo">¡Agregado exitosamente!</span>
+            <span class="toast-nombre">${nombre}</span>
+        </div>
+        <a href="${rutaCarrito}" class="toast-ver">Ver carrito →</a>
+    `;
+
     t.classList.add('visible');
     clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('visible'), 3000);
+    t._timer = setTimeout(() => t.classList.remove('visible'), 3500);
 }
 
-// Inicializar contador al cargar cualquier página
-document.addEventListener('DOMContentLoaded', actualizarContador);
+// Inicializar contador — espera a que el DOM esté completamente listo
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarContador();
+});
