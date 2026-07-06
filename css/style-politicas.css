@@ -1,0 +1,165 @@
+/* =========================
+   VARIABLES (Ajustadas a la Home)
+========================= */
+:root {
+    --bg-space: #07050f; /* Un tono casi negro, profundo */
+    --panel-glass: rgba(15, 12, 25, 0.45); /* Más transparente para que luzca el fondo */
+    --gold-primary: #d4af37; /* Dorado elegante, no tan amarillo */
+    --gold-glow: rgba(212, 175, 55, 0.3);
+    --text-main: #e5e1f0;
+    --text-muted: #a39bc2;
+}
+
+/* =========================
+   FONDO ESTRELLADO MÍSTICO
+========================= */
+body {
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    background-color: var(--bg-space);
+    /* Patrón de estrellas sutil usando CSS */
+    background-image: 
+        radial-gradient(1px 1px at 40px 60px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 120px 150px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 180px 40px, rgba(212, 175, 55, 0.8), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 250px 200px, #fff, rgba(0,0,0,0)),
+        radial-gradient(circle at 50% 0%, rgba(212,175,55,0.05), transparent 50%);
+    background-size: 300px 300px, 300px 300px, 300px 300px, 300px 300px, 100% 100%;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* =========================
+   CONTENEDOR (Estilo Pergamino de Cristal)
+========================= */
+.politicas-section {
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.politicas-container {
+    width: 100%;
+    max-width: 850px;
+    background: var(--panel-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 60px 50px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(212,175,55,0.03);
+}
+
+/* =========================
+   HEADER & TÍTULOS
+========================= */
+.politicas-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.titulo-principal {
+    font-family: "Cinzel Decorative", serif;
+    font-size: 2.8rem;
+    color: var(--gold-primary);
+    text-shadow: 0 0 20px var(--gold-glow);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.subtitulo {
+    font-family: "Cinzel", serif;
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   CAPÍTULOS (Lectura limpia y elegante)
+========================= */
+.politicas-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Más espacio para respirar */
+}
+
+.politica {
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.politica:last-child {
+    border-bottom: none;
+}
+
+/* Efecto de levitación sutil en el texto, sin cajas cerradas */
+.politica:hover {
+    transform: translateX(8px);
+}
+
+.politica h2 {
+    font-family: "Cinzel", serif;
+    color: var(--gold-primary);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.politica p {
+    color: var(--text-main);
+    font-size: 1.05rem;
+    opacity: 0.9;
+}
+
+/* =========================
+   FOOTER Y BOTÓN (Igual a la Home)
+========================= */
+.politicas-footer {
+    margin-top: 60px;
+    text-align: center;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    padding-top: 40px;
+}
+
+.aceptacion {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+.volver-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Este botón ahora es idéntico al de tu página principal */
+.btn-volver {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: var(--gold-primary);
+    color: #07050f;
+    font-family: "Cinzel", serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 30px; /* Estilo píldora */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--gold-glow);
+}
+
+.btn-volver i {
+    margin-right: 8px;
+}
+
+.btn-volver:hover {
+    background-color: #f0c950;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+}

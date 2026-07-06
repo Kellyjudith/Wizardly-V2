@@ -712,7 +712,32 @@ BOTÓN EXPLORAR MÁGICO
         0 0 35px rgba(246,213,122,.25);
 
 }
+.footer-links{
+    margin-top:12px;
+    text-align:center;
+}
 
+.footer-links a{
+
+    color:var(--gold);
+
+    text-decoration:none;
+
+    font-family:'Cinzel',serif;
+
+    transition:.3s;
+
+    letter-spacing:1px;
+
+}
+
+.footer-links a:hover{
+
+    color:white;
+
+    text-shadow:0 0 10px var(--gold);
+
+}
 .btn-explorar i{
 
     font-size:1rem;
