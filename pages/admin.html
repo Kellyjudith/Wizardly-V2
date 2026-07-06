@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Panel Admin</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="admin-body">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-logo">
+            <img src="../images/logo/Logo.png" alt="Wizardly">
+            <div>
+                <span class="brand">Wizardly</span>
+                <span class="sidebar-sub">Panel Arcano</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="admin.html" class="nav-item active">
+                <i class="fa-solid fa-gauge-high"></i> Inicio
+            </a>
+            <a href="admin-productos.html" class="nav-item">
+                <i class="fa-solid fa-hat-wizard"></i> Productos
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-scroll"></i> Pedidos
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-wand-sparkles"></i> Promociones
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Volver al sitio
+            </a>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="admin-main">
+
+        <!-- TOPBAR -->
+        <div class="admin-topbar">
+            <h1>Panel de Administración</h1>
+            <div class="topbar-usuario">
+                <i class="fa-solid fa-circle-user"></i>
+                <span>Archimaga Seraphina</span>
+            </div>
+        </div>
+
+        <!-- TARJETAS DE RESUMEN -->
+        <div class="admin-cards">
+
+            <div class="admin-card">
+                <div class="card-icono" style="background:rgba(246,213,122,0.12);color:var(--gold);">
+                    <i class="fa-solid fa-hat-wizard"></i>
+                </div>
+                <div class="card-datos">
+                    <span class="card-numero">12</span>
+                    <span class="card-label">Productos</span>
+                </div>
+                <span class="card-badge positivo">+2 nuevos</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-icono" style="background:rgba(192,132,252,0.12);color:var(--lilac);">
+                    <i class="fa-solid fa-scroll"></i>
+                </div>
+                <div class="card-datos">
+                    <span class="card-numero">5</span>
+                    <span class="card-label">Pedidos pendientes</span>
+                </div>
+                <span class="card-badge neutro">Esta semana</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-icono" style="background:rgba(74,222,128,0.12);color:#4ade80;">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <div class="card-datos">
+                    <span class="card-numero">$8,430</span>
+                    <span class="card-label">Ventas del mes</span>
+                </div>
+                <span class="card-badge positivo">+18%</span>
+            </div>
+
+            <div class="admin-card">
+                <div class="card-icono" style="background:rgba(251,146,60,0.12);color:#fb923c;">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="card-datos">
+                    <span class="card-numero">34</span>
+                    <span class="card-label">Usuarios registrados</span>
+                </div>
+                <span class="card-badge neutro">Total</span>
+            </div>
+
+        </div>
+
+        <!-- SECCIÓN: PEDIDOS RECIENTES -->
+        <div class="admin-bloque">
+            <div class="bloque-header">
+                <h2>Pedidos Recientes</h2>
+                <a href="#" class="btn-admin-sm">Ver todos</a>
+            </div>
+
+            <div class="admin-tabla-wrap">
+                <table class="admin-tabla">
+                    <thead>
+                        <tr>
+                            <th>#Pedido</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#0041</td>
+                            <td>Merlín García</td>
+                            <td>Varita de Saúco</td>
+                            <td>$350.00</td>
+                            <td><span class="estado enviado">Enviado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#0040</td>
+                            <td>Hermione López</td>
+                            <td>Grimorio Antiguo</td>
+                            <td>$420.00</td>
+                            <td><span class="estado pendiente">Pendiente</span></td>
+                        </tr>
+                        <tr>
+                            <td>#0039</td>
+                            <td>Gandalf Ruiz</td>
+                            <td>Pluma de Fénix</td>
+                            <td>$450.00</td>
+                            <td><span class="estado entregado">Entregado</span></td>
+                        </tr>
+                        <tr>
+                            <td>#0038</td>
+                            <td>Sabrina Morales</td>
+                            <td>Poción Invisibilidad</td>
+                            <td>$85.50</td>
+                            <td><span class="estado pendiente">Pendiente</span></td>
+                        </tr>
+                        <tr>
+                            <td>#0037</td>
+                            <td>Dumbledore Vega</td>
+                            <td>Cristal Adivinación</td>
+                            <td>$199.99</td>
+                            <td><span class="estado enviado">Enviado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: PROMOCIONES ACTIVAS -->
+        <div class="admin-bloque">
+            <div class="bloque-header">
+                <h2>Promociones Activas</h2>
+                <button class="btn-admin-sm">+ Nueva promo</button>
+            </div>
+            <div class="promo-lista">
+                <div class="promo-item">
+                    <span class="promo-tag">OFERTA</span>
+                    <div class="promo-info">
+                        <strong>Descuento de Luna Nueva</strong>
+                        <span>−20% en todas las pociones · Hasta el 31 Jul</span>
+                    </div>
+                    <div class="promo-acciones">
+                        <button class="btn-icono editar"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-icono eliminar"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="promo-item">
+                    <span class="promo-tag nuevo">NUEVO</span>
+                    <div class="promo-info">
+                        <strong>Kit del Mago Principiante</strong>
+                        <span>Varita + Amuleto con 15% OFF · Permanente</span>
+                    </div>
+                    <div class="promo-acciones">
+                        <button class="btn-icono editar"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-icono eliminar"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wizardly — Gestión de Productos</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+</head>
+<body class="admin-body">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-logo">
+            <img src="../images/logo/Logo.png" alt="Wizardly" />
+            <div>
+                <span class="brand">Wizardly</span>
+                <span class="sidebar-sub">Panel Arcano</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="admin.html" class="nav-item">
+                <i class="fa-solid fa-gauge-high"></i> Inicio
+            </a>
+            <a href="admin-productos.html" class="nav-item active">
+                <i class="fa-solid fa-hat-wizard"></i> Productos
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-scroll"></i> Pedidos
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-wand-sparkles"></i> Promociones
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Volver al sitio
+            </a>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <main class="admin-main">
+
+        <div class="admin-topbar">
+            <h1>Gestión de Productos</h1>
+            <div class="topbar-usuario">
+                <i class="fa-solid fa-circle-user"></i>
+                <span>Archimaga Seraphina</span>
+            </div>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="admin-bloque">
+            <div class="bloque-header">
+                <h2>
+                    Catálogo completo
+                    <span class="count-badge" id="productos-count">8 productos</span>
+                </h2>
+                <button class="btn-admin" onclick="abrirModal()">
+                    <i class="fa-solid fa-plus"></i> Agregar producto
+                </button>
+            </div>
+
+            <!-- BUSCADOR -->
+            <div class="admin-buscador">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input
+                    type="text"
+                    id="admin-buscar"
+                    placeholder="Buscar por nombre o categoría..."
+                    oninput="filtrarProductos()"
+                />
+            </div>
+
+            <!-- TABLA -->
+            <div class="admin-tabla-wrap">
+                <table class="admin-tabla" id="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Etiqueta</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-productos"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ══════════════════════════════════════
+         MODAL: AGREGAR / EDITAR PRODUCTO
+    ══════════════════════════════════════ -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-titulo">Agregar Producto</h3>
+                <button class="modal-cerrar" onclick="cerrarModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="campo-modal">
+                    <label>Nombre del producto</label>
+                    <input type="text" id="m-nombre" placeholder="Ej. Varita de Saúco" />
+                </div>
+                <div class="campo-modal-fila">
+                    <div class="campo-modal">
+                        <label>Precio (MXN)</label>
+                        <input type="number" id="m-precio" placeholder="0.00" min="0" step="0.01" />
+                    </div>
+                    <div class="campo-modal">
+                        <label>Categoría</label>
+                        <select id="m-categoria">
+                            <option value="">Seleccionar...</option>
+                            <option>Varitas</option>
+                            <option>Pociones</option>
+                            <option>Libros</option>
+                            <option>Cristales</option>
+                            <option>Amuletos</option>
+                            <option>Calderos</option>
+                            <option>Pergaminos</option>
+                            <option>Reliquias</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="campo-modal">
+                    <label>Etiqueta</label>
+                    <select id="m-etiqueta">
+                        <option value="">Sin etiqueta</option>
+                        <option value="Nuevo">Nuevo</option>
+                        <option value="Oferta">Oferta</option>
+                    </select>
+                </div>
+                <div class="campo-modal">
+                    <label>Descripción</label>
+                    <textarea id="m-descripcion" rows="3" placeholder="Describe el artefacto..."></textarea>
+                </div>
+                <div class="campo-modal">
+                    <label>URL de imagen</label>
+                    <input type="text" id="m-imagen" placeholder="../images/mi-producto.jpg" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-modal-guardar" onclick="guardarProducto()">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRM: ELIMINAR -->
+    <div class="modal-overlay" id="confirm-overlay">
+        <div class="modal-card confirm-card">
+            <div class="modal-header">
+                <h3>¿Eliminar producto?</h3>
+                <button class="modal-cerrar" onclick="cerrarConfirm()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-texto">
+                    Esta acción no se puede deshacer.<br />
+                    ¿Seguro que deseas eliminar <strong id="confirm-nombre"></strong>?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar" onclick="cerrarConfirm()">Cancelar</button>
+                <button class="btn-modal-eliminar" onclick="confirmarEliminar()">
+                    <i class="fa-solid fa-trash"></i> Sí, eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST ADMIN -->
+    <div class="toast-admin" id="toast-admin"></div>
+
+    <!-- ══════════════════════════════════════
+         SCRIPT EMBEBIDO (sin dependencias externas)
+    ══════════════════════════════════════ -->
+    <script>
+        // ── Base de productos (simulada) ──────────────────────────
+        var productos = [
+            { id: 1, nombre: "Varita de Saúco", precio: 350.00, categoria: "Varitas", etiqueta: "Nuevo", imagen: "../images/varita sauco.webp" },
+            { id: 2, nombre: "Poción de Invisibilidad", precio: 85.50, categoria: "Pociones", etiqueta: "Oferta", imagen: "../images/pocion invisiobilidad.jpg" },
+            { id: 3, nombre: "Grimorio de Hechizos Antiguos", precio: 420.00, categoria: "Libros", etiqueta: "Nuevo", imagen: "../images/grimorio.jpg" },
+            { id: 4, nombre: "Cristal de Adivinación", precio: 199.99, categoria: "Cristales", etiqueta: "", imagen: "../images/cristal de adivinacion.webp" },
+            { id: 5, nombre: "Amuleto de Protección", precio: 65.00, categoria: "Amuletos", etiqueta: "Oferta", imagen: "../images/Amuleto de proteccion.jpeg" },
+            { id: 6, nombre: "Caldero de Cobre", precio: 275.00, categoria: "Calderos", etiqueta: "", imagen: "../images/Caldero.jpg" },
+            { id: 7, nombre: "Mapa del Tesoro Escondido", precio: 120.00, categoria: "Pergaminos", etiqueta: "Nuevo", imagen: "../images/mapa del tesoro.jpg" },
+            { id: 8, nombre: "Pluma de Fénix", precio: 450.00, categoria: "Reliquias", etiqueta: "Nuevo", imagen: "../images/pluma de fenix.jpg" }
+        ];
+
+        var editandoId = null;
+        var eliminandoId = null;
+
+        // ── Referencias DOM ──────────────────────────────────────
+        var tbody = document.getElementById('tbody-productos');
+        var inputBuscar = document.getElementById('admin-buscar');
+        var modalOverlay = document.getElementById('modal-overlay');
+        var modalTitulo = document.getElementById('modal-titulo');
+        var mNombre = document.getElementById('m-nombre');
+        var mPrecio = document.getElementById('m-precio');
+        var mCategoria = document.getElementById('m-categoria');
+        var mEtiqueta = document.getElementById('m-etiqueta');
+        var mDescripcion = document.getElementById('m-descripcion');
+        var mImagen = document.getElementById('m-imagen');
+        var confirmOverlay = document.getElementById('confirm-overlay');
+        var confirmNombre = document.getElementById('confirm-nombre');
+        var toast = document.getElementById('toast-admin');
+        var countBadge = document.getElementById('productos-count');
+
+        // ── Renderizar tabla ──────────────────────────────────────
+        function renderTabla(lista) {
+            lista = lista || productos;
+            tbody.innerHTML = '';
+            lista.forEach(function(p) {
+                var tr = document.createElement('tr');
+                var etiquetaHtml = p.etiqueta
+                    ? '<span class="etiq-badge ' + p.etiqueta.toLowerCase() + '">' + p.etiqueta + '</span>'
+                    : '<span class="etiq-badge sin">—</span>';
+                tr.innerHTML =
+                    '<td class="td-id">#' + p.id + '</td>' +
+                    '<td><img src="' + p.imagen + '" alt="' + p.nombre + '" class="tabla-thumb" onerror="this.src=\'../images/logo/Logo.png\'"></td>' +
+                    '<td class="td-nombre">' + p.nombre + '</td>' +
+                    '<td>' + p.categoria + '</td>' +
+                    '<td class="td-precio">$' + p.precio.toFixed(2) + '</td>' +
+                    '<td>' + etiquetaHtml + '</td>' +
+                    '<td><div class="acciones-wrap">' +
+                        '<button class="btn-icono editar" onclick="abrirEditar(' + p.id + ')"><i class="fa-solid fa-pen"></i></button>' +
+                        '<button class="btn-icono eliminar" onclick="abrirConfirm(' + p.id + ')"><i class="fa-solid fa-trash"></i></button>' +
+                    '</div></td>';
+                tbody.appendChild(tr);
+            });
+            actualizarContador();
+        }
+
+        // ── Actualizar contador ──────────────────────────────────
+        function actualizarContador() {
+            var total = productos.length;
+            countBadge.textContent = total + ' producto' + (total !== 1 ? 's' : '');
+        }
+
+        // ── Abrir modal AGREGAR ──────────────────────────────────
+        function abrirModal() {
+            console.log('abrirModal() llamado');
+            editandoId = null;
+            modalTitulo.textContent = 'Agregar Producto';
+            mNombre.value = '';
+            mPrecio.value = '';
+            mCategoria.value = '';
+            mEtiqueta.value = '';
+            mDescripcion.value = '';
+            mImagen.value = '';
+            modalOverlay.classList.add('visible');
+        }
+
+        // ── Abrir modal EDITAR ───────────────────────────────────
+        function abrirEditar(id) {
+            console.log('abrirEditar(' + id + ')');
+            var p = productos.find(function(x) { return x.id === id; });
+            if (!p) return;
+            editandoId = id;
+            modalTitulo.textContent = 'Editar Producto';
+            mNombre.value = p.nombre;
+            mPrecio.value = p.precio;
+            mCategoria.value = p.categoria;
+            mEtiqueta.value = p.etiqueta || '';
+            mDescripcion.value = p.descripcion || '';
+            mImagen.value = p.imagen;
+            modalOverlay.classList.add('visible');
+        }
+
+        // ── Cerrar modal principal ──────────────────────────────
+        function cerrarModal() {
+            modalOverlay.classList.remove('visible');
+        }
+
+        // ── Guardar (agregar o editar) ──────────────────────────
+        function guardarProducto() {
+            console.log('guardarProducto()');
+            var nombre = mNombre.value.trim();
+            var precio = parseFloat(mPrecio.value);
+            var categoria = mCategoria.value;
+            var etiqueta = mEtiqueta.value;
+            var descripcion = mDescripcion.value.trim();
+            var imagen = mImagen.value.trim();
+
+            if (!nombre || isNaN(precio) || !categoria) {
+                mostrarToast('⚠️ Completa nombre, precio y categoría.', 'error');
+                return;
+            }
+
+            if (editandoId !== null) {
+                var idx = productos.findIndex(function(p) { return p.id === editandoId; });
+                productos[idx] = { 
+                    id: editandoId,
+                    nombre: nombre,
+                    precio: precio,
+                    categoria: categoria,
+                    etiqueta: etiqueta,
+                    descripcion: descripcion,
+                    imagen: imagen
+                };
+                mostrarToast('✦ Producto actualizado correctamente.', 'ok');
+            } else {
+                var maxId = 0;
+                productos.forEach(function(p) { if (p.id > maxId) maxId = p.id; });
+                var nuevoId = maxId + 1;
+                productos.push({
+                    id: nuevoId,
+                    nombre: nombre,
+                    precio: precio,
+                    categoria: categoria,
+                    etiqueta: etiqueta,
+                    descripcion: descripcion,
+                    imagen: imagen
+                });
+                mostrarToast('✦ Producto agregado al catálogo.', 'ok');
+            }
+
+            cerrarModal();
+            renderTabla();
+        }
+
+        // ── Confirmar ELIMINAR ──────────────────────────────────
+        function abrirConfirm(id) {
+            console.log('abrirConfirm(' + id + ')');
+            var p = productos.find(function(x) { return x.id === id; });
+            if (!p) return;
+            eliminandoId = id;
+            confirmNombre.textContent = p.nombre;
+            confirmOverlay.classList.add('visible');
+        }
+
+        function cerrarConfirm() {
+            confirmOverlay.classList.remove('visible');
+            eliminandoId = null;
+        }
+
+        function confirmarEliminar() {
+            console.log('confirmarEliminar()');
+            if (eliminandoId === null) return;
+            productos = productos.filter(function(p) { return p.id !== eliminandoId; });
+            cerrarConfirm();
+            renderTabla();
+            mostrarToast('🗑 Producto eliminado.', 'error');
+        }
+
+        // ── Buscador ──────────────────────────────────────────────
+        function filtrarProductos() {
+            var txt = inputBuscar.value.toLowerCase();
+            var filtrado = productos.filter(function(p) {
+                return p.nombre.toLowerCase().includes(txt) ||
+                       p.categoria.toLowerCase().includes(txt);
+            });
+            renderTabla(filtrado);
+        }
+
+        // ── Toast ─────────────────────────────────────────────────
+        function mostrarToast(msg, tipo) {
+            tipo = tipo || 'ok';
+            toast.textContent = msg;
+            toast.className = 'toast-admin visible ' + tipo;
+            clearTimeout(toast._t);
+            toast._t = setTimeout(function() {
+                toast.classList.remove('visible');
+            }, 3000);
+        }
+
+        // ── Inicializar ──────────────────────────────────────────
+        renderTabla();
+
+        // Cerrar modales al hacer clic fuera
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) cerrarModal();
+        });
+        confirmOverlay.addEventListener('click', function(e) {
+            if (e.target === confirmOverlay) cerrarConfirm();
+        });
+
+        // Depuración: asegurar que las funciones estén en el scope global
+        console.log('Script cargado correctamente.');
+        console.log('Productos iniciales:', productos.length);
+    </script>
+
+</body>
+</html>
