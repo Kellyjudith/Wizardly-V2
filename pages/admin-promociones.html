@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wizardly — Promociones</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-logo">
+            <img src="../images/logo/Logo.png" alt="Wizardly" />
+            <div>
+                <span class="brand">Wizardly</span>
+                <span class="sidebar-sub">Panel Arcano</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="admin.html" class="nav-item">
+                <i class="fa-solid fa-gauge-high"></i> Dashboard
+            </a>
+            <a href="admin-productos.html" class="nav-item">
+                <i class="fa-solid fa-hat-wizard"></i> Productos
+            </a>
+            <a href="admin-pedidos.html" class="nav-item">
+                <i class="fa-solid fa-scroll"></i> Pedidos
+            </a>
+            <a href="admin-promociones.html" class="nav-item active">
+                <i class="fa-solid fa-wand-sparkles"></i> Promociones
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users"></i> Clientes
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-chart-simple"></i> Reportes
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item">
+                <i class="fa-solid fa-arrow-left"></i> Volver al sitio
+            </a>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <main class="admin-main">
+
+        <div class="admin-topbar">
+            <h1>Gestión de Promociones</h1>
+            <div class="topbar-usuario">
+                <i class="fa-solid fa-circle-user"></i>
+                <span>Archimaga Seraphina</span>
+            </div>
+        </div>
+
+        <!-- BLOQUE: TABLA -->
+        <div class="admin-bloque">
+            <div class="bloque-header">
+                <h2>
+                    Promociones
+                    <span class="count-badge" id="promos-count">0 promociones</span>
+                </h2>
+                <button class="btn-admin" onclick="abrirModalPromo()">
+                    <i class="fa-solid fa-plus"></i> Agregar promoción
+                </button>
+            </div>
+
+            <!-- FILTROS -->
+            <div class="admin-filtros">
+                <div class="admin-buscador" style="flex:2;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="buscar-promo" placeholder="Buscar por nombre..." oninput="aplicarFiltrosPromo()" />
+                </div>
+                <div class="admin-filtro-select">
+                    <select id="filtro-estado-promo" onchange="aplicarFiltrosPromo()">
+                        <option value="">Todos los estados</option>
+                        <option value="Activa">Activa</option>
+                        <option value="Inactiva">Inactiva</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- TABLA -->
+            <div class="admin-tabla-wrap">
+                <table class="admin-tabla" id="tabla-promos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descuento</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Fin</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-promos"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- BLOQUE: GRÁFICA -->
+        <div class="admin-bloque" style="margin-top:32px;">
+            <div class="bloque-header">
+                <h2>Resumen de promociones</h2>
+            </div>
+            <div style="padding:20px 24px; display:flex; justify-content:center;">
+                <canvas id="chart-promos" width="300" height="300" style="max-width:300px; max-height:300px;"></canvas>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL: AGREGAR / EDITAR PROMOCIÓN -->
+    <div class="modal-overlay" id="modal-promo-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-promo-titulo">Agregar Promoción</h3>
+                <button class="modal-cerrar" onclick="cerrarModalPromo()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="campo-modal">
+                    <label>Nombre de la promoción</label>
+                    <input type="text" id="mp-nombre" placeholder="Ej. Descuento de Verano" />
+                </div>
+                <div class="campo-modal">
+                    <label>Descuento (%)</label>
+                    <input type="number" id="mp-descuento" placeholder="15" min="0" max="100" step="1" />
+                </div>
+                <div class="campo-modal-fila">
+                    <div class="campo-modal">
+                        <label>Fecha Inicio</label>
+                        <input type="date" id="mp-fecha-inicio" />
+                    </div>
+                    <div class="campo-modal">
+                        <label>Fecha Fin</label>
+                        <input type="date" id="mp-fecha-fin" />
+                    </div>
+                </div>
+                <div class="campo-modal">
+                    <label>Estado</label>
+                    <select id="mp-estado">
+                        <option value="Activa">Activa</option>
+                        <option value="Inactiva">Inactiva</option>
+                    </select>
+                </div>
+                <div class="campo-modal">
+                    <label>Descripción (opcional)</label>
+                    <textarea id="mp-descripcion" rows="2" placeholder="Detalles de la promoción..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar" onclick="cerrarModalPromo()">Cancelar</button>
+                <button class="btn-modal-guardar" onclick="guardarPromocion()">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRM: ELIMINAR PROMOCIÓN -->
+    <div class="modal-overlay" id="confirm-promo-overlay">
+        <div class="modal-card confirm-card">
+            <div class="modal-header">
+                <h3>¿Eliminar promoción?</h3>
+                <button class="modal-cerrar" onclick="cerrarConfirmPromo()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-texto">
+                    Esta acción no se puede deshacer.<br />
+                    ¿Seguro que deseas eliminar <strong id="confirm-promo-nombre"></strong>?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar" onclick="cerrarConfirmPromo()">Cancelar</button>
+                <button class="btn-modal-eliminar" onclick="confirmarEliminarPromo()">
+                    <i class="fa-solid fa-trash"></i> Sí, eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-admin" id="toast-promo"></div>
+
+    <!-- ====== SCRIPT ====== -->
+    <script>
+        // ── Datos de promociones ──────────────────────────────
+        var promociones = [
+            { id: 1, nombre: "Descuento de Luna Nueva", descuento: 20, fechaInicio: "2026-07-01", fechaFin: "2026-07-31", estado: "Activa", descripcion: "20% en todas las pociones" },
+            { id: 2, nombre: "Kit del Mago Principiante", descuento: 15, fechaInicio: "2026-06-01", fechaFin: "2026-12-31", estado: "Activa", descripcion: "Varita + Amuleto con 15% OFF" },
+            { id: 3, nombre: "Oferta de Verano", descuento: 10, fechaInicio: "2026-07-15", fechaFin: "2026-08-15", estado: "Inactiva", descripcion: "10% en artículos seleccionados" }
+        ];
+
+        var editandoPromoId = null;
+        var eliminandoPromoId = null;
+        var chartInstance = null;
+
+        // ── Referencias DOM ──────────────────────────────────────
+        var tbodyPromos = document.getElementById('tbody-promos');
+        var inputBuscarPromo = document.getElementById('buscar-promo');
+        var filtroEstadoPromo = document.getElementById('filtro-estado-promo');
+        var modalPromoOverlay = document.getElementById('modal-promo-overlay');
+        var modalPromoTitulo = document.getElementById('modal-promo-titulo');
+        var mpNombre = document.getElementById('mp-nombre');
+        var mpDescuento = document.getElementById('mp-descuento');
+        var mpFechaInicio = document.getElementById('mp-fecha-inicio');
+        var mpFechaFin = document.getElementById('mp-fecha-fin');
+        var mpEstado = document.getElementById('mp-estado');
+        var mpDescripcion = document.getElementById('mp-descripcion');
+        var confirmPromoOverlay = document.getElementById('confirm-promo-overlay');
+        var confirmPromoNombre = document.getElementById('confirm-promo-nombre');
+        var toastPromo = document.getElementById('toast-promo');
+        var countBadgePromo = document.getElementById('promos-count');
+
+        // ── Renderizar tabla de promociones ────────────────────
+        function renderTablaPromos(lista) {
+            lista = lista || promociones;
+            tbodyPromos.innerHTML = '';
+            lista.forEach(function(p) {
+                var estadoClase = (p.estado === 'Activa') ? 'estado-entregado' : 'estado-pendiente';
+                var tr = document.createElement('tr');
+                tr.innerHTML =
+                    '<td class="td-id">#' + p.id + '</td>' +
+                    '<td class="td-nombre">' + p.nombre + '</td>' +
+                    '<td>' + p.descuento + '%</td>' +
+                    '<td>' + p.fechaInicio + '</td>' +
+                    '<td>' + p.fechaFin + '</td>' +
+                    '<td><span class="estado ' + estadoClase + '">' + p.estado + '</span></td>' +
+                    '<td><div class="acciones-wrap">' +
+                        '<button class="btn-icono editar" onclick="abrirEditarPromo(' + p.id + ')"><i class="fa-solid fa-pen"></i></button>' +
+                        '<button class="btn-icono eliminar" onclick="abrirConfirmPromo(' + p.id + ')"><i class="fa-solid fa-trash"></i></button>' +
+                    '</div></td>';
+                tbodyPromos.appendChild(tr);
+            });
+            actualizarContadorPromo();
+            actualizarGrafica();
+        }
+
+        // ── Actualizar contador ──────────────────────────────────
+        function actualizarContadorPromo() {
+            var total = promociones.length;
+            countBadgePromo.textContent = total + ' promoción' + (total !== 1 ? 'es' : '');
+        }
+
+        // ── Filtros ──────────────────────────────────────────────
+        function aplicarFiltrosPromo() {
+            var texto = inputBuscarPromo.value.toLowerCase();
+            var est = filtroEstadoPromo.value;
+            var filtrados = promociones.filter(function(p) {
+                var coincideNombre = p.nombre.toLowerCase().includes(texto);
+                var coincideEst = (est === '' || p.estado === est);
+                return coincideNombre && coincideEst;
+            });
+            renderTablaPromos(filtrados);
+        }
+
+        // ── Modal AGREGAR ────────────────────────────────────────
+        function abrirModalPromo() {
+            editandoPromoId = null;
+            modalPromoTitulo.textContent = 'Agregar Promoción';
+            mpNombre.value = '';
+            mpDescuento.value = '';
+            mpFechaInicio.value = '';
+            mpFechaFin.value = '';
+            mpEstado.value = 'Activa';
+            mpDescripcion.value = '';
+            modalPromoOverlay.classList.add('visible');
+        }
+
+        // ── Modal EDITAR ────────────────────────────────────────
+        function abrirEditarPromo(id) {
+            var p = promociones.find(function(x) { return x.id === id; });
+            if (!p) return;
+            editandoPromoId = id;
+            modalPromoTitulo.textContent = 'Editar Promoción';
+            mpNombre.value = p.nombre;
+            mpDescuento.value = p.descuento;
+            mpFechaInicio.value = p.fechaInicio;
+            mpFechaFin.value = p.fechaFin;
+            mpEstado.value = p.estado;
+            mpDescripcion.value = p.descripcion || '';
+            modalPromoOverlay.classList.add('visible');
+        }
+
+        function cerrarModalPromo() {
+            modalPromoOverlay.classList.remove('visible');
+        }
+
+        // ── Guardar promoción ────────────────────────────────────
+        function guardarPromocion() {
+            var nombre = mpNombre.value.trim();
+            var descuento = parseInt(mpDescuento.value);
+            var fechaInicio = mpFechaInicio.value;
+            var fechaFin = mpFechaFin.value;
+            var estado = mpEstado.value;
+            var descripcion = mpDescripcion.value.trim();
+
+            if (!nombre || isNaN(descuento) || !fechaInicio || !fechaFin) {
+                mostrarToastPromo('⚠️ Completa todos los campos obligatorios.', 'error');
+                return;
+            }
+            if (descuento < 0 || descuento > 100) {
+                mostrarToastPromo('⚠️ El descuento debe ser entre 0 y 100.', 'error');
+                return;
+            }
+
+            if (editandoPromoId !== null) {
+                var idx = promociones.findIndex(function(p) { return p.id === editandoPromoId; });
+                promociones[idx] = {
+                    id: editandoPromoId,
+                    nombre: nombre,
+                    descuento: descuento,
+                    fechaInicio: fechaInicio,
+                    fechaFin: fechaFin,
+                    estado: estado,
+                    descripcion: descripcion
+                };
+                mostrarToastPromo('✦ Promoción actualizada.', 'ok');
+            } else {
+                var maxId = 0;
+                promociones.forEach(function(p) { if (p.id > maxId) maxId = p.id; });
+                var nuevoId = maxId + 1;
+                promociones.push({
+                    id: nuevoId,
+                    nombre: nombre,
+                    descuento: descuento,
+                    fechaInicio: fechaInicio,
+                    fechaFin: fechaFin,
+                    estado: estado,
+                    descripcion: descripcion
+                });
+                mostrarToastPromo('✦ Promoción agregada.', 'ok');
+            }
+
+            cerrarModalPromo();
+            aplicarFiltrosPromo();
+        }
+
+        // ── Confirmar ELIMINAR ──────────────────────────────────
+        function abrirConfirmPromo(id) {
+            var p = promociones.find(function(x) { return x.id === id; });
+            if (!p) return;
+            eliminandoPromoId = id;
+            confirmPromoNombre.textContent = p.nombre;
+            confirmPromoOverlay.classList.add('visible');
+        }
+
+        function cerrarConfirmPromo() {
+            confirmPromoOverlay.classList.remove('visible');
+            eliminandoPromoId = null;
+        }
+
+        function confirmarEliminarPromo() {
+            if (eliminandoPromoId === null) return;
+            promociones = promociones.filter(function(p) { return p.id !== eliminandoPromoId; });
+            cerrarConfirmPromo();
+            aplicarFiltrosPromo();
+            mostrarToastPromo('🗑 Promoción eliminada.', 'error');
+        }
+
+        // ── Toast ─────────────────────────────────────────────────
+        function mostrarToastPromo(msg, tipo) {
+            tipo = tipo || 'ok';
+            toastPromo.textContent = msg;
+            toastPromo.className = 'toast-admin visible ' + tipo;
+            clearTimeout(toastPromo._t);
+            toastPromo._t = setTimeout(function() {
+                toastPromo.classList.remove('visible');
+            }, 3000);
+        }
+
+        // ── Gráfica (Chart.js) ──────────────────────────────────
+        function actualizarGrafica() {
+            var activas = promociones.filter(function(p) { return p.estado === 'Activa'; }).length;
+            var inactivas = promociones.length - activas;
+            var ctx = document.getElementById('chart-promos').getContext('2d');
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Activas', 'Inactivas'],
+                    datasets: [{
+                        data: [activas, inactivas],
+                        backgroundColor: ['#4ade80', '#f87171'],
+                        borderColor: '#0a0412',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ddd',
+                                font: {
+                                    family: 'Cinzel'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ── Inicializar ──────────────────────────────────────────
+        aplicarFiltrosPromo();
+
+        // Cerrar modales al hacer clic fuera
+        modalPromoOverlay.addEventListener('click', function(e) {
+            if (e.target === modalPromoOverlay) cerrarModalPromo();
+        });
+        confirmPromoOverlay.addEventListener('click', function(e) {
+            if (e.target === confirmPromoOverlay) cerrarConfirmPromo();
+        });
+    </script>
+
+    <!-- Estilos adicionales para estados -->
+    <style>
+        .estado.estado-entregado { background: rgba(74,222,128,0.15); color: #4ade80; }
+        .estado.estado-pendiente { background: rgba(251,146,60,0.15); color: #fb923c; }
+        .admin-filtros {
+            display: flex;
+            gap: 12px;
+            padding: 12px 24px 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+        .admin-filtro-select select {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 8px 16px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .admin-filtro-select select:focus {
+            border-color: var(--gold-dim);
+        }
+    </style>
+
+</body>
+</html>

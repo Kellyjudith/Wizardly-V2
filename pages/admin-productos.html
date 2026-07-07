@@ -8,16 +8,10 @@
     <link rel="icon" href="../images/favicon/favicon.jpeg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap"
-        rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/admin.css" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 <body class="admin-body">
 
@@ -32,16 +26,22 @@
         </div>
         <nav class="sidebar-nav">
             <a href="admin.html" class="nav-item">
-                <i class="fa-solid fa-gauge-high"></i> Inicio
+                <i class="fa-solid fa-gauge-high"></i> Dashboard
             </a>
             <a href="admin-productos.html" class="nav-item active">
                 <i class="fa-solid fa-hat-wizard"></i> Productos
             </a>
-            <a href="#" class="nav-item">
+            <a href="admin-pedidos.html" class="nav-item">
                 <i class="fa-solid fa-scroll"></i> Pedidos
             </a>
-            <a href="#" class="nav-item">
+            <a href="admin-promociones.html" class="nav-item">
                 <i class="fa-solid fa-wand-sparkles"></i> Promociones
+            </a>
+            <a href="admin-clientes.html" class="nav-item">
+                <i class="fa-solid fa-users"></i> Clientes
+            </a>
+            <a href="admin-reportes.html" class="nav-item">
+                <i class="fa-solid fa-chart-simple"></i> Reportes
             </a>
         </nav>
         <div class="sidebar-footer">
@@ -62,27 +62,44 @@
             </div>
         </div>
 
-        <!-- ACCIONES -->
+        <!-- BLOQUE PRINCIPAL -->
         <div class="admin-bloque">
             <div class="bloque-header">
                 <h2>
                     Catálogo completo
-                    <span class="count-badge" id="productos-count">8 productos</span>
+                    <span class="count-badge" id="productos-count">0 productos</span>
                 </h2>
                 <button class="btn-admin" onclick="abrirModal()">
                     <i class="fa-solid fa-plus"></i> Agregar producto
                 </button>
             </div>
 
-            <!-- BUSCADOR -->
-            <div class="admin-buscador">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input
-                    type="text"
-                    id="admin-buscar"
-                    placeholder="Buscar por nombre o categoría..."
-                    oninput="filtrarProductos()"
-                />
+            <!-- FILTROS Y BÚSQUEDA -->
+            <div class="admin-filtros">
+                <div class="admin-buscador" style="flex:2;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="admin-buscar" placeholder="Buscar por nombre..." oninput="aplicarFiltros()" />
+                </div>
+                <div class="admin-filtro-select">
+                    <select id="filtro-categoria" onchange="aplicarFiltros()">
+                        <option value="">Todas las categorías</option>
+                        <option>Varitas</option>
+                        <option>Pociones</option>
+                        <option>Libros</option>
+                        <option>Cristales</option>
+                        <option>Amuletos</option>
+                        <option>Calderos</option>
+                        <option>Pergaminos</option>
+                        <option>Reliquias</option>
+                    </select>
+                </div>
+                <div class="admin-filtro-select">
+                    <select id="filtro-estado" onchange="aplicarFiltros()">
+                        <option value="">Todos los estados</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Agotado">Agotado</option>
+                    </select>
+                </div>
             </div>
 
             <!-- TABLA -->
@@ -95,7 +112,8 @@
                             <th>Nombre</th>
                             <th>Categoría</th>
                             <th>Precio</th>
-                            <th>Etiqueta</th>
+                            <th>Existencia</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -106,9 +124,7 @@
 
     </main>
 
-    <!-- ══════════════════════════════════════
-         MODAL: AGREGAR / EDITAR PRODUCTO
-    ══════════════════════════════════════ -->
+    <!-- MODAL: AGREGAR / EDITAR PRODUCTO -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
@@ -142,8 +158,21 @@
                         </select>
                     </div>
                 </div>
+                <div class="campo-modal-fila">
+                    <div class="campo-modal">
+                        <label>Existencia</label>
+                        <input type="number" id="m-existencia" placeholder="0" min="0" step="1" />
+                    </div>
+                    <div class="campo-modal">
+                        <label>Estado</label>
+                        <select id="m-estado">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="campo-modal">
-                    <label>Etiqueta</label>
+                    <label>Etiqueta (opcional)</label>
                     <select id="m-etiqueta">
                         <option value="">Sin etiqueta</option>
                         <option value="Nuevo">Nuevo</option>
@@ -164,6 +193,24 @@
                 <button class="btn-modal-guardar" onclick="guardarProducto()">
                     <i class="fa-solid fa-floppy-disk"></i> Guardar
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: VER DETALLE -->
+    <div class="modal-overlay" id="detalle-overlay">
+        <div class="modal-card" style="max-width:600px;">
+            <div class="modal-header">
+                <h3>Detalle del Producto</h3>
+                <button class="modal-cerrar" onclick="cerrarDetalle()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="detalle-body">
+                <!-- Se llena dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar" onclick="cerrarDetalle()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -192,23 +239,20 @@
         </div>
     </div>
 
-    <!-- TOAST ADMIN -->
+    <!-- TOAST -->
     <div class="toast-admin" id="toast-admin"></div>
 
-    <!-- ══════════════════════════════════════
-         SCRIPT EMBEBIDO (sin dependencias externas)
-    ══════════════════════════════════════ -->
     <script>
-        // ── Base de productos (simulada) ──────────────────────────
+        // ── Base de productos con nuevos campos ──────────────
         var productos = [
-            { id: 1, nombre: "Varita de Saúco", precio: 350.00, categoria: "Varitas", etiqueta: "Nuevo", imagen: "../images/varita sauco.webp" },
-            { id: 2, nombre: "Poción de Invisibilidad", precio: 85.50, categoria: "Pociones", etiqueta: "Oferta", imagen: "../images/pocion invisiobilidad.jpg" },
-            { id: 3, nombre: "Grimorio de Hechizos Antiguos", precio: 420.00, categoria: "Libros", etiqueta: "Nuevo", imagen: "../images/grimorio.jpg" },
-            { id: 4, nombre: "Cristal de Adivinación", precio: 199.99, categoria: "Cristales", etiqueta: "", imagen: "../images/cristal de adivinacion.webp" },
-            { id: 5, nombre: "Amuleto de Protección", precio: 65.00, categoria: "Amuletos", etiqueta: "Oferta", imagen: "../images/Amuleto de proteccion.jpeg" },
-            { id: 6, nombre: "Caldero de Cobre", precio: 275.00, categoria: "Calderos", etiqueta: "", imagen: "../images/Caldero.jpg" },
-            { id: 7, nombre: "Mapa del Tesoro Escondido", precio: 120.00, categoria: "Pergaminos", etiqueta: "Nuevo", imagen: "../images/mapa del tesoro.jpg" },
-            { id: 8, nombre: "Pluma de Fénix", precio: 450.00, categoria: "Reliquias", etiqueta: "Nuevo", imagen: "../images/pluma de fenix.jpg" }
+            { id: 1, nombre: "Varita de Saúco", precio: 350.00, categoria: "Varitas", etiqueta: "Nuevo", existencia: 12, estado: "Activo", descripcion: "La varita más poderosa.", imagen: "../images/varita sauco.webp" },
+            { id: 2, nombre: "Poción de Invisibilidad", precio: 85.50, categoria: "Pociones", etiqueta: "Oferta", existencia: 0, estado: "Inactivo", descripcion: "Vuelve invisible por 1 hora.", imagen: "../images/pocion invisiobilidad.jpg" },
+            { id: 3, nombre: "Grimorio de Hechizos Antiguos", precio: 420.00, categoria: "Libros", etiqueta: "Nuevo", existencia: 5, estado: "Activo", descripcion: "Conjuro de protección.", imagen: "../images/grimorio.jpg" },
+            { id: 4, nombre: "Cristal de Adivinación", precio: 199.99, categoria: "Cristales", etiqueta: "", existencia: 3, estado: "Activo", descripcion: "Vislumbra el futuro.", imagen: "../images/cristal de adivinacion.webp" },
+            { id: 5, nombre: "Amuleto de Protección", precio: 65.00, categoria: "Amuletos", etiqueta: "Oferta", existencia: 8, estado: "Activo", descripcion: "Escudo mágico contra maleficios.", imagen: "../images/Amuleto de proteccion.jpeg" },
+            { id: 6, nombre: "Caldero de Cobre", precio: 275.00, categoria: "Calderos", etiqueta: "", existencia: 2, estado: "Activo", descripcion: "Ideal para pociones complejas.", imagen: "../images/Caldero.jpg" },
+            { id: 7, nombre: "Mapa del Tesoro Escondido", precio: 120.00, categoria: "Pergaminos", etiqueta: "Nuevo", existencia: 0, estado: "Inactivo", descripcion: "Señala el camino.", imagen: "../images/mapa del tesoro.jpg" },
+            { id: 8, nombre: "Pluma de Fénix", precio: 450.00, categoria: "Reliquias", etiqueta: "Nuevo", existencia: 1, estado: "Activo", descripcion: "Pluma mágica de fénix.", imagen: "../images/pluma de fenix.jpg" }
         ];
 
         var editandoId = null;
@@ -217,6 +261,8 @@
         // ── Referencias DOM ──────────────────────────────────────
         var tbody = document.getElementById('tbody-productos');
         var inputBuscar = document.getElementById('admin-buscar');
+        var filtroCategoria = document.getElementById('filtro-categoria');
+        var filtroEstado = document.getElementById('filtro-estado');
         var modalOverlay = document.getElementById('modal-overlay');
         var modalTitulo = document.getElementById('modal-titulo');
         var mNombre = document.getElementById('m-nombre');
@@ -225,28 +271,33 @@
         var mEtiqueta = document.getElementById('m-etiqueta');
         var mDescripcion = document.getElementById('m-descripcion');
         var mImagen = document.getElementById('m-imagen');
+        var mExistencia = document.getElementById('m-existencia');
+        var mEstado = document.getElementById('m-estado');
         var confirmOverlay = document.getElementById('confirm-overlay');
         var confirmNombre = document.getElementById('confirm-nombre');
         var toast = document.getElementById('toast-admin');
         var countBadge = document.getElementById('productos-count');
+        var detalleOverlay = document.getElementById('detalle-overlay');
+        var detalleBody = document.getElementById('detalle-body');
 
         // ── Renderizar tabla ──────────────────────────────────────
         function renderTabla(lista) {
             lista = lista || productos;
             tbody.innerHTML = '';
             lista.forEach(function(p) {
+                var disponibilidad = (p.existencia > 0) ? 'Disponible' : 'Agotado';
+                var estadoClase = (disponibilidad === 'Disponible') ? 'entregado' : 'pendiente';
                 var tr = document.createElement('tr');
-                var etiquetaHtml = p.etiqueta
-                    ? '<span class="etiq-badge ' + p.etiqueta.toLowerCase() + '">' + p.etiqueta + '</span>'
-                    : '<span class="etiq-badge sin">—</span>';
                 tr.innerHTML =
                     '<td class="td-id">#' + p.id + '</td>' +
                     '<td><img src="' + p.imagen + '" alt="' + p.nombre + '" class="tabla-thumb" onerror="this.src=\'../images/logo/Logo.png\'"></td>' +
                     '<td class="td-nombre">' + p.nombre + '</td>' +
                     '<td>' + p.categoria + '</td>' +
                     '<td class="td-precio">$' + p.precio.toFixed(2) + '</td>' +
-                    '<td>' + etiquetaHtml + '</td>' +
+                    '<td>' + p.existencia + '</td>' +
+                    '<td><span class="estado ' + estadoClase + '">' + disponibilidad + '</span></td>' +
                     '<td><div class="acciones-wrap">' +
+                        '<button class="btn-icono detalle" onclick="verDetalle(' + p.id + ')" title="Ver detalle"><i class="fa-solid fa-eye"></i></button>' +
                         '<button class="btn-icono editar" onclick="abrirEditar(' + p.id + ')"><i class="fa-solid fa-pen"></i></button>' +
                         '<button class="btn-icono eliminar" onclick="abrirConfirm(' + p.id + ')"><i class="fa-solid fa-trash"></i></button>' +
                     '</div></td>';
@@ -261,23 +312,31 @@
             countBadge.textContent = total + ' producto' + (total !== 1 ? 's' : '');
         }
 
+        // ── Filtros combinados ──────────────────────────────────
+        function aplicarFiltros() {
+            var texto = inputBuscar.value.toLowerCase();
+            var cat = filtroCategoria.value;
+            var est = filtroEstado.value;
+            var filtrados = productos.filter(function(p) {
+                var coincideNombre = p.nombre.toLowerCase().includes(texto);
+                var coincideCat = (cat === '' || p.categoria === cat);
+                var disp = (p.existencia > 0) ? 'Disponible' : 'Agotado';
+                var coincideEst = (est === '' || disp === est);
+                return coincideNombre && coincideCat && coincideEst;
+            });
+            renderTabla(filtrados);
+        }
+
         // ── Abrir modal AGREGAR ──────────────────────────────────
         function abrirModal() {
-            console.log('abrirModal() llamado');
             editandoId = null;
             modalTitulo.textContent = 'Agregar Producto';
-            mNombre.value = '';
-            mPrecio.value = '';
-            mCategoria.value = '';
-            mEtiqueta.value = '';
-            mDescripcion.value = '';
-            mImagen.value = '';
+            limpiarCampos();
             modalOverlay.classList.add('visible');
         }
 
         // ── Abrir modal EDITAR ───────────────────────────────────
         function abrirEditar(id) {
-            console.log('abrirEditar(' + id + ')');
             var p = productos.find(function(x) { return x.id === id; });
             if (!p) return;
             editandoId = id;
@@ -288,23 +347,36 @@
             mEtiqueta.value = p.etiqueta || '';
             mDescripcion.value = p.descripcion || '';
             mImagen.value = p.imagen;
+            mExistencia.value = p.existencia || 0;
+            mEstado.value = p.estado || 'Activo';
             modalOverlay.classList.add('visible');
         }
 
-        // ── Cerrar modal principal ──────────────────────────────
+        function limpiarCampos() {
+            mNombre.value = '';
+            mPrecio.value = '';
+            mCategoria.value = '';
+            mEtiqueta.value = '';
+            mDescripcion.value = '';
+            mImagen.value = '';
+            mExistencia.value = 0;
+            mEstado.value = 'Activo';
+        }
+
         function cerrarModal() {
             modalOverlay.classList.remove('visible');
         }
 
         // ── Guardar (agregar o editar) ──────────────────────────
         function guardarProducto() {
-            console.log('guardarProducto()');
             var nombre = mNombre.value.trim();
             var precio = parseFloat(mPrecio.value);
             var categoria = mCategoria.value;
             var etiqueta = mEtiqueta.value;
             var descripcion = mDescripcion.value.trim();
             var imagen = mImagen.value.trim();
+            var existencia = parseInt(mExistencia.value) || 0;
+            var estado = mEstado.value;
 
             if (!nombre || isNaN(precio) || !categoria) {
                 mostrarToast('⚠️ Completa nombre, precio y categoría.', 'error');
@@ -313,14 +385,16 @@
 
             if (editandoId !== null) {
                 var idx = productos.findIndex(function(p) { return p.id === editandoId; });
-                productos[idx] = { 
+                productos[idx] = {
                     id: editandoId,
                     nombre: nombre,
                     precio: precio,
                     categoria: categoria,
                     etiqueta: etiqueta,
                     descripcion: descripcion,
-                    imagen: imagen
+                    imagen: imagen,
+                    existencia: existencia,
+                    estado: estado
                 };
                 mostrarToast('✦ Producto actualizado correctamente.', 'ok');
             } else {
@@ -334,18 +408,45 @@
                     categoria: categoria,
                     etiqueta: etiqueta,
                     descripcion: descripcion,
-                    imagen: imagen
+                    imagen: imagen,
+                    existencia: existencia,
+                    estado: estado
                 });
                 mostrarToast('✦ Producto agregado al catálogo.', 'ok');
             }
 
             cerrarModal();
-            renderTabla();
+            aplicarFiltros(); // Refresca la tabla con filtros actuales
+        }
+
+        // ── Ver detalle ──────────────────────────────────────────
+        function verDetalle(id) {
+            var p = productos.find(function(x) { return x.id === id; });
+            if (!p) return;
+            detalleBody.innerHTML =
+                '<div style="display:flex; gap:20px; flex-wrap:wrap;">' +
+                    '<div style="flex:1; min-width:150px;">' +
+                        '<img src="' + p.imagen + '" alt="' + p.nombre + '" style="width:100%; max-width:200px; border-radius:12px; border:1px solid var(--border);" onerror="this.src=\'../images/logo/Logo.png\'">' +
+                    '</div>' +
+                    '<div style="flex:2;">' +
+                        '<p><strong>Nombre:</strong> ' + p.nombre + '</p>' +
+                        '<p><strong>Categoría:</strong> ' + p.categoria + '</p>' +
+                        '<p><strong>Precio:</strong> $' + p.precio.toFixed(2) + '</p>' +
+                        '<p><strong>Existencia:</strong> ' + p.existencia + '</p>' +
+                        '<p><strong>Estado:</strong> ' + (p.estado || 'Activo') + '</p>' +
+                        '<p><strong>Etiqueta:</strong> ' + (p.etiqueta || 'Ninguna') + '</p>' +
+                        '<p><strong>Descripción:</strong> ' + (p.descripcion || 'Sin descripción') + '</p>' +
+                    '</div>' +
+                '</div>';
+            detalleOverlay.classList.add('visible');
+        }
+
+        function cerrarDetalle() {
+            detalleOverlay.classList.remove('visible');
         }
 
         // ── Confirmar ELIMINAR ──────────────────────────────────
         function abrirConfirm(id) {
-            console.log('abrirConfirm(' + id + ')');
             var p = productos.find(function(x) { return x.id === id; });
             if (!p) return;
             eliminandoId = id;
@@ -359,22 +460,11 @@
         }
 
         function confirmarEliminar() {
-            console.log('confirmarEliminar()');
             if (eliminandoId === null) return;
             productos = productos.filter(function(p) { return p.id !== eliminandoId; });
             cerrarConfirm();
-            renderTabla();
+            aplicarFiltros();
             mostrarToast('🗑 Producto eliminado.', 'error');
-        }
-
-        // ── Buscador ──────────────────────────────────────────────
-        function filtrarProductos() {
-            var txt = inputBuscar.value.toLowerCase();
-            var filtrado = productos.filter(function(p) {
-                return p.nombre.toLowerCase().includes(txt) ||
-                       p.categoria.toLowerCase().includes(txt);
-            });
-            renderTabla(filtrado);
         }
 
         // ── Toast ─────────────────────────────────────────────────
@@ -389,7 +479,7 @@
         }
 
         // ── Inicializar ──────────────────────────────────────────
-        renderTabla();
+        aplicarFiltros(); // Carga la tabla con filtros por defecto
 
         // Cerrar modales al hacer clic fuera
         modalOverlay.addEventListener('click', function(e) {
@@ -398,11 +488,45 @@
         confirmOverlay.addEventListener('click', function(e) {
             if (e.target === confirmOverlay) cerrarConfirm();
         });
-
-        // Depuración: asegurar que las funciones estén en el scope global
-        console.log('Script cargado correctamente.');
-        console.log('Productos iniciales:', productos.length);
+        detalleOverlay.addEventListener('click', function(e) {
+            if (e.target === detalleOverlay) cerrarDetalle();
+        });
     </script>
+
+    <!-- Estilos para los nuevos elementos -->
+    <style>
+        .estado.entregado { background: rgba(74,222,128,0.15); color: #4ade80; }
+        .estado.pendiente { background: rgba(251,146,60,0.15); color: #fb923c; }
+        .admin-filtros {
+            display: flex;
+            gap: 12px;
+            padding: 12px 24px 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+        .admin-filtro-select select {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 8px 16px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .admin-filtro-select select:focus {
+            border-color: var(--gold-dim);
+        }
+        .btn-icono.detalle {
+            color: var(--lilac);
+        }
+        .btn-icono.detalle:hover {
+            background: rgba(192,132,252,0.12);
+            border-color: var(--lilac);
+        }
+    </style>
 
 </body>
 </html>
