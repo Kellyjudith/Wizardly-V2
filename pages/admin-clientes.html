@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Wizardly — Clientes</title>
+
+<link rel="icon" href="../images/favicon/favicon.jpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/admin.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+<style>
+
+
+.stats-container{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin-bottom:25px;
+
+}
+
+
+.stat-card{
+
+background:rgba(255,255,255,.03);
+border:1px solid rgba(212,175,55,.25);
+border-radius:10px;
+padding:20px;
+text-align:center;
+
+}
+
+
+.stat-card h3{
+
+font-family:'Cinzel',serif;
+color:#d4af37;
+font-size:.9rem;
+
+}
+
+
+.stat-card p{
+
+font-size:1.8rem;
+font-weight:bold;
+color:white;
+
+}
+
+
+
+.header-flex{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+
+}
+
+
+
+
+/* BOTON */
+
+.btn-add{
+
+background:#d4af37;
+
+color:#000;
+
+padding:12px 18px;
+
+border:none;
+
+border-radius:6px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+position:relative;
+
+z-index:999999;
+
+pointer-events:auto;
+
+transition:.3s;
+
+}
+
+
+.btn-add:hover{
+
+background:#f1c40f;
+
+box-shadow:0 0 15px rgba(212,175,55,.5);
+
+}
+
+
+
+
+/* TABLA */
+
+
+.table-responsive{
+
+overflow-x:auto;
+
+}
+
+
+.clients-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+
+.clients-table th{
+
+color:#d4af37;
+
+font-family:'Cinzel',serif;
+
+padding:14px;
+
+border-bottom:2px solid rgba(212,175,55,.3);
+
+text-align:left;
+
+}
+
+
+
+.clients-table td{
+
+padding:14px;
+
+color:#ddd;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+
+
+
+
+/* BADGES */
+
+
+.badge{
+
+padding:5px 10px;
+
+border-radius:5px;
+
+font-size:.75rem;
+
+font-weight:bold;
+
+}
+
+
+
+.badge-archmage{
+
+color:#a855f7;
+
+border:1px solid #a855f7;
+
+background:rgba(168,85,247,.2);
+
+}
+
+
+
+.badge-master{
+
+color:#3b82f6;
+
+border:1px solid #3b82f6;
+
+background:rgba(59,130,246,.2);
+
+}
+
+
+
+.badge-apprentice{
+
+color:#10b981;
+
+border:1px solid #10b981;
+
+background:rgba(16,185,129,.2);
+
+}
+
+
+
+.badge-squib{
+
+color:#9ca3af;
+
+border:1px solid #9ca3af;
+
+background:rgba(156,163,175,.2);
+
+}
+
+
+
+
+/* MODAL */
+
+
+.modal-overlay{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:rgba(9,5,14,.85);
+
+z-index:999999;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+
+.modal-overlay.active{
+
+display:flex;
+
+}
+
+
+
+.modal-content{
+
+background:#150b24;
+
+border:1px solid rgba(212,175,55,.4);
+
+border-radius:10px;
+
+padding:25px;
+
+width:90%;
+
+max-width:450px;
+
+}
+
+
+
+
+.modal-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:20px;
+
+border-bottom:1px solid rgba(212,175,55,.3);
+
+padding-bottom:10px;
+
+}
+
+
+
+.modal-header h3{
+
+color:#d4af37;
+
+font-family:'Cinzel',serif;
+
+}
+
+
+
+.close-btn{
+
+background:none;
+
+border:none;
+
+color:white;
+
+font-size:1.3rem;
+
+cursor:pointer;
+
+}
+
+
+
+.form-group{
+
+margin-bottom:15px;
+
+}
+
+
+
+.form-group label{
+
+display:block;
+
+color:#ccc;
+
+margin-bottom:5px;
+
+}
+
+
+
+.form-group input,
+.form-group select{
+
+
+width:100%;
+
+padding:10px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.2);
+
+border-radius:5px;
+
+color:white;
+
+}
+
+
+
+.btn-submit{
+
+width:100%;
+
+padding:12px;
+
+background:rgba(212,175,55,.15);
+
+color:#d4af37;
+
+border:1px solid #d4af37;
+
+cursor:pointer;
+
+font-weight:bold;
+
+border-radius:5px;
+
+}
+
+
+.btn-submit:hover{
+
+background:#d4af37;
+
+color:black;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body class="admin-body">
+    <aside class="admin-sidebar">
+
+    <div class="sidebar-logo">
+
+        <img src="../images/logo/Logo.png" alt="Wizardly">
+
+        <div>
+            <span class="brand">Wizardly</span>
+            <span class="sidebar-sub">Panel Arcano</span>
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="admin.html" class="nav-item">
+            <i class="fa-solid fa-gauge-high"></i>
+            Dashboard
+        </a>
+
+
+        <a href="admin-productos.html" class="nav-item">
+            <i class="fa-solid fa-hat-wizard"></i>
+            Productos
+        </a>
+
+
+        <a href="admin-pedidos.html" class="nav-item">
+            <i class="fa-solid fa-scroll"></i>
+            Pedidos
+        </a>
+
+
+        <a href="admin-promociones.html" class="nav-item">
+            <i class="fa-solid fa-wand-sparkles"></i>
+            Promociones
+        </a>
+
+
+        <a href="admin-clientes.html" class="nav-item active">
+            <i class="fa-solid fa-users"></i>
+            Clientes
+        </a>
+
+
+        <a href="admin-reporte.html" class="nav-item">
+            <i class="fa-solid fa-chart-simple"></i>
+            Reportes
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        <a href="../index.html" class="nav-item">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Volver al sitio
+
+        </a>
+
+    </div>
+
+
+</aside>
+
+
+
+
+<main class="admin-main">
+
+
+    <div class="admin-topbar">
+
+        <h1>
+            Gremio de Clientes
+        </h1>
+
+
+        <div class="topbar-usuario">
+
+            <i class="fa-solid fa-circle-user"></i>
+
+            <span>
+                Archimaga Seraphina
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="stats-container">
+
+
+        <div class="stat-card">
+
+            <h3>
+                Hechiceros Registrados
+            </h3>
+
+            <p id="contador-magos">
+                3
+            </p>
+
+        </div>
+
+
+
+
+        <div class="stat-card">
+
+            <h3>
+                Clientes VIP
+            </h3>
+
+            <p style="color:#a855f7;">
+                4
+            </p>
+
+        </div>
+
+
+
+
+
+        <div class="stat-card">
+
+            <h3>
+                Criaturas Místicas
+            </h3>
+
+            <p style="color:#10b981;">
+                7
+            </p>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <div class="admin-bloque" style="padding:24px;">
+
+
+
+        <div class="header-flex">
+
+
+            <h2>
+                Registro de Magos y Brujas
+            </h2>
+
+
+
+            <!-- BOTÓN QUE YA ESTABA (Y QUE AHORA FUNCIONA) -->
+
+            <button 
+                type="button"
+                id="btnAbrirModal"
+                class="btn-add">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Reclutar Mago
+
+            </button>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div class="table-responsive">
+
+
+            <table class="clients-table" id="tablaClientes">
+
+
+                <thead>
+
+
+                    <tr>
+
+                        <th>
+                            ID Mago
+                        </th>
+
+
+                        <th>
+                            Nombre Completo
+                        </th>
+
+
+                        <th>
+                            Correo de Lechuza
+                        </th>
+
+
+                        <th>
+                            Afiliación / Escuela
+                        </th>
+
+
+                        <th>
+                            Rango Arcano
+                        </th>
+
+
+                    </tr>
+
+
+                </thead>
+
+
+
+
+
+                <tbody>
+
+
+
+                    <tr>
+
+                        <td>
+                            #MAG-001
+                        </td>
+
+
+                        <td>
+                            Hermione Granger
+                        </td>
+
+
+                        <td>
+                            h.granger@ministry.magic
+                        </td>
+
+
+                        <td>
+                            Ministerio de Magia
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge badge-archmage">
+                                Archimago
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+
+
+
+
+                    <tr>
+
+                        <td>
+                            #MAG-002
+                        </td>
+
+
+                        <td>
+                            Harry Potter
+                        </td>
+
+
+                        <td>
+                            elegido@auror.org
+                        </td>
+
+
+                        <td>
+                            Oficina de Aurors
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge badge-master">
+                                Maestro
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+
+
+
+
+                    <tr>
+
+
+                        <td>
+                            #MAG-003
+                        </td>
+
+
+                        <td>
+                            Ron Weasley
+                        </td>
+
+
+                        <td>
+                            r.weasley@sortilegios.com
+                        </td>
+
+
+                        <td>
+                            Sortilegios Weasley
+                        </td>
+
+
+                        <td>
+
+                            <span class="badge badge-apprentice">
+                                Aprendiz
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+
+                </tbody>
+
+
+
+            </table>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <!-- ==========================
+         MODAL NUEVO CLIENTE (SOLO UNA VEZ)
+    ========================== -->
+
+    <div class="modal-overlay" id="modalCliente">
+
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+
+                <h3>
+                    <i class="fa-solid fa-hat-wizard"></i>
+                    Registrar Nuevo Mago
+                </h3>
+
+
+
+                <button 
+                    type="button"
+                    id="btnCerrarModal"
+                    class="close-btn">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+
+            </div>
+
+
+
+
+
+            <form id="formularioMago">
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+                        Nombre Completo
+                    </label>
+
+
+                    <input 
+                    type="text"
+                    id="nuevoNombre"
+                    placeholder="Ej. Neville Longbottom"
+                    required>
+
+
+                </div>
+
+
+
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+                        Correo de Lechuza
+                    </label>
+
+
+                    <input 
+                    type="email"
+                    id="nuevoCorreo"
+                    placeholder="mago@escuela.edu"
+                    required>
+
+
+                </div>
+
+
+
+
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+                        Afiliación / Escuela
+                    </label>
+
+
+                    <input 
+                    type="text"
+                    id="nuevaEscuela"
+                    placeholder="Ej. Hogwarts"
+                    required>
+
+
+                </div>
+
+
+
+
+
+
+
+
+                <div class="form-group">
+
+
+                    <label>
+                        Rango Arcano
+                    </label>
+
+
+                    <select id="nuevoRango" required>
+
+
+                        <option value="" disabled selected>
+                            Selecciona un rango...
+                        </option>
+
+
+                        <option value="archimago">
+                            Archimago (VIP)
+                        </option>
+
+
+                        <option value="maestro">
+                            Maestro
+                        </option>
+
+
+                        <option value="aprendiz">
+                            Aprendiz
+                        </option>
+
+
+                        <option value="squib">
+                            Squib
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+
+
+                <button 
+                type="submit"
+                class="btn-submit">
+
+
+                    Inscribir en el Gremio
+
+
+                </button>
+
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+</main> <!-- fin de admin-main -->
+
+
+<!-- ==========================
+     SCRIPT (SOLO UNA VEZ)
+========================== -->
+
+<script>
+
+
+document.addEventListener("DOMContentLoaded", function(){
+
+
+
+    const botonAbrir =
+    document.getElementById("btnAbrirModal");
+
+
+    const botonCerrar =
+    document.getElementById("btnCerrarModal");
+
+
+    const modal =
+    document.getElementById("modalCliente");
+
+
+    const formulario =
+    document.getElementById("formularioMago");
+
+
+
+
+
+    // ABRIR MODAL
+
+    botonAbrir.addEventListener("click", function(){
+
+
+        modal.classList.add("active");
+
+
+    });
+
+
+
+
+
+
+    // CERRAR MODAL
+
+
+    botonCerrar.addEventListener("click", function(){
+
+
+        modal.classList.remove("active");
+
+
+    });
+
+
+
+
+
+
+
+    // CERRAR AL DAR CLICK AFUERA
+
+
+    modal.addEventListener("click", function(e){
+
+
+        if(e.target === modal){
+
+
+            modal.classList.remove("active");
+
+
+        }
+
+
+    });
+
+
+
+
+
+
+
+
+    // REGISTRAR CLIENTE
+
+
+
+    formulario.addEventListener("submit", function(e){
+
+
+        e.preventDefault();
+
+
+
+
+        let nombre =
+        document.getElementById("nuevoNombre").value;
+
+
+
+        let correo =
+        document.getElementById("nuevoCorreo").value;
+
+
+
+        let escuela =
+        document.getElementById("nuevaEscuela").value;
+
+
+
+        let rango =
+        document.getElementById("nuevoRango").value;
+
+
+
+
+
+
+        let clase="";
+
+        let texto="";
+
+
+
+
+
+        if(rango==="archimago"){
+
+            clase="badge-archmage";
+            texto="Archimago";
+
+        }
+
+
+        else if(rango==="maestro"){
+
+            clase="badge-master";
+            texto="Maestro";
+
+        }
+
+
+        else if(rango==="aprendiz"){
+
+            clase="badge-apprentice";
+            texto="Aprendiz";
+
+        }
+
+
+        else if(rango==="squib"){
+
+            clase="badge-squib";
+            texto="Squib";
+
+        }
+
+
+
+
+
+
+
+
+        let nuevoID =
+        "#MAG-" + Math.floor(Math.random()*900+100);
+
+
+
+
+
+        let nuevaFila = `
+
+
+        <tr>
+
+            <td>${nuevoID}</td>
+
+            <td>${nombre}</td>
+
+            <td>${correo}</td>
+
+            <td>${escuela}</td>
+
+            <td>
+
+                <span class="badge ${clase}">
+                    ${texto}
+                </span>
+
+            </td>
+
+
+        </tr>
+
+
+        `;
+
+
+
+
+
+
+
+        document
+        .querySelector("#tablaClientes tbody")
+        .insertAdjacentHTML(
+            "afterbegin",
+            nuevaFila
+        );
+
+
+
+
+
+
+
+
+        let contador =
+        document.getElementById("contador-magos");
+
+
+
+        contador.textContent =
+        Number(contador.textContent)+1;
+
+
+
+
+
+
+
+        formulario.reset();
+
+
+        modal.classList.remove("active");
+
+
+
+        alert(
+        "✨ " + nombre +
+        " ha sido agregado al gremio."
+        );
+
+
+
+    });
+
+
+
+
+});
+
+
+
+</script>
+
+</body>
+</html>
