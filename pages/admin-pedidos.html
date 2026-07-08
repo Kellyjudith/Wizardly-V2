@@ -62,6 +62,8 @@
         .orders-table tr:hover {
             background: rgba(255, 255, 255, 0.02);
         }
+        
+        /* Estilos base de las insignias */
         .badge {
             padding: 4px 8px;
             border-radius: 4px;
@@ -69,9 +71,31 @@
             font-weight: bold;
             text-transform: uppercase;
         }
+        
+        /* Nuevos estilos para el elemento select interactivo */
+        .badge-select {
+            cursor: pointer;
+            outline: none;
+            /* Añadimos un poco de espacio extra a la derecha para la flecha del select */
+            padding-right: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .badge-select:hover {
+            filter: brightness(1.2);
+        }
+
+        /* Colores de estado */
         .badge-success { background: rgba(40, 167, 69, 0.2); color: #28a745; border: 1px solid #28a745; }
         .badge-warning { background: rgba(255, 193, 7, 0.2); color: #ffc107; border: 1px solid #ffc107; }
         .badge-danger { background: rgba(220, 53, 69, 0.2); color: #dc3545; border: 1px solid #dc3545; }
+        
+        /* Opciones dentro del select para que sean legibles sin importar el color de fondo actual */
+        .badge-select option {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-weight: normal;
+        }
     </style>
 </head>
 <body class="admin-body">
@@ -155,35 +179,65 @@
                             <td>Albus Dumbledore</td>
                             <td>1x Varita de Fénix Suprema, 2x Poción de Maná Pura</td>
                             <td>350 Oro</td>
-                            <td><span class="badge badge-success">Enviado</span></td>
+                            <td>
+                                <select class="badge badge-select badge-success" onchange="cambiarEstado(this)">
+                                    <option value="Enviado" selected>Enviado</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>#WIZ-8932</td>
                             <td>Luna Lovegood</td>
                             <td>1x Gafas Espectrales, 3x Polvo de Hada Reluciente</td>
                             <td>125 Oro</td>
-                            <td><span class="badge badge-warning">Pendiente</span></td>
+                            <td>
+                                <select class="badge badge-select badge-warning" onchange="cambiarEstado(this)">
+                                    <option value="Enviado">Enviado</option>
+                                    <option value="Pendiente" selected>Pendiente</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>#WIZ-8812</td>
                             <td>Gandalf el Gris</td>
                             <td>1x Sombrero de Archimago (Gris Tormenta)</td>
                             <td>500 Oro</td>
-                            <td><span class="badge badge-success">Enviado</span></td>
+                            <td>
+                                <select class="badge badge-select badge-success" onchange="cambiarEstado(this)">
+                                    <option value="Enviado" selected>Enviado</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>#WIZ-8755</td>
                             <td>Morgana le Fay</td>
                             <td>2x Elíxir de Transmutación Prohibida</td>
                             <td>240 Oro</td>
-                            <td><span class="badge badge-danger">Cancelado</span></td>
+                            <td>
+                                <select class="badge badge-select badge-danger" onchange="cambiarEstado(this)">
+                                    <option value="Enviado">Enviado</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Cancelado" selected>Cancelado</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>#WIZ-8610</td>
                             <td>Merlín Ambrosius</td>
                             <td>5x Pergamino de Teletransportación Avanzada</td>
                             <td>150 Oro</td>
-                            <td><span class="badge badge-success">Enviado</span></td>
+                            <td>
+                                <select class="badge badge-select badge-success" onchange="cambiarEstado(this)">
+                                    <option value="Enviado" selected>Enviado</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -192,5 +246,26 @@
         </div>
     </main>
 
+    <script>
+        function cambiarEstado(selectElement) {
+            // Removemos todas las clases de estado previas
+            selectElement.classList.remove('badge-success', 'badge-warning', 'badge-danger');
+            
+            // Evaluamos el nuevo valor seleccionado y aplicamos la clase correspondiente
+            const estado = selectElement.value;
+            
+            if (estado === 'Enviado') {
+                selectElement.classList.add('badge-success');
+            } else if (estado === 'Pendiente') {
+                selectElement.classList.add('badge-warning');
+            } else if (estado === 'Cancelado') {
+                selectElement.classList.add('badge-danger');
+            }
+
+            // Opcional: Aquí podrías agregar un código Fetch/AJAX en el futuro 
+            // para enviar el nuevo estado directamente a tu base de datos
+            // console.log("Estado actualizado a: " + estado);
+        }
+    </script>
 </body>
 </html>
