@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,76 @@
     <link rel="icon" href="../images/favicon/favicon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/carrito.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        /* Estilos extra para el cupón y mensajes */
+        .cupon-mensaje {
+            margin-top: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            min-height: 28px;
+            letter-spacing: 0.05em;
+        }
+        .cupon-mensaje.exito {
+            color: #4ade80;
+            text-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+        }
+        .cupon-mensaje.error {
+            color: #f87171;
+            text-shadow: 0 0 12px rgba(248, 113, 113, 0.3);
+        }
+        .resumen-cupon {
+            margin: 16px 0 20px;
+        }
+        .cupon-input-group {
+            display: flex;
+            gap: 8px;
+        }
+        .cupon-input-group input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 10px 16px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .cupon-input-group input:focus {
+            border-color: var(--gold-dim);
+        }
+        .btn-cupon {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            border-radius: 30px;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+        .btn-cupon:hover {
+            background: rgba(246, 213, 122, 0.1);
+            color: var(--gold-glow);
+        }
+        .cupon-mensaje {
+            margin-top: 8px;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,6 +98,7 @@
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="../index.html#nosotros">Nosotros</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
                 <li>
                     <a href="carrito.html" class="carrito-link active">
                         <i class="fa-solid fa-cart-shopping"></i>
@@ -66,16 +133,46 @@
 
                 <div class="resumen-linea">
                     <span>Subtotal</span>
-                    <span id="resumen-subtotal">$0.00</span>
+                    <span id="resumen-subtotal">$0.00 MXN</span>
                 </div>
-                <div class="resumen-linea">
+
+                <div class="resumen-linea" id="linea-descuento" style="display:none;">
+                    <span>Descuento</span>
+                    <span id="resumen-descuento">-$0.00</span>
+                </div>
+
+                <div class="resumen-linea" id="linea-envio">
                     <span>Envío mágico</span>
-                    <span class="gratis">Gratis</span>
+                    <span class="gratis" id="envio-texto">Gratis</span>
                 </div>
+
                 <div class="resumen-divider"></div>
+
                 <div class="resumen-linea total">
                     <span>Total</span>
-                    <span id="resumen-total">$0.00</span>
+                    <span id="resumen-total">$0.00 MXN</span>
+                </div>
+
+                <!-- Código promocional -->
+                <div class="resumen-cupon">
+                    <div class="cupon-input-group">
+                        <input type="text" id="codigo-cupon" placeholder="Código de descuento" />
+                        <button class="btn-cupon" onclick="aplicarCupon()">Aplicar</button>
+                    </div>
+                    <div id="mensaje-cupon" class="cupon-mensaje"></div>
+                </div>
+
+                <!-- Bloque de descuento aplicado (se muestra solo cuando hay descuento) -->
+                <div id="resumen-descuento-aplicado"
+                    style="display:none; margin-top:12px; padding:12px; background:rgba(74,222,128,0.06); border-radius:12px; border-left:3px solid #4ade80;">
+                    <div style="display:flex; justify-content:space-between; font-family:'Lato',sans-serif; font-size:0.9rem; color:var(--text-muted);">
+                        <span>Descuento aplicado</span>
+                        <span id="resumen-descuento-monto" style="color:#4ade80; font-weight:700;">-$0.00</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-family:'Cinzel',serif; font-size:1.1rem; color:var(--gold); margin-top:6px;">
+                        <span>Total con descuento</span>
+                        <span id="resumen-total-con-descuento">$0.00 MXN</span>
+                    </div>
                 </div>
 
                 <a href="checkout.html" class="btn-pagar" id="btn-pagar">
@@ -91,26 +188,276 @@
     </section>
 
     <!-- FOOTER -->
-   <footer class="footer-mini">
+    <footer class="footer-mini">
+        <p>
+            © 2026 <span>Wizardly</span> — Mercado Arcano
+            &nbsp;✦&nbsp; Todos los derechos mágicos reservados
+        </p>
+        <div class="footer-links">
+            <a href="politicas.html">Políticas de Compra y Venta</a>
+        </div>
+    </footer>
 
-    <p>
-        © 2026 <span>Wizardly</span> — Mercado Arcano
-        &nbsp;✦&nbsp; Todos los derechos mágicos reservados
-    </p>
-
-    <div class="footer-links">
-        <a href="politicas.html">Políticas de Compra y Venta</a>
-    </div>
-
-</footer>
-
-    <script src="../js/carrito.js"></script>
-    <script src="../js/script.js"></script>
+    <!-- ====== TODO EL JAVASCRIPT EMBEBIDO ====== -->
     <script>
+        // ------------------------------------------------------------
+        //  CARRITO: funciones básicas (localStorage)
+        // ------------------------------------------------------------
+        const CLAVE = 'wizardly_carrito';
+
+        function obtenerCarrito() {
+            return JSON.parse(localStorage.getItem(CLAVE)) || [];
+        }
+
+        function guardarCarrito(carrito) {
+            localStorage.setItem(CLAVE, JSON.stringify(carrito));
+            actualizarContador();
+        }
+
+        function agregarAlCarrito(producto, cantidad = 1) {
+            const carrito = obtenerCarrito();
+            const idx = carrito.findIndex(p => p.id === producto.id);
+            if (idx >= 0) {
+                carrito[idx].cantidad += cantidad;
+            } else {
+                carrito.push({ ...producto, cantidad });
+            }
+            guardarCarrito(carrito);
+            mostrarToastCarrito(producto.nombre);
+        }
+
+        function cambiarCantidad(id, delta) {
+            const carrito = obtenerCarrito();
+            const idx = carrito.findIndex(p => p.id === id);
+            if (idx < 0) return;
+            carrito[idx].cantidad += delta;
+            if (carrito[idx].cantidad <= 0) carrito.splice(idx, 1);
+            guardarCarrito(carrito);
+        }
+
+        function eliminarDelCarrito(id) {
+            let carrito = obtenerCarrito().filter(p => p.id !== id);
+            guardarCarrito(carrito);
+        }
+
+        function vaciarCarrito() {
+            localStorage.removeItem(CLAVE);
+            actualizarContador();
+        }
+
+        // ------------------------------------------------------------
+        //  CONTADOR DEL NAVBAR
+        // ------------------------------------------------------------
+        function actualizarContador() {
+            const carrito = obtenerCarrito();
+            const total = carrito.reduce((s, p) => s + p.cantidad, 0);
+            const badge = document.getElementById('contador-carrito');
+            if (!badge) return;
+            badge.textContent = total;
+            badge.style.display = total > 0 ? 'inline-flex' : 'none';
+        }
+
+        // ------------------------------------------------------------
+        //  TOAST DE CONFIRMACIÓN AL AGREGAR
+        // ------------------------------------------------------------
+        function mostrarToastCarrito(nombre) {
+            const enSubcarpeta = window.location.pathname.includes('/pages/');
+            const rutaCarrito = enSubcarpeta ? 'carrito.html' : 'pages/carrito.html';
+
+            let t = document.getElementById('toast-carrito');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast-carrito';
+                t.className = 'toast-carrito';
+                document.body.appendChild(t);
+            }
+            t.innerHTML = `
+                <div class="toast-icono"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="toast-texto">
+                    <span class="toast-titulo">¡Agregado exitosamente!</span>
+                    <span class="toast-nombre">${nombre}</span>
+                </div>
+                <a href="${rutaCarrito}" class="toast-ver">Ver carrito →</a>
+            `;
+            t.classList.add('visible');
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.classList.remove('visible'), 3500);
+        }
+
+        // ------------------------------------------------------------
+        //  LÓGICA DE CUPONES DE DESCUENTO
+        // ------------------------------------------------------------
+        const PROMOCIONES = [
+            {
+                codigo: 'LUNA20',
+                tipo: 'porcentaje',
+                valor: 20,
+                condiciones: {
+                    montoMinimo: 200,
+                    categorias: ['Pociones'],
+                    productos: []
+                }
+            },
+            {
+                codigo: '2X1AMULETO',
+                tipo: '2x1',
+                valor: 1,
+                condiciones: {
+                    montoMinimo: 0,
+                    categorias: ['Amuletos'],
+                    productos: []
+                }
+            },
+            {
+                codigo: 'KITMAGO15',
+                tipo: 'porcentaje',
+                valor: 15,
+                condiciones: {
+                    montoMinimo: 0,
+                    categorias: ['Varitas', 'Libros', 'Calderos'],
+                    productos: []
+                }
+            },
+            {
+                codigo: 'ENVIOGATIS',
+                tipo: 'envio_gratis',
+                valor: 0,
+                condiciones: {
+                    montoMinimo: 500,
+                    categorias: [],
+                    productos: []
+                }
+            }
+        ];
+
+        let cuponActivo = null;
+        let descuentoAplicado = 0;
+
+        function validarCupon(codigo, carrito) {
+            const promo = PROMOCIONES.find(p => p.codigo === codigo);
+            if (!promo) return { valido: false, mensaje: 'Código no válido.' };
+
+            const condiciones = promo.condiciones;
+            const totalCarrito = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+            const categoriasEnCarrito = [...new Set(carrito.map(item => item.categoria))];
+
+            if (condiciones.montoMinimo > 0 && totalCarrito < condiciones.montoMinimo) {
+                return { valido: false, mensaje: `El monto mínimo es $${condiciones.montoMinimo}.` };
+            }
+
+            if (condiciones.categorias.length > 0) {
+                const tieneCategoria = condiciones.categorias.some(cat => categoriasEnCarrito.includes(cat));
+                if (!tieneCategoria) {
+                    return { valido: false, mensaje: `Este código aplica solo para: ${condiciones.categorias.join(', ')}.` };
+                }
+            }
+
+            if (codigo === 'KITMAGO15') {
+                const catsRequeridas = ['Varitas', 'Libros', 'Calderos'];
+                const tieneTodas = catsRequeridas.every(cat => categoriasEnCarrito.includes(cat));
+                if (!tieneTodas) {
+                    return { valido: false, mensaje: 'Debes tener al menos una varita, un libro y un caldero.' };
+                }
+            }
+
+            if (codigo === '2X1AMULETO') {
+                const amuletos = carrito.filter(item => item.categoria === 'Amuletos');
+                const totalAmuletos = amuletos.reduce((sum, item) => sum + item.cantidad, 0);
+                if (totalAmuletos < 2) {
+                    return { valido: false, mensaje: 'Necesitas al menos 2 amuletos para aplicar el 2x1.' };
+                }
+            }
+
+            return { valido: true, mensaje: 'Código aplicado correctamente.', promo };
+        }
+
+        function calcularDescuento(carrito, promo) {
+            let descuento = 0;
+            if (promo.tipo === 'porcentaje') {
+                const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+                descuento = (total * promo.valor) / 100;
+            } else if (promo.tipo === '2x1') {
+                const amuletos = carrito.filter(item => item.categoria === 'Amuletos');
+                if (amuletos.length > 0) {
+                    amuletos.sort((a, b) => a.precio - b.precio);
+                    const menor = amuletos[0];
+                    descuento = menor.precio;
+                }
+            } else if (promo.tipo === 'envio_gratis') {
+                descuento = 0; // no afecta el total, pero se usa para mostrar badge
+            }
+            return descuento;
+        }
+
+        // ------------------------------------------------------------
+        //  APLICAR CUPÓN (desde el carrito)
+        // ------------------------------------------------------------
+        function aplicarCupon() {
+            const input = document.getElementById('codigo-cupon');
+            const mensajeEl = document.getElementById('mensaje-cupon');
+            const codigo = input.value.trim().toUpperCase();
+
+            if (!codigo) {
+                mensajeEl.textContent = '⚠️ Ingresa un código.';
+                mensajeEl.className = 'cupon-mensaje error';
+                return;
+            }
+
+            const carrito = obtenerCarrito();
+            if (carrito.length === 0) {
+                mensajeEl.textContent = '⚠️ Tu carrito está vacío.';
+                mensajeEl.className = 'cupon-mensaje error';
+                return;
+            }
+
+            const resultado = validarCupon(codigo, carrito);
+            if (!resultado.valido) {
+                mensajeEl.textContent = '❌ ' + resultado.mensaje;
+                mensajeEl.className = 'cupon-mensaje error';
+                cuponActivo = null;
+                descuentoAplicado = 0;
+                localStorage.removeItem('codigo_promocional');
+                renderCarrito();
+                return;
+            }
+
+            const promo = resultado.promo;
+            const descuento = calcularDescuento(carrito, promo);
+            cuponActivo = codigo;
+            descuentoAplicado = descuento;
+            localStorage.setItem('codigo_promocional', codigo);
+            mensajeEl.textContent = '✅ Código aplicado correctamente.';
+            mensajeEl.className = 'cupon-mensaje exito';
+
+            renderCarrito();
+        }
+
+        // ------------------------------------------------------------
+        //  RENDERIZAR CARRITO (con descuento y envío)
+        // ------------------------------------------------------------
         function renderCarrito() {
             const carrito = obtenerCarrito();
-            const lista   = document.getElementById('carrito-lista');
+            const lista = document.getElementById('carrito-lista');
             const btnPagar = document.getElementById('btn-pagar');
+
+            // Cargar cupón guardado automáticamente
+            const codigoGuardado = localStorage.getItem('codigo_promocional');
+            if (codigoGuardado && !cuponActivo) {
+                const resultado = validarCupon(codigoGuardado, carrito);
+                if (resultado.valido) {
+                    cuponActivo = codigoGuardado;
+                    descuentoAplicado = calcularDescuento(carrito, resultado.promo);
+                    const mensajeEl = document.getElementById('mensaje-cupon');
+                    if (mensajeEl) {
+                        mensajeEl.textContent = '✅ Código aplicado correctamente.';
+                        mensajeEl.className = 'cupon-mensaje exito';
+                    }
+                } else {
+                    localStorage.removeItem('codigo_promocional');
+                    cuponActivo = null;
+                    descuentoAplicado = 0;
+                }
+            }
 
             if (carrito.length === 0) {
                 lista.innerHTML = `
@@ -121,13 +468,17 @@
                     </div>
                 `;
                 document.getElementById('resumen-subtotal').textContent = '$0.00 MXN';
-                document.getElementById('resumen-total').textContent    = '$0.00 MXN';
-                btnPagar.style.opacity        = '0.4';
-                btnPagar.style.pointerEvents  = 'none';
+                document.getElementById('resumen-total').textContent = '$0.00 MXN';
+                document.getElementById('linea-descuento').style.display = 'none';
+                document.getElementById('resumen-descuento-aplicado').style.display = 'none';
+                btnPagar.style.opacity = '0.4';
+                btnPagar.style.pointerEvents = 'none';
+                // Actualizar badge de envío
+                document.getElementById('envio-texto').textContent = 'Gratis';
                 return;
             }
 
-            btnPagar.style.opacity       = '1';
+            btnPagar.style.opacity = '1';
             btnPagar.style.pointerEvents = 'auto';
             lista.innerHTML = '';
 
@@ -158,9 +509,38 @@
             });
 
             document.getElementById('resumen-subtotal').textContent = `$${subtotal.toFixed(2)} MXN`;
-            document.getElementById('resumen-total').textContent    = `$${subtotal.toFixed(2)} MXN`;
+
+            // Descuento
+            const lineaDescuento = document.getElementById('linea-descuento');
+            const bloqueDescuento = document.getElementById('resumen-descuento-aplicado');
+            if (descuentoAplicado > 0) {
+                lineaDescuento.style.display = 'flex';
+                document.getElementById('resumen-descuento').textContent = `-$${descuentoAplicado.toFixed(2)}`;
+                bloqueDescuento.style.display = 'block';
+                document.getElementById('resumen-descuento-monto').textContent = `-$${descuentoAplicado.toFixed(2)}`;
+                const totalFinal = subtotal - descuentoAplicado;
+                document.getElementById('resumen-total-con-descuento').textContent = `$${totalFinal.toFixed(2)} MXN`;
+            } else {
+                lineaDescuento.style.display = 'none';
+                bloqueDescuento.style.display = 'none';
+            }
+
+            // Total final
+            const totalFinal = subtotal - descuentoAplicado;
+            document.getElementById('resumen-total').textContent = `$${totalFinal.toFixed(2)} MXN`;
+
+            // Badge de envío gratis por promoción
+            const envioTexto = document.getElementById('envio-texto');
+            if (cuponActivo === 'ENVIOGATIS' && descuentoAplicado === 0) {
+                envioTexto.innerHTML = 'Gratis <span style="font-size:0.65rem; background:rgba(74,222,128,0.2); padding:2px 8px; border-radius:12px; margin-left:6px;">por promoción</span>';
+            } else {
+                envioTexto.textContent = 'Gratis';
+            }
         }
 
+        // ------------------------------------------------------------
+        //  FUNCIONES GLOBALES PARA LOS BOTONES DEL CARRITO
+        // ------------------------------------------------------------
         function accionCarrito(id, delta) {
             cambiarCantidad(id, delta);
             renderCarrito();
@@ -171,37 +551,47 @@
             renderCarrito();
         }
 
-        renderCarrito();
-        //--------------------------------------------------
-// VERIFICAR SESIÓN AL PAGAR
-//--------------------------------------------------
+        // ------------------------------------------------------------
+        //  VERIFICAR SESIÓN AL PAGAR (se mantiene igual)
+        // ------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnPagar = document.getElementById('btn-pagar');
+            if (btnPagar) {
+                btnPagar.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const logueado = localStorage.getItem('usuarioLogueado');
+                    if (logueado === 'true') {
+                        window.location.href = 'checkout.html';
+                    } else {
+                        // Mostrar notificación (si existe la función)
+                        if (typeof mostrarNotificacion === 'function') {
+                            mostrarNotificacion('🔒 Debes iniciar sesión para continuar con la compra.', 'warning');
+                        } else {
+                            alert('🔒 Debes iniciar sesión para continuar con la compra.');
+                        }
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1800);
+                    }
+                });
+            }
+        });
 
-document.getElementById("btn-pagar").addEventListener("click",function(e){
+        // ------------------------------------------------------------
+        //  INICIALIZACIÓN
+        // ------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', function () {
+            renderCarrito();
+            actualizarContador();
+        });
 
-    e.preventDefault();
-
-    const logueado = localStorage.getItem("usuarioLogueado");
-
-    if(logueado==="true"){
-
-        window.location.href="checkout.html";
-
-    }else{
-
-        mostrarNotificacion(
-            "🔒 Debes iniciar sesión para continuar con la compra.",
-            "warning"
-        );
-
-        setTimeout(()=>{
-
-            window.location.href="login.html";
-
-        },1800);
-
-    }
-
-});
+        // Exponer funciones globalmente (para los onclick en HTML)
+        window.accionCarrito = accionCarrito;
+        window.eliminarItem = eliminarItem;
+        window.aplicarCupon = aplicarCupon;
+        window.renderCarrito = renderCarrito;
     </script>
+
 </body>
+
 </html>
