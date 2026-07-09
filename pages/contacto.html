@@ -10,7 +10,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/contacto.css">
@@ -19,23 +21,23 @@
 
 <body>
     <!-- ===== REDES SOCIALES FLOTANTES (FIXED) ===== -->
-<div class="social-float">
-    <a href="https://facebook.com" target="_blank" aria-label="Facebook">
-        <i class="fa-brands fa-facebook-f"></i>
-    </a>
-    <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-        <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
-        <i class="fa-brands fa-tiktok"></i>
-    </a>
-    <a href="https://twitter.com" target="_blank" aria-label="X / Twitter">
-        <i class="fa-brands fa-x-twitter"></i>
-    </a>
-    <a href="https://youtube.com" target="_blank" aria-label="YouTube">
-        <i class="fa-brands fa-youtube"></i>
-    </a>
-</div>
+    <div class="social-float">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://tiktok.com" target="_blank" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="X / Twitter">
+            <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" aria-label="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+    </div>
 
 
 
@@ -51,6 +53,9 @@
             </a>
             <ul class="menu">
                 <li><a href="../index.html">Inicio</a></li>
+<<<<<<< HEAD
+                <li><a href="catalogo.html">Catálogo</a></li>
+=======
 <li><a href="catalogo.html">Catálogo</a></li>
 <li><a href="../pages/campa.html">Campaña</a></li>
 <li><a href="../index.html#nosotros">Nosotros</a></li>
@@ -60,8 +65,12 @@
 
 
 
+>>>>>>> a808574a99db5135de8ec5cb4e3a841fe75fb12c
 
-<li><a href="login.html" class="btn-login">Acceder</a></li>
+                <li><a href="../index.html#nosotros">Nosotros</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
 
             </ul>
         </nav>
@@ -186,22 +195,22 @@
     <!-- FOOTER -->
     <footer class="footer-mini">
 
-    <p>
-        © 2026 <span>Wizardly</span> — Mercado Arcano
-        &nbsp;✦&nbsp; Todos los derechos mágicos reservados
-    </p>
+        <p>
+            © 2026 <span>Wizardly</span> — Mercado Arcano
+            &nbsp;✦&nbsp; Todos los derechos mágicos reservados
+        </p>
 
-    <div class="footer-links">
-        <a href="politicas.html">Políticas de Compra y Venta</a>
-    </div>
+        <div class="footer-links">
+            <a href="politicas.html">Políticas de Compra y Venta</a>
+        </div>
 
-</footer>
+    </footer>
 
     <script src="../js/script.js"></script>
     <script>
         function enviarMensaje() {
-            const nombre  = document.getElementById('nombre').value.trim();
-            const correo  = document.getElementById('correo').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            const correo = document.getElementById('correo').value.trim();
             const mensaje = document.getElementById('mensaje').value.trim();
 
             if (!nombre || !correo || !mensaje) {
@@ -213,118 +222,120 @@
             toast.classList.add('visible');
 
             // Limpiar campos
-            document.getElementById('nombre').value  = '';
-            document.getElementById('correo').value  = '';
+            document.getElementById('nombre').value = '';
+            document.getElementById('correo').value = '';
             document.getElementById('mensaje').value = '';
 
             // Ocultar toast después de 4 segundos
             setTimeout(() => toast.classList.remove('visible'), 4000);
         } 
     </script>
-<script>
-    // ============================================================
-    //  LISTA DE PRODUCTOS
-    // ============================================================
-    const productos = [
-        {
-            id: 1,
-            nombre: "Varita de Saúco",
-            precio: 350.00,
-            descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix.",
-            imagen: "../images/varita sauco.webp"
-        },
-        {
-            id: 2,
-            nombre: "Poción de Invisibilidad",
-            precio: 85.50,
-            descripcion: "Brewed con extracto de cola de tritón y polvo de luna.",
-            imagen: "../images/pocion invisiobilidad.jpg"
-        },
-        {
-            id: 3,
-            nombre: "Grimorio de Hechizos Antiguos",
-            precio: 420.00,
-            descripcion: "Recopilación de conjuros olvidados.",
-            imagen: "../images/grimorio.jpg"
-        },
-        {
-            id: 4,
-            nombre: "Cristal de Adivinación",
-            precio: 199.99,
-            descripcion: "Cuarzo transparente de las montañas de Zafiro.",
-            imagen: "../images/cristal de adivinacion.webp"
-        },
-        {
-            id: 5,
-            nombre: "Amuleto de Protección",
-            precio: 65.00,
-            descripcion: "Colgante de plata con runas élficas.",
-            imagen: "../images/Amuleto de proteccion.jpeg"
-        },
-        {
-            id: 6,
-            nombre: "Caldero de Cobre",
-            precio: 275.00,
-            descripcion: "Caldero reforzado con anillos de bronce.",
-            imagen: "../images/Caldero.jpg"
-        },
-        {
-            id: 7,
-            nombre: "Mapa del Tesoro Escondido",
-            precio: 120.00,
-            descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos.",
-            imagen: "../images/mapa del tesoro.jpg"
-        },
-        {
-            id: 8,
-            nombre: "Pluma de Fénix",
-            precio: 450.00,
-            descripcion: "Pluma auténtica de un fénix milenario.",
-            imagen: "../images/pluma de fenix.jpg"
+    <script>
+        // ============================================================
+        //  LISTA DE PRODUCTOS
+        // ============================================================
+        const productos = [
+            {
+                id: 1,
+                nombre: "Varita de Saúco",
+                precio: 350.00,
+                descripcion: "Tallada en madera de saúco con núcleo de pluma de fénix.",
+                imagen: "../images/varita sauco.webp"
+            },
+            {
+                id: 2,
+                nombre: "Poción de Invisibilidad",
+                precio: 85.50,
+                descripcion: "Brewed con extracto de cola de tritón y polvo de luna.",
+                imagen: "../images/pocion invisiobilidad.jpg"
+            },
+            {
+                id: 3,
+                nombre: "Grimorio de Hechizos Antiguos",
+                precio: 420.00,
+                descripcion: "Recopilación de conjuros olvidados.",
+                imagen: "../images/grimorio.jpg"
+            },
+            {
+                id: 4,
+                nombre: "Cristal de Adivinación",
+                precio: 199.99,
+                descripcion: "Cuarzo transparente de las montañas de Zafiro.",
+                imagen: "../images/cristal de adivinacion.webp"
+            },
+            {
+                id: 5,
+                nombre: "Amuleto de Protección",
+                precio: 65.00,
+                descripcion: "Colgante de plata con runas élficas.",
+                imagen: "../images/Amuleto de proteccion.jpeg"
+            },
+            {
+                id: 6,
+                nombre: "Caldero de Cobre",
+                precio: 275.00,
+                descripcion: "Caldero reforzado con anillos de bronce.",
+                imagen: "../images/Caldero.jpg"
+            },
+            {
+                id: 7,
+                nombre: "Mapa del Tesoro Escondido",
+                precio: 120.00,
+                descripcion: "Pergamino encantado que revela la ubicación de objetos perdidos.",
+                imagen: "../images/mapa del tesoro.jpg"
+            },
+            {
+                id: 8,
+                nombre: "Pluma de Fénix",
+                precio: 450.00,
+                descripcion: "Pluma auténtica de un fénix milenario.",
+                imagen: "../images/pluma de fenix.jpg"
+            }
+        ];
+
+        // ============================================================
+        //  GENERAR TARJETAS
+        // ============================================================
+        const container = document.getElementById('productos-container');
+
+        if (container) {
+            productos.forEach(prod => {
+
+                const card = document.createElement('div');
+                card.className = 'producto-card';
+
+                const img = document.createElement('img');
+                img.src = prod.imagen;
+                img.alt = prod.nombre;
+                img.loading = 'lazy';
+                card.appendChild(img);
+
+                const nombre = document.createElement('h3');
+                nombre.textContent = prod.nombre;
+                card.appendChild(nombre);
+
+                const precio = document.createElement('p');
+                precio.className = 'producto-precio';
+                precio.textContent = `$${prod.precio.toFixed(2)} MXN`;
+                card.appendChild(precio);
+
+                const btn = document.createElement('a');
+                btn.className = 'btn-detalle';
+                btn.href = `detalle.html?id=${prod.id}`;
+                btn.textContent = 'Ver detalle';
+                card.appendChild(btn);
+
+                container.appendChild(card);
+            });
         }
-    ];
+    </script>
 
-    // ============================================================
-    //  GENERAR TARJETAS
-    // ============================================================
-    const container = document.getElementById('productos-container');
-
-    if (container) {
-        productos.forEach(prod => {
-
-            const card = document.createElement('div');
-            card.className = 'producto-card';
-
-            const img = document.createElement('img');
-            img.src = prod.imagen;
-            img.alt = prod.nombre;
-            img.loading = 'lazy';
-            card.appendChild(img);
-
-            const nombre = document.createElement('h3');
-            nombre.textContent = prod.nombre;
-            card.appendChild(nombre);
-
-            const precio = document.createElement('p');
-            precio.className = 'producto-precio';
-            precio.textContent = `$${prod.precio.toFixed(2)} MXN`;
-            card.appendChild(precio);
-
-            const btn = document.createElement('a');
-            btn.className = 'btn-detalle';
-            btn.href = `detalle.html?id=${prod.id}`;
-            btn.textContent = 'Ver detalle';
-            card.appendChild(btn);
-
-            container.appendChild(card);
-        });
-    }
-</script>
-
-<!-- Script general del sitio -->
-<script src="../js/script.js"></script>
+    <!-- Script general del sitio -->
+    <script src="../js/script.js"></script>
 
 </body>
+
 </html>
 </body>
+
 </html>
