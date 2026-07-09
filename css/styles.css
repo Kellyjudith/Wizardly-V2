@@ -716,7 +716,39 @@ BOTÓN EXPLORAR MÁGICO
     margin-top:12px;
     text-align:center;
 }
+.swal2-popup{
 
+    border:2px solid #b886ff !important;
+    border-radius:18px !important;
+
+    box-shadow:
+        0 0 20px rgba(184,134,255,.5),
+        0 0 50px rgba(184,134,255,.25);
+
+    font-family:'Cinzel', serif;
+}
+
+.swal2-title{
+
+    color:#f6e9c9 !important;
+}
+
+.swal2-html-container{
+
+    color:#ddd !important;
+    font-family:'Lato', sans-serif;
+}
+
+.swal2-confirm{
+
+    border-radius:12px !important;
+    font-weight:bold;
+}
+
+.swal2-cancel{
+
+    border-radius:12px !important;
+}
 .footer-links a{
 
     color:var(--gold);
