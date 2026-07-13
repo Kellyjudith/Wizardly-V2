@@ -1,0 +1,514 @@
+/*=========================================================
+                HERO
+=========================================================*/
+
+.hero-opiniones{
+
+padding:120px 20px 80px;
+
+text-align:center;
+
+background:
+linear-gradient(rgba(10,5,20,.75),rgba(10,5,20,.88)),
+url("../images/banner/banner-principal.jpg")
+center/cover;
+
+}
+
+.hero-opiniones h1{
+
+font-size:3.2rem;
+
+font-family:'Cinzel Decorative',serif;
+
+color:var(--gold);
+
+margin-bottom:20px;
+
+text-shadow:0 0 18px rgba(246,213,122,.35);
+
+}
+
+.hero-opiniones p{
+
+max-width:760px;
+
+margin:auto;
+
+font-size:1.1rem;
+
+line-height:1.8;
+
+color:#ddd;
+
+}
+
+
+/*=========================================================
+            ESTADÍSTICAS
+=========================================================*/
+
+.estadisticas{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:30px;
+
+padding:70px 8%;
+
+}
+
+.estadistica{
+
+background:rgba(255,255,255,.05);
+
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(246,213,122,.15);
+
+border-radius:22px;
+
+padding:35px;
+
+text-align:center;
+
+transition:.35s;
+
+}
+
+.estadistica:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 15px 35px rgba(0,0,0,.45);
+
+}
+
+.estadistica h2{
+
+color:var(--gold);
+
+font-size:2.2rem;
+
+margin-bottom:10px;
+
+}
+
+.estadistica span{
+
+color:#ccc;
+
+}
+
+
+/*=========================================================
+                FILTROS
+=========================================================*/
+
+.filtros{
+
+display:flex;
+
+justify-content:center;
+
+gap:18px;
+
+flex-wrap:wrap;
+
+margin-bottom:50px;
+
+}
+
+.filtros button{
+
+padding:14px 28px;
+
+border-radius:35px;
+
+border:1px solid rgba(246,213,122,.25);
+
+background:rgba(255,255,255,.05);
+
+color:white;
+
+cursor:pointer;
+
+transition:.3s;
+
+font-size:1rem;
+
+}
+
+.filtros button:hover{
+
+background:var(--gold);
+
+color:#160d25;
+
+}
+
+.filtros .activo{
+
+background:var(--gold);
+
+color:#160d25;
+
+font-weight:bold;
+
+}
+
+
+/*=========================================================
+                OPINIONES
+=========================================================*/
+
+.contenedor-opiniones{
+
+width:min(1200px,92%);
+
+margin:auto;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+gap:30px;
+
+padding-bottom:70px;
+
+}
+
+.opinion{
+
+background:rgba(255,255,255,.05);
+
+border-radius:22px;
+
+padding:30px;
+
+border:1px solid rgba(246,213,122,.12);
+
+transition:.35s;
+
+}
+
+.opinion:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 18px 35px rgba(0,0,0,.45);
+
+}
+
+.estrellas{
+
+font-size:1.3rem;
+
+color:#FFD54A;
+
+margin-bottom:15px;
+
+}
+
+.opinion h3{
+
+color:white;
+
+margin-bottom:8px;
+
+}
+
+.opinion h4{
+
+color:var(--gold);
+
+margin-bottom:18px;
+
+}
+
+.opinion p{
+
+line-height:1.8;
+
+color:#d6d6d6;
+
+margin-bottom:20px;
+
+}
+
+.opinion span{
+
+color:#999;
+
+font-size:.9rem;
+
+}
+
+
+/*=========================================================
+            FORMULARIO
+=========================================================*/
+
+.formulario-opinion{
+
+width:min(820px,92%);
+
+margin:80px auto;
+
+padding:45px;
+
+background:rgba(255,255,255,.05);
+
+border-radius:25px;
+
+border:1px solid rgba(246,213,122,.15);
+
+}
+
+.formulario-opinion h2{
+
+text-align:center;
+
+color:var(--gold);
+
+font-family:'Cinzel Decorative',serif;
+
+margin-bottom:35px;
+
+}
+
+.campo{
+
+margin-bottom:25px;
+
+}
+
+.campo label{
+
+display:block;
+
+margin-bottom:10px;
+
+color:var(--gold);
+
+font-weight:bold;
+
+}
+
+.campo input,
+.campo textarea,
+.campo select{
+
+width:100%;
+
+padding:15px;
+
+border-radius:15px;
+
+border:1px solid rgba(246,213,122,.2);
+
+background:#1d1630;
+
+color:white;
+
+font-size:1rem;
+
+transition:.3s;
+
+}
+
+.campo input:focus,
+.campo textarea:focus,
+.campo select:focus{
+
+outline:none;
+
+border-color:var(--gold);
+
+box-shadow:0 0 20px rgba(246,213,122,.25);
+
+}
+
+textarea{
+
+resize:none;
+
+}
+
+.formulario-opinion .btn{
+
+width:100%;
+
+margin-top:15px;
+
+}
+
+
+/*=========================================================
+            RESPONSIVE
+=========================================================*/
+
+@media(max-width:768px){
+
+.hero-opiniones h1{
+
+font-size:2.4rem;
+
+}
+
+.estadisticas{
+
+grid-template-columns:1fr;
+
+}
+
+.contenedor-opiniones{
+
+grid-template-columns:1fr;
+
+}
+
+.formulario-opinion{
+
+padding:30px;
+
+}
+
+}
+/* ===============================
+   NOTIFICACIÓN MÁGICA
+================================ */
+
+.notificacion-magica{
+
+position:fixed;
+
+right:30px;
+
+bottom:30px;
+
+background:
+linear-gradient(
+135deg,
+#24133f,
+#12091f
+);
+
+color:white;
+
+width:360px;
+
+padding:20px;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+box-shadow:
+
+0 0 25px rgba(180,120,255,.5),
+
+inset 0 0 15px rgba(255,255,255,.08);
+
+
+border:1px solid rgba(255,215,120,.4);
+
+
+transform:translateX(120%);
+
+transition:.5s ease;
+
+z-index:9999;
+
+
+font-family:'Lato',sans-serif;
+
+}
+
+
+.notificacion-magica.mostrar{
+
+transform:translateX(0);
+
+}
+
+
+
+.icono-magia{
+
+font-size:40px;
+
+background:
+
+rgba(255,215,120,.15);
+
+width:60px;
+
+height:60px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+animation:brilloMagico 1.5s infinite alternate;
+
+}
+
+
+
+.notificacion-magica h3{
+
+font-family:'Cinzel',serif;
+
+margin:0 0 5px;
+
+color:#ffd76a;
+
+font-size:20px;
+
+}
+
+
+
+.notificacion-magica p{
+
+margin:0;
+
+font-size:14px;
+
+color:#eee;
+
+}
+
+
+
+@keyframes brilloMagico{
+
+from{
+
+box-shadow:
+
+0 0 5px #ffd76a;
+
+}
+
+
+to{
+
+box-shadow:
+
+0 0 25px #c77dff;
+
+}
+
+}

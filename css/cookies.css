@@ -1,0 +1,295 @@
+/*=========================================
+    FONDO OSCURO
+=========================================*/
+
+.cookie-overlay,
+.config-overlay{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(5,2,10,.70);
+
+    backdrop-filter:blur(8px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.35s;
+}
+
+.cookie-overlay.mostrar,
+.config-overlay.mostrar{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+
+/*=========================================
+        VENTANAS
+=========================================*/
+
+.cookie-box,
+.config-box{
+
+    width:min(92%,620px);
+
+    background:linear-gradient(180deg,#1a1030,#120a22);
+
+    border:1px solid rgba(246,213,122,.25);
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,.55),
+        0 0 25px rgba(246,213,122,.10);
+
+    animation:subir .45s ease;
+
+}
+
+
+@keyframes subir{
+
+from{
+
+    transform:translateY(35px) scale(.95);
+    opacity:0;
+
+}
+
+to{
+
+    transform:translateY(0) scale(1);
+    opacity:1;
+
+}
+
+}
+
+
+.cookie-header{
+
+    font-family:'Cinzel Decorative',serif;
+
+    color:var(--gold);
+
+    font-size:2rem;
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+.cookie-box p,
+.config-box p{
+
+    color:#ddd;
+
+    text-align:center;
+
+    line-height:1.8;
+
+    margin-bottom:28px;
+
+}
+
+
+/*=========================================
+      BOTONES
+=========================================*/
+
+.cookie-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+.cookie-principal{
+
+    background:linear-gradient(135deg,#e8c15b,#c99723);
+
+    color:#140a22;
+
+    font-weight:bold;
+
+    border:none;
+
+    padding:15px 28px;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.cookie-principal:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 30px rgba(246,213,122,.30);
+
+}
+
+
+.cookie-secundario{
+
+    background:transparent;
+
+    color:var(--gold);
+
+    border:1px solid rgba(246,213,122,.35);
+
+    padding:15px 28px;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.cookie-secundario:hover{
+
+    background:rgba(246,213,122,.12);
+
+}
+
+
+/*=========================================
+      OPCIONES
+=========================================*/
+
+.cookie-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+}
+
+
+/*=========================================
+        SWITCH
+=========================================*/
+
+.switch{
+
+    position:relative;
+
+    width:58px;
+
+    height:30px;
+
+}
+
+.switch input{
+
+    display:none;
+
+}
+
+.slider{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:30px;
+
+    background:#666;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+.slider::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:22px;
+    height:22px;
+
+    left:4px;
+    top:4px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transition:.30s;
+
+}
+
+.switch input:checked + .slider{
+
+    background:#d6a635;
+
+}
+
+.switch input:checked + .slider::before{
+
+    transform:translateX(28px);
+
+}
+
+
+/*=========================================
+      RESPONSIVE
+=========================================*/
+
+@media(max-width:650px){
+
+.cookie-box,
+.config-box{
+
+    padding:25px;
+
+}
+
+.cookie-buttons{
+
+    flex-direction:column;
+
+}
+
+.cookie-principal,
+.cookie-secundario{
+
+    width:100%;
+
+}
+
+}
