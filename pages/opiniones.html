@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Opiniones</title>
+
+    <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/opiniones.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+<nav class="navbar">
+
+<a href="../index.html" class="logo">
+
+<img src="../images/logo/Logo.png" alt="Logo">
+
+<div class="logo-text">
+
+<span class="brand">Wizardly</span>
+
+<span class="tagline">Mercado Arcano</span>
+
+</div>
+
+</a>
+
+<ul class="menu">
+
+<li><a href="../index.html">Inicio</a></li>
+
+<li><a href="catalogo.html">Catálogo</a></li>
+
+<li><a href="campa.html">Campaña</a></li>
+
+<li><a href="../index.html#nosotros">Nosotros</a></li>
+
+<li><a href="opiniones.html" class="active">Opiniones</a></li>
+
+<li><a href="contacto.html">Contacto</a></li>
+
+<li>
+
+<a href="carrito.html" class="carrito-link">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="contador-carrito">0</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="login.html" class="btn-login">
+
+Acceder
+
+</a>
+
+</li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero-opiniones">
+
+<h1>Opiniones del Mercado Arcano</h1>
+
+<p>
+
+Miles de magos, hechiceros y aventureros han confiado en Wizardly.
+
+Conoce sus experiencias.
+
+</p>
+
+</section>
+
+<!-- ================= ESTADÍSTICAS ================= -->
+
+<section class="estadisticas">
+
+<div class="estadistica">
+
+<h2>⭐ 4.9 / 5</h2>
+
+<span>Calificación promedio</span>
+
+</div>
+
+<div class="estadistica">
+
+<h2>2,584</h2>
+
+<span>Opiniones</span>
+
+</div>
+
+<div class="estadistica">
+
+<h2>98%</h2>
+
+<span>Recomienda Wizardly</span>
+
+</div>
+
+<div class="estadistica">
+
+<h2>15,000+</h2>
+
+<span>Productos vendidos</span>
+
+</div>
+
+</section>
+
+<!-- ================= FILTROS ================= -->
+
+<section class="filtros">
+
+<button class="activo" onclick="filtrar('todos')">
+
+Todas
+
+</button>
+
+<button onclick="filtrar('producto')">
+
+Productos
+
+</button>
+
+<button onclick="filtrar('servicio')">
+
+Servicio
+
+</button>
+
+</section>
+
+<!-- ================= OPINIONES ================= -->
+
+<section class="contenedor-opiniones" id="listaOpiniones">
+
+<div class="opinion producto">
+
+<div class="estrellas">
+
+★★★★★
+
+</div>
+
+<h3>Alejandro Martínez</h3>
+
+<h4>Varita de Saúco</h4>
+
+<p>
+
+Excelente calidad.
+
+La madera tiene un acabado impresionante y llegó muy rápido.
+
+</p>
+
+<span>Hace 2 días</span>
+
+</div>
+
+<div class="opinion servicio">
+
+<div class="estrellas">
+
+★★★★★
+
+</div>
+
+<h3>Fernanda Ruiz</h3>
+
+<h4>Servicio al Cliente</h4>
+
+<p>
+
+Respondieron todas mis dudas en pocos minutos.
+
+Muy recomendable.
+
+</p>
+
+<span>Hace 4 días</span>
+
+</div>
+
+<div class="opinion producto">
+
+<div class="estrellas">
+
+★★★★☆
+
+</div>
+
+<h3>Carlos Torres</h3>
+
+<h4>Pluma de Fénix</h4>
+
+<p>
+
+Muy bonita.
+
+Esperaba una caja más elegante, pero el producto es excelente.
+
+</p>
+
+<span>Hace 6 días</span>
+
+</div>
+
+<div class="opinion producto">
+
+<div class="estrellas">
+
+★★★★★
+
+</div>
+
+<h3>María González</h3>
+
+<h4>Grimorio de Hechizos Antiguos</h4>
+
+<p>
+
+Los detalles del libro son increíbles.
+
+Parece un verdadero grimorio antiguo.
+
+</p>
+
+<span>Hace 1 semana</span>
+
+</div>
+<!-- ================= MÁS OPINIONES ================= -->
+
+<div class="opinion servicio">
+
+    <div class="estrellas">
+        ★★★★★
+    </div>
+
+    <h3>Sofía Hernández</h3>
+
+    <h4>Servicio de Envío</h4>
+
+    <p>
+        Mi pedido llegó antes de lo esperado.
+        El embalaje estaba perfectamente protegido.
+    </p>
+
+    <span>Hace 2 semanas</span>
+
+</div>
+
+<div class="opinion producto">
+
+    <div class="estrellas">
+        ★★★★★
+    </div>
+
+    <h3>Diego Ramírez</h3>
+
+    <h4>Poción de Invisibilidad</h4>
+
+    <p>
+        El frasco tiene una presentación increíble.
+        Se nota la calidad del producto.
+    </p>
+
+    <span>Hace 3 semanas</span>
+
+</div>
+
+<div class="opinion producto">
+
+    <div class="estrellas">
+        ★★★★☆
+    </div>
+
+    <h3>Laura Castillo</h3>
+
+    <h4>Amuleto de Protección</h4>
+
+    <p>
+        Muy bonito y ligero.
+        Lo uso todos los días.
+    </p>
+
+    <span>Hace 1 mes</span>
+
+</div>
+
+<div class="opinion servicio">
+
+    <div class="estrellas">
+        ★★★★★
+    </div>
+
+    <h3>Javier Morales</h3>
+
+    <h4>Atención al Cliente</h4>
+
+    <p>
+        Resolveron mi problema muy rápido.
+        Excelente atención.
+    </p>
+
+    <span>Hace 1 mes</span>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+
+<section class="formulario-opinion">
+
+<h2>Comparte tu experiencia</h2>
+
+<form id="formOpinion">
+
+<div class="campo">
+
+<label>Nombre</label>
+
+<input
+type="text"
+id="nombre"
+required>
+
+</div>
+
+<div class="campo">
+
+<label>¿Qué deseas calificar?</label>
+
+<select id="tipo">
+
+<option value="producto">
+
+Producto
+
+</option>
+
+<option value="servicio">
+
+Servicio
+
+</option>
+
+</select>
+
+</div>
+
+<div class="campo" id="campoProducto">
+
+<label>Producto</label>
+
+<select id="producto">
+
+<option>Varita de Saúco</option>
+
+<option>Poción de Invisibilidad</option>
+
+<option>Grimorio de Hechizos Antiguos</option>
+
+<option>Cristal de Adivinación</option>
+
+<option>Amuleto de Protección</option>
+
+<option>Caldero de Cobre</option>
+
+<option>Mapa del Tesoro Escondido</option>
+
+<option>Pluma de Fénix</option>
+
+</select>
+
+</div>
+
+<div class="campo">
+
+<label>Calificación</label>
+
+<select id="estrellas">
+
+<option>★★★★★</option>
+
+<option>★★★★☆</option>
+
+<option>★★★☆☆</option>
+
+<option>★★☆☆☆</option>
+
+<option>★☆☆☆☆</option>
+
+</select>
+
+</div>
+
+<div class="campo">
+
+<label>Comentario</label>
+
+<textarea
+id="comentario"
+rows="5"
+required></textarea>
+
+</div>
+
+<button class="btn">
+
+Enviar Opinión
+
+</button>
+
+</form>
+
+</section>
+
+<footer class="footer-mini">
+
+<p>
+
+© 2026
+
+<span>Wizardly</span>
+
+— Mercado Arcano ✦ Todos los derechos mágicos reservados
+
+</p>
+
+</footer>
+
+<script>
+
+const tipo=document.getElementById("tipo");
+
+const campoProducto=document.getElementById("campoProducto");
+
+tipo.addEventListener("change",()=>{
+
+if(tipo.value==="servicio"){
+
+campoProducto.style.display="none";
+
+}else{
+
+campoProducto.style.display="block";
+
+}
+
+});
+
+function filtrar(tipoFiltro){
+
+const tarjetas=document.querySelectorAll(".opinion");
+
+tarjetas.forEach(card=>{
+
+if(tipoFiltro==="todos"){
+
+card.style.display="block";
+
+}
+
+else{
+
+if(card.classList.contains(tipoFiltro)){
+
+card.style.display="block";
+
+}
+
+else{
+
+card.style.display="none";
+
+}
+
+}
+
+});
+
+document.querySelectorAll(".filtros button").forEach(btn=>btn.classList.remove("activo"));
+
+event.target.classList.add("activo");
+
+}
+
+document.getElementById("formOpinion").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const nombre=document.getElementById("nombre").value;
+
+const comentario=document.getElementById("comentario").value;
+
+const estrellas=document.getElementById("estrellas").value;
+
+const tipo=document.getElementById("tipo").value;
+
+const titulo=(tipo==="producto")
+?document.getElementById("producto").value
+:"Servicio";
+
+const nueva=document.createElement("div");
+
+nueva.className="opinion "+tipo;
+
+nueva.innerHTML=`
+
+<div class="estrellas">${estrellas}</div>
+
+<h3>${nombre}</h3>
+
+<h4>${titulo}</h4>
+
+<p>${comentario}</p>
+
+<span>Hace unos segundos</span>
+
+`;
+
+document.getElementById("listaOpiniones").prepend(nueva);
+
+this.reset();
+
+campoProducto.style.display="block";
+
+mostrarNotificacion();
+
+});
+function mostrarNotificacion(){
+
+const notificacion = document.createElement("div");
+
+notificacion.className="notificacion-magica";
+
+notificacion.innerHTML=`
+
+<div class="icono-magia">
+✨
+</div>
+
+<div>
+<h3>¡Opinión enviada!</h3>
+<p>
+Gracias por compartir tu experiencia con Wizardly.
+</p>
+</div>
+
+`;
+
+document.body.appendChild(notificacion);
+
+
+setTimeout(()=>{
+
+notificacion.classList.add("mostrar");
+
+},100);
+
+
+
+setTimeout(()=>{
+
+notificacion.classList.remove("mostrar");
+
+
+setTimeout(()=>{
+
+notificacion.remove();
+
+},500);
+
+
+},4000);
+
+
+}
+</script>
+
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>
