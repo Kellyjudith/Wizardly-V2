@@ -248,7 +248,7 @@ function aplicarCupon() {
     renderCarrito();
 }
 
-// ── Renderizar carrito (VERSIÓN COMPLETA CON DESCUENTOS) ──
+// ── Renderizar carrito──
 function renderCarrito() {
     const carrito = obtenerCarrito();
     const lista = document.getElementById('carrito-lista');
@@ -321,29 +321,43 @@ function renderCarrito() {
 
     document.getElementById('resumen-subtotal').textContent = `$${subtotal.toFixed(2)} MXN`;
 
-    const lineaDescuento = document.getElementById('linea-descuento');
+    // ── Descuento ──
+    const lineaDescuento  = document.getElementById('linea-descuento');
     const bloqueDescuento = document.getElementById('resumen-descuento-aplicado');
-    if (descuentoAplicado > 0) {
-        lineaDescuento.style.display = 'flex';
-        document.getElementById('resumen-descuento').textContent = `-$${descuentoAplicado.toFixed(2)} MXN`;
-        
-        bloqueDescuento.style.display = 'block';
-        document.getElementById('resumen-descuento-monto').textContent = `-$${descuentoAplicado.toFixed(2)}`;
-        const totalFinal = subtotal - descuentoAplicado;
-        document.getElementById('resumen-total-con-descuento').textContent = `$${totalFinal.toFixed(2)} MXN`;
-    } else {
-        lineaDescuento.style.display = 'none';
-        bloqueDescuento.style.display = 'none';
+
+    if (lineaDescuento && bloqueDescuento) {
+        if (descuentoAplicado > 0) {
+            lineaDescuento.style.display = 'flex';
+            document.getElementById('resumen-descuento').textContent = `-$${descuentoAplicado.toFixed(2)} MXN`;
+            bloqueDescuento.style.display = 'block';
+            document.getElementById('resumen-descuento-monto').textContent = `-$${descuentoAplicado.toFixed(2)}`;
+            document.getElementById('resumen-total-con-descuento').textContent = `$${(subtotal - descuentoAplicado).toFixed(2)} MXN`;
+        } else {
+            lineaDescuento.style.display  = 'none';
+            bloqueDescuento.style.display = 'none';
+        }
     }
 
-    const totalFinal = subtotal - descuentoAplicado;
+    // ── Total final ──
+    const totalFinal = Math.max(0, subtotal - descuentoAplicado);
     document.getElementById('resumen-total').textContent = `$${totalFinal.toFixed(2)} MXN`;
 
-    // Actualizar texto de envío
+    // ── Envío: solo visible si aplica ENVIOGATIS con monto mínimo cumplido ──
+    const lineaEnvio = document.getElementById('linea-envio');
     const envioTexto = document.getElementById('envio-texto');
-    if (cuponActivo === 'ENVIOGATIS' && descuentoAplicado >= 0) {
-        envioTexto.innerHTML = 'Gratis <span style="font-size:0.65rem; background:rgba(74,222,128,0.2); padding:2px 8px; border-radius:12px; margin-left:6px;">por promoción</span>';
-    } else {
-        envioTexto.textContent = 'Gratis';
+
+    if (lineaEnvio && envioTexto) {
+        if (cuponActivo === 'ENVIOGATIS') {
+            lineaEnvio.style.display = 'flex';
+            envioTexto.innerHTML = 'Gratis <span style="font-size:0.65rem; background:rgba(74,222,128,0.2); padding:2px 8px; border-radius:12px; margin-left:6px;">por promoción</span>';
+        } else {
+            // Sin cupón de envío: mostrar "Gratis" solo si supera $500
+            if (subtotal >= 500) {
+                lineaEnvio.style.display = 'flex';
+                envioTexto.textContent = 'Gratis';
+            } else {
+                lineaEnvio.style.display = 'none';
+            }
+        }
     }
 }

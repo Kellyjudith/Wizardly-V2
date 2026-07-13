@@ -24,7 +24,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .promociones-section h1 {
             font-family: 'Cinzel Decorative', serif;
             font-size: 2.8rem;
@@ -32,7 +31,6 @@
             text-align: center;
             margin-bottom: 12px;
         }
-
         .promo-subtitulo {
             text-align: center;
             font-family: 'Jim Nightshade', cursive;
@@ -40,14 +38,12 @@
             color: var(--text-muted);
             margin-bottom: 48px;
         }
-
         .promo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 28px;
             margin-bottom: 60px;
         }
-
         .promo-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -58,12 +54,10 @@
             position: relative;
             overflow: hidden;
         }
-
         .promo-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
         }
-
         .promo-card .promo-badge {
             position: absolute;
             top: 14px;
@@ -77,19 +71,16 @@
             border-radius: 30px;
             letter-spacing: 0.1em;
         }
-
         .promo-card .promo-badge.nuevo {
             background: var(--lilac-dim);
             color: white;
         }
-
         .promo-card h3 {
             font-family: 'Cinzel', serif;
             font-size: 1.3rem;
             color: var(--gold);
             margin: 10px 0 6px;
         }
-
         .promo-card .promo-desc {
             font-family: 'Lato', sans-serif;
             font-size: 0.9rem;
@@ -97,7 +88,6 @@
             margin-bottom: 16px;
             line-height: 1.6;
         }
-
         .promo-card .promo-code-box {
             background: rgba(246, 213, 122, 0.08);
             border: 1px dashed var(--gold-dim);
@@ -109,7 +99,6 @@
             letter-spacing: 0.1em;
             display: inline-block;
         }
-
         .promo-card .promo-code-box strong {
             font-weight: 700;
         }
@@ -124,27 +113,23 @@
             margin: 0 auto;
             text-align: center;
         }
-
         .promo-apply h3 {
             font-family: 'Cinzel', serif;
             font-size: 1.2rem;
             color: var(--gold);
             margin-bottom: 8px;
         }
-
         .promo-apply p {
             font-family: 'Lato', sans-serif;
             color: var(--text-muted);
             margin-bottom: 20px;
         }
-
         .promo-apply .input-group {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .promo-apply input {
             flex: 1;
             min-width: 200px;
@@ -158,11 +143,9 @@
             outline: none;
             transition: border-color 0.3s;
         }
-
         .promo-apply input:focus {
             border-color: var(--gold-dim);
         }
-
         .promo-apply .btn-aplicar {
             padding: 12px 28px;
             background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
@@ -176,12 +159,10 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
-
         .promo-apply .btn-aplicar:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(217, 169, 61, 0.35);
         }
-
         #mensaje-promo {
             margin-top: 16px;
             font-family: 'Cinzel', serif;
@@ -189,12 +170,10 @@
             min-height: 32px;
             font-weight: 700;
         }
-
         .mensaje-exito {
             color: #4ade80;
             text-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
         }
-
         .mensaje-error {
             color: #f87171;
             text-shadow: 0 0 15px rgba(248, 113, 113, 0.2);
@@ -204,11 +183,9 @@
             .promociones-section {
                 padding: 100px 16px 60px;
             }
-
             .promociones-section h1 {
                 font-size: 2rem;
             }
-
             .promo-grid {
                 grid-template-columns: 1fr;
             }
@@ -218,7 +195,7 @@
 
 <body>
 
-    <!-- ===== NAVBAR (igual que en las otras páginas) ===== -->
+    <!-- NAVBAR -->
     <header>
         <nav class="navbar">
             <a href="../index.html" class="logo">
@@ -230,11 +207,10 @@
             </a>
             <ul class="menu">
                 <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="../pages/opiniones.html">Opiniones</a></li>
-                <li><a href="../pages/campa.html">Campaña</a></li>
+               <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="opiniones.html">Opiniones</a></li>
+                <li><a href="campa.html">Campaña</a></li>
                 <li><a href="../index.html#nosotros">Nosotros</a></li>
-
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="promociones.html">Promociones</a></li>
                 <li>
@@ -248,62 +224,41 @@
         </nav>
     </header>
 
-    <!-- ===== CONTENIDO ===== -->
+    <!-- CONTENIDO -->
     <section class="promociones-section">
         <h1>✦ Ofertas Mágicas ✦</h1>
         <p class="promo-subtitulo">Aprovecha los encantamientos de temporada</p>
 
         <!-- Grid de promociones -->
         <div class="promo-grid">
-
             <!-- Promo 1 -->
             <div class="promo-card">
                 <span class="promo-badge">20% OFF</span>
                 <h3>Descuento de Luna Nueva</h3>
-                <p class="promo-desc">
-                    Válido para todas las pociones. Mínimo de compra $200 MXN.
-                </p>
-                <div class="promo-code-box">
-                    Código: <strong>LUNA20</strong>
-                </div>
+                <p class="promo-desc">Válido para todas las pociones. Mínimo de compra $200 MXN.</p>
+                <div class="promo-code-box">Código: <strong>LUNA20</strong></div>
             </div>
-
             <!-- Promo 2 -->
             <div class="promo-card">
                 <span class="promo-badge">2x1</span>
                 <h3>Compra uno, llévate otro</h3>
-                <p class="promo-desc">
-                    En todos los amuletos de protección. (El de menor valor es gratis).
-                </p>
-                <div class="promo-code-box">
-                    Código: <strong>2X1AMULETO</strong>
-                </div>
+                <p class="promo-desc">En todos los amuletos de protección. (El de menor valor es gratis).</p>
+                <div class="promo-code-box">Código: <strong>2X1AMULETO</strong></div>
             </div>
-
             <!-- Promo 3 -->
             <div class="promo-card">
                 <span class="promo-badge nuevo">NUEVO</span>
                 <h3>Kit del Mago Principiante</h3>
-                <p class="promo-desc">
-                    15% de descuento en el kit completo (varita + grimorio + caldero).
-                </p>
-                <div class="promo-code-box">
-                    Código: <strong>KITMAGO15</strong>
-                </div>
+                <p class="promo-desc">15% de descuento en el kit completo (varita + grimorio + caldero).</p>
+                <div class="promo-code-box">Código: <strong>KITMAGO15</strong></div>
             </div>
-
             <!-- Promo 4 -->
             <div class="promo-card">
                 <span class="promo-badge">10% OFF</span>
                 <h3>Envío Mágico Gratis</h3>
-                <p class="promo-desc">
-                    Envío gratis en compras mayores a $500 MXN (aplica automáticamente).
-                </p>
-                <div class="promo-code-box">
-                    Código: <strong>ENVIOGATIS</strong>
-                </div>
+                <p class="promo-desc">Envío gratis en compras mayores a $500 MXN (aplica automáticamente).</p>
+                <div class="promo-code-box">Código: <strong>ENVIOGATIS</strong></div>
             </div>
-
         </div>
 
         <!-- Aplicar código promocional -->
@@ -320,7 +275,7 @@
         </div>
     </section>
 
-    <!-- ===== FOOTER (igual que en carrito.html) ===== -->
+    <!-- FOOTER -->
     <footer class="footer-mini">
         <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
         <div class="footer-links">
@@ -333,7 +288,6 @@
     <script src="../js/script.js"></script>
 
     <script>
-        // Función para aplicar código en la página de promociones (solo simulación)
         function aplicarPromoFront() {
             const input = document.getElementById('codigo-promo-input');
             const mensaje = document.getElementById('mensaje-promo');
@@ -348,18 +302,29 @@
             }
 
             if (codigosValidos.includes(codigo)) {
+                // Guardar código en localStorage
+                localStorage.setItem('codigo_promocional', codigo);
+
+                // Mostrar mensaje de éxito
                 mensaje.innerHTML = '✅ <strong>Código válido</strong> — El descuento se aplicará al finalizar tu compra.';
                 mensaje.className = 'mensaje-exito';
-                localStorage.setItem('codigo_promocional', codigo);
+
+                // Redirigir al carrito después de 1.5 segundos para ver el descuento aplicado
+                setTimeout(() => {
+                    window.location.href = 'carrito.html';
+                }, 1500);
             } else {
                 mensaje.innerHTML = '❌ <strong>Código no válido</strong>. Verifica que esté bien escrito.';
                 mensaje.className = 'mensaje-error';
                 localStorage.removeItem('codigo_promocional');
             }
         }
+
         // Cargar contador del carrito al iniciar
         document.addEventListener('DOMContentLoaded', function () {
-            actualizarContador();
+            if (typeof actualizarContador === 'function') {
+                actualizarContador();
+            }
         });
     </script>
 
