@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizardly — Tienda Mágica</title>
+<link rel="stylesheet" href="css/cookies.css">
 
     <link rel="icon" href="images/logo/favicon/favicon.jpeg" type="image/png">
     <link rel="stylesheet" href="css/styles.css">
@@ -33,7 +34,6 @@
             <i class="fa-brands fa-youtube"></i>
         </a>
     </div>
-
 
 
     <!-- NAVBAR -->
@@ -67,7 +67,133 @@
 
         </nav>
     </header>
+<!-- ========================================= -->
+<!-- BANNER DE COOKIES -->
+<!-- ========================================= -->
 
+<div id="cookie-overlay" class="cookie-overlay">
+
+    <div class="cookie-box">
+
+        <div class="cookie-header">
+
+            🍪 Cookies Arcanas
+
+        </div>
+
+        <p>
+
+            Utilizamos pequeños hechizos para recordar tus preferencias,
+            mejorar tu experiencia dentro del Mercado Arcano y proteger
+            tus artefactos mágicos.
+
+        </p>
+
+        <div class="cookie-buttons">
+
+            <button id="configurarCookies" class="cookie-secundario">
+
+                Configurar
+
+            </button>
+
+            <button id="aceptarCookies" class="cookie-principal">
+
+                Aceptar todas
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ========================================= -->
+<!-- VENTANA CONFIGURACIÓN -->
+<!-- ========================================= -->
+
+<div id="config-modal" class="config-overlay">
+
+    <div class="config-box">
+
+        <h2>⚙ Preferencias Arcanas</h2>
+
+        <p>
+
+            Activa los hechizos mágicos que deseas permitir.
+
+        </p>
+
+        <div class="cookie-item">
+
+            <span>Cookies necesarias</span>
+
+            <label class="switch">
+
+                <input type="checkbox" checked disabled>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="cookie-item">
+
+            <span>Analíticas</span>
+
+            <label class="switch">
+
+                <input type="checkbox" checked>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="cookie-item">
+
+            <span>Marketing</span>
+
+            <label class="switch">
+
+                <input type="checkbox">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="cookie-item">
+
+            <span>Personalización</span>
+
+            <label class="switch">
+
+                <input type="checkbox" checked>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <button id="guardarCookies" class="cookie-principal">
+
+            Guardar preferencias
+
+        </button>
+
+    </div>
+
+</div>
     <!-- HERO -->
     <section class="hero">
 
@@ -180,6 +306,7 @@
 
     <script src="js/script.js"></script>
 
+<script src="js/cookies.js"></script>
 </body>
 
 </html>
