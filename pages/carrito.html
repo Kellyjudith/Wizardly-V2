@@ -1,19 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wizardly — Carrito</title>
 
-    <link rel="icon" href="../images/favicon/favicon.jpeg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link rel="icon" href="../images/favicon/favicon.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet" />
 
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/carrito.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* Estilos extra para el cupón (por si no están en carrito.css) */
+        .cupon-mensaje {
+            margin-top: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            min-height: 28px;
+            letter-spacing: 0.05em;
+        }
+
+        .cupon-mensaje.exito {
+            color: #4ade80;
+            text-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+        }
+
+        .cupon-mensaje.error {
+            color: #f87171;
+            text-shadow: 0 0 12px rgba(248, 113, 113, 0.3);
+        }
+
+        .resumen-cupon {
+            margin: 16px 0 20px;
+        }
+
+        .cupon-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cupon-input-group input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 10px 16px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .cupon-input-group input:focus {
+            border-color: var(--gold-dim);
+        }
+
+        .btn-cupon {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            border-radius: 30px;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-cupon:hover {
+            background: rgba(246, 213, 122, 0.1);
+            color: var(--gold-glow);
+        }
+
+        #resumen-descuento-aplicado {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(74, 222, 128, 0.06);
+            border-radius: 12px;
+            border-left: 3px solid #4ade80;
+            display: none;
+        }
+
+        #resumen-descuento-aplicado .descuento-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        #resumen-descuento-aplicado .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-top: 6px;
+        }
+
+        #resumen-descuento-aplicado .descuento-monto {
+            color: #4ade80;
+            font-weight: 700;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,324 +122,203 @@
     <!-- NAVBAR -->
     <header>
         <nav class="navbar">
-
             <a href="../index.html" class="logo">
-                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
-
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly" />
                 <div class="logo-text">
                     <span class="brand">Wizardly</span>
                     <span class="tagline">Mercado Arcano</span>
                 </div>
             </a>
-
             <ul class="menu">
-
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="../pages/campa.html">Campaña</a></li>
+                <li><a href="opiniones.html">Opiniones</a></li>
+                <li><a href="campa.html">Campaña</a></li>
                 <li><a href="../index.html#nosotros">Nosotros</a></li>
-                <li><a href="../pages/opiniones.html">Campaña</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
-
+                <li><a href="promociones.html">Promociones</a></li>
                 <li>
-                    <a href="carrito.html" class="carrito-link active">
+                    <a href="carrito.html" class="carrito-link">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span id="contador-carrito">0</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="login.html" class="btn-login">
-                        Acceder
-                    </a>
-                </li>
-
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
             </ul>
-
         </nav>
     </header>
 
     <!-- HERO -->
     <section class="hero-carrito">
-
         <div class="hero-content">
-
-            <span class="hero-eyebrow">
-                ✦ Tu selección ✦
-            </span>
-
+            <span class="hero-eyebrow">✦ Tu selección ✦</span>
             <h2>Carrito Arcano</h2>
-
         </div>
-
     </section>
 
     <!-- CARRITO -->
     <section class="carrito-section">
-
         <div class="carrito-layout">
 
             <!-- Lista de productos -->
             <div class="carrito-lista" id="carrito-lista">
-                <!-- Se llena con JavaScript -->
+                <!-- se llena con JS -->
             </div>
 
-            <!-- Resumen -->
+            <!-- Panel lateral: resumen -->
             <aside class="carrito-resumen">
-
                 <h3>Resumen del pedido</h3>
 
                 <div class="resumen-linea">
                     <span>Subtotal</span>
-                    <span id="resumen-subtotal">$0.00</span>
+                    <span id="resumen-subtotal">$0.00 MXN</span>
                 </div>
 
-                <div class="resumen-linea">
+                <!-- Línea de descuento (se muestra solo si hay descuento) -->
+                <div class="resumen-linea" id="linea-descuento" style="display:none;">
+                    <span>Descuento</span>
+                    <span id="resumen-descuento">-$0.00</span>
+                </div>
+
+                <!-- DESPUÉS -->
+                <div class="resumen-linea" id="linea-envio" style="display:none;">
                     <span>Envío mágico</span>
-                    <span class="gratis">Gratis</span>
+                    <span class="gratis" id="envio-texto"></span>
                 </div>
-
                 <div class="resumen-divider"></div>
 
                 <div class="resumen-linea total">
                     <span>Total</span>
-                    <span id="resumen-total">$0.00</span>
+                    <span id="resumen-total">$0.00 MXN</span>
                 </div>
 
-                <a href="checkout.html"
-                   class="btn-pagar"
-                   id="btn-pagar">
+                <!-- ===== BLOQUE CUPÓN ===== -->
+                <div class="resumen-cupon">
+                    <div class="cupon-input-group">
+                        <input type="text" id="codigo-cupon" placeholder="Código de descuento" />
+                        <button class="btn-cupon" onclick="aplicarCupon()">Aplicar</button>
+                    </div>
+                    <div id="mensaje-cupon" class="cupon-mensaje"></div>
+                </div>
 
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    Ir a pagar
+                <!-- Bloque de descuento aplicado (se muestra solo cuando hay descuento) -->
+                <div id="resumen-descuento-aplicado">
+                    <div class="descuento-row">
+                        <span>Descuento aplicado</span>
+                        <span class="descuento-monto" id="resumen-descuento-monto">-$0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Total con descuento</span>
+                        <span id="resumen-total-con-descuento">$0.00 MXN</span>
+                    </div>
+                </div>
 
+                <a href="checkout.html" class="btn-pagar" id="btn-pagar">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Ir a pagar
                 </a>
 
-                <a href="catalogo.html"
-                   class="btn-seguir">
-
-                    Seguir comprando
-
-                </a>
-
+                <a href="catalogo.html" class="btn-seguir">Seguir comprando</a>
             </aside>
 
         </div>
-
     </section>
-        <!-- FOOTER -->
+
+    <!-- FOOTER -->
     <footer class="footer-mini">
-
-        <p>
-            © 2026 <span>Wizardly</span> — Mercado Arcano
-            &nbsp;✦&nbsp; Todos los derechos mágicos reservados
-        </p>
-
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
         <div class="footer-links">
-            <a href="politicas.html">
-                Políticas de Compra y Venta
-            </a>
+            <a href="politicas.html">Políticas de Compra y Venta</a>
         </div>
-
     </footer>
 
-    <!-- SweetAlert2 -->
+    <!-- SweetAlert2 (para eliminar) -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Scripts -->
+    <!-- ====== SCRIPTS ====== -->
+    <!-- Tu carrito.js con toda la lógica de cupones -->
     <script src="../js/carrito.js"></script>
+    <!-- script.js (si tienes funciones auxiliares) -->
     <script src="../js/script.js"></script>
 
     <script>
-
-        function renderCarrito() {
-
-            const carrito = obtenerCarrito();
-            const lista = document.getElementById("carrito-lista");
-            const btnPagar = document.getElementById("btn-pagar");
-
-            if (carrito.length === 0) {
-
-                lista.innerHTML = `
-                    <div class="carrito-vacio">
-                        <span class="vacio-icono">🧙‍♂️</span>
-                        <p>Tu carrito está vacío.</p>
-                        <a href="catalogo.html" class="btn-detalle">
-                            Explorar catálogo
-                        </a>
-                    </div>
-                `;
-
-                document.getElementById("resumen-subtotal").textContent = "$0.00 MXN";
-                document.getElementById("resumen-total").textContent = "$0.00 MXN";
-
-                btnPagar.style.opacity = "0.4";
-                btnPagar.style.pointerEvents = "none";
-
-                return;
-            }
-
-            btnPagar.style.opacity = "1";
-            btnPagar.style.pointerEvents = "auto";
-
-            lista.innerHTML = "";
-
-            let subtotal = 0;
-
-            carrito.forEach(item => {
-
-                subtotal += item.precio * item.cantidad;
-
-                const fila = document.createElement("div");
-
-                fila.className = "carrito-item";
-
-                fila.innerHTML = `
-
-                    <img src="${item.imagen}" alt="${item.nombre}">
-
-                    <div class="item-info">
-                        <h4>${item.nombre}</h4>
-                        <p class="item-precio">
-                            $${item.precio.toFixed(2)} MXN
-                        </p>
-                    </div>
-
-                    <div class="item-cantidad">
-
-                        <button onclick="accionCarrito(${item.id},-1)">−</button>
-
-                        <span>${item.cantidad}</span>
-
-                        <button onclick="accionCarrito(${item.id},1)">+</button>
-
-                    </div>
-
-                    <p class="item-subtotal">
-                        $${(item.precio * item.cantidad).toFixed(2)}
-                    </p>
-
-                    <button
-                        class="item-eliminar"
-                        onclick="eliminarItem(${item.id})"
-                        title="Eliminar">
-
-                        <i class="fa-solid fa-xmark"></i>
-
-                    </button>
-
-                `;
-
-                lista.appendChild(fila);
-
-            });
-
-            document.getElementById("resumen-subtotal").textContent =
-                `$${subtotal.toFixed(2)} MXN`;
-
-            document.getElementById("resumen-total").textContent =
-                `$${subtotal.toFixed(2)} MXN`;
-
-        }
+        // -------------------------------------------------------------
+        //  NO REDEFINIMOS renderCarrito() aquí → usamos la de carrito.js
+        //  Solo definimos accionCarrito y eliminarItem para los botones
+        // -------------------------------------------------------------
 
         function accionCarrito(id, delta) {
-
             cambiarCantidad(id, delta);
+            renderCarrito(); // viene de carrito.js
+        }
+
+        function eliminarItem(id) {
+            Swal.fire({
+                title: '¿Eliminar producto?',
+                text: '¿Estás seguro de que deseas eliminar este producto del carrito?',
+                icon: 'warning',
+                background: '#1a1325',
+                color: '#f8ecd1',
+                showCancelButton: true,
+                confirmButtonText: '🗑 Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#8e44ad',
+                cancelButtonColor: '#555',
+                reverseButtons: true,
+                allowOutsideClick: false,
+                customClass: { popup: 'swal-magic' }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    eliminarDelCarrito(id);
+                    renderCarrito();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Producto eliminado!',
+                        text: 'El producto fue eliminado correctamente del carrito.',
+                        background: '#1a1325',
+                        color: '#f8ecd1',
+                        showConfirmButton: false,
+                        timer: 1700
+                    });
+                }
+            });
+        }
+
+        // Exponer funciones globalmente
+        window.accionCarrito = accionCarrito;
+        window.eliminarItem = eliminarItem;
+        window.aplicarCupon = aplicarCupon; // ya está en carrito.js
+
+        // Inicializar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function () {
+            // Actualizar contador del navbar
+            actualizarContador();
+
+            // Renderizar carrito con la versión de carrito.js
             renderCarrito();
 
-        }
-                function eliminarItem(id) {
-
-            Swal.fire({
-
-                title: "¿Eliminar producto?",
-                text: "¿Estás seguro de que deseas eliminar este producto del carrito?",
-                icon: "warning",
-
-                background: "#1a1325",
-                color: "#f8ecd1",
-
-                showCancelButton: true,
-
-                confirmButtonText: "🗑 Sí, eliminar",
-                cancelButtonText: "Cancelar",
-
-                confirmButtonColor: "#8e44ad",
-                cancelButtonColor: "#555",
-
-                reverseButtons: true,
-
-                allowOutsideClick: false,
-
-                customClass: {
-                    popup: "swal-magic"
-                }
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    eliminarDelCarrito(id);
-
-                    renderCarrito();
-
-                    Swal.fire({
-
-                        icon: "success",
-
-                        title: "¡Producto eliminado!",
-
-                        text: "El producto fue eliminado correctamente del carrito.",
-
-                        background: "#1a1325",
-                        color: "#f8ecd1",
-
-                        showConfirmButton: false,
-
-                        timer: 1700
-
-                    });
-
-                }
-
-            });
-
-        }
-
-        renderCarrito();
-
-        //--------------------------------------------------
-        // VERIFICAR SESIÓN AL PAGAR
-        //--------------------------------------------------
-
-        document.getElementById("btn-pagar").addEventListener("click", function (e) {
-
-            e.preventDefault();
-
-            const logueado = localStorage.getItem("usuarioLogueado");
-
-            if (logueado === "true") {
-
-                window.location.href = "checkout.html";
-
-            } else {
-
-                mostrarNotificacion(
-                    "🔒 Debes iniciar sesión para continuar con la compra.",
-                    "warning"
-                );
-
-                setTimeout(() => {
-
-                    window.location.href = "login.html";
-
-                }, 1800);
-
+            // Evento para el botón "Ir a pagar" (verificar sesión)
+            const btnPagar = document.getElementById('btn-pagar');
+            if (btnPagar) {
+                btnPagar.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const logueado = localStorage.getItem('usuarioLogueado');
+                    if (logueado === 'true') {
+                        window.location.href = 'checkout.html';
+                    } else {
+                        if (typeof mostrarNotificacion === 'function') {
+                            mostrarNotificacion('🔒 Debes iniciar sesión para continuar con la compra.', 'warning');
+                        } else {
+                            alert('🔒 Debes iniciar sesión para continuar con la compra.');
+                        }
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1800);
+                    }
+                });
             }
-
         });
-
     </script>
 
 </body>
+
 </html>

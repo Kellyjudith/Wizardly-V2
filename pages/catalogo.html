@@ -20,33 +20,351 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+    <!-- ===== ESTILOS DEL MODAL DE SUBASTA (añadidos) ===== -->
+    <style>
+        /* ========================================
+           ESTILOS DEL MODAL DE SUBASTA
+           ======================================== */
+        .subasta-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .subasta-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .subasta-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--gold-dim);
+            border-radius: 24px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px 36px 32px;
+            position: relative;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            opacity: 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(246, 213, 122, 0.1);
+        }
+        .subasta-overlay.visible .subasta-modal {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .subasta-cerrar {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            line-height: 1;
+        }
+        .subasta-cerrar:hover {
+            color: #f87171;
+            transform: rotate(90deg);
+        }
+
+        .subasta-modal h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+        .subasta-modal .subasta-sub {
+            text-align: center;
+            font-family: 'Jim Nightshade', cursive;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .subasta-contenido {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        @media (max-width: 600px) {
+            .subasta-contenido {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .subasta-producto-info {
+            text-align: center;
+        }
+        .subasta-producto-info img {
+            width: 100%;
+            max-width: 220px;
+            border-radius: 12px;
+            border: 2px solid var(--gold-dim);
+            margin-bottom: 12px;
+        }
+        .subasta-producto-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+        .subasta-producto-info .precio-base {
+            font-family: 'Jim Nightshade', cursive;
+            font-size: 1.4rem;
+            color: var(--text-muted);
+        }
+
+        /* Temporizador */
+        .temporizador {
+            background: rgba(246, 213, 122, 0.06);
+            border: 1px solid rgba(246, 213, 122, 0.2);
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .temporizador .tiempo {
+            font-family: 'Cinzel', serif;
+            font-size: 2.6rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            line-height: 1.2;
+        }
+        .temporizador .label {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+        }
+        .temporizador.finalizado .tiempo {
+            color: #f87171;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Ofertas */
+        .oferta-area {
+            margin-bottom: 16px;
+        }
+        .oferta-area label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+        .oferta-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .oferta-input-group input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 10px 16px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .oferta-input-group input:focus {
+            border-color: var(--gold-dim);
+        }
+        .oferta-input-group button {
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+            color: #0a0412;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            white-space: nowrap;
+        }
+        .oferta-input-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(217, 169, 61, 0.35);
+        }
+        .oferta-input-group button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        #mensaje-oferta {
+            margin-top: 8px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            min-height: 24px;
+        }
+        .mensaje-exito { color: #4ade80; }
+        .mensaje-error { color: #f87171; }
+
+        /* Lista de ofertas */
+        .lista-ofertas h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+        }
+        .lista-ofertas ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 140px;
+            overflow-y: auto;
+        }
+        .lista-ofertas ul::-webkit-scrollbar { width: 4px; }
+        .lista-ofertas ul::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+        .lista-ofertas li {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 4px;
+            border-bottom: 1px solid rgba(246, 213, 122, 0.06);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .lista-ofertas li .oferta-monto {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .lista-ofertas .sin-ofertas {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Botones de acción */
+        .subasta-acciones {
+            display: flex;
+            gap: 14px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .subasta-acciones .btn-carrito {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+            color: #0a0412;
+            border: none;
+            border-radius: 40px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .subasta-acciones .btn-carrito:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(217, 169, 61, 0.4);
+        }
+        .subasta-acciones .btn-cerrar {
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            color: var(--text-muted);
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .subasta-acciones .btn-cerrar:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        /* Animación de entrada del modal */
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .subasta-modal::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: 24px;
+            background: linear-gradient(45deg, transparent, rgba(246, 213, 122, 0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 4s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Etiqueta de subasta en el carrito (se puede usar en el detalle también) */
+        .etiqueta-subasta {
+            display: inline-block;
+            background: var(--gold-dim);
+            color: #0a0412;
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+    </style>
+
 </head>
 
 <body>
 
     <!-- REDES -->
     <div class="social-float">
-
         <a href="https://facebook.com" target="_blank">
             <i class="fa-brands fa-facebook-f"></i>
         </a>
-
         <a href="https://instagram.com" target="_blank">
             <i class="fa-brands fa-instagram"></i>
         </a>
-
         <a href="https://tiktok.com" target="_blank">
             <i class="fa-brands fa-tiktok"></i>
         </a>
-
         <a href="https://twitter.com" target="_blank">
             <i class="fa-brands fa-x-twitter"></i>
         </a>
-
         <a href="https://youtube.com" target="_blank">
             <i class="fa-brands fa-youtube"></i>
         </a>
-
     </div>
 
     <!-- NAVBAR -->
@@ -61,15 +379,14 @@
             </a>
             <ul class="menu">
                 <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="catalogo.html" class="active">Catálogo</a></li>
                 <li><a href="opiniones.html">Opiniones</a></li>
-                <li><a href="../index.html#nosotros">Nosotros</a></li>
                 <li><a href="campa.html">Campaña</a></li>
-
+                <li><a href="../index.html#nosotros">Nosotros</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="promociones.html">Promociones</a></li>
                 <li>
-                    <a href="carrito.html" class="carrito-link active">
+                    <a href="carrito.html" class="carrito-link">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span id="contador-carrito">0</span>
                     </a>
@@ -78,160 +395,135 @@
             </ul>
         </nav>
     </header>
+
     <!-- HERO -->
-
     <section class="hero-catalogo">
-
         <canvas id="stardust"></canvas>
-
         <div class="hero-content">
-
-            <span class="hero-eyebrow">
-
-                ✦ Explora nuestro arsenal ✦
-
-            </span>
-
-            <h2>
-
-                Catálogo Arcano
-
-            </h2>
-
-            <p>
-
-                Selecciona un artefacto y conoce sus secretos.
-
-            </p>
-
+            <span class="hero-eyebrow">✦ Explora nuestro arsenal ✦</span>
+            <h2>Catálogo Arcano</h2>
+            <p>Selecciona un artefacto y conoce sus secretos.</p>
         </div>
-
     </section>
 
     <!-- FILTROS -->
-
     <section class="catalogo-filtros">
-
         <input type="text" id="buscador" list="listaProductos" placeholder="Buscar artefacto...">
-
         <datalist id="listaProductos">
-
             <option value="Varita de Saúco">
-
             <option value="Poción de Invisibilidad">
-
             <option value="Grimorio de Hechizos Antiguos">
-
             <option value="Cristal de Adivinación">
-
             <option value="Amuleto de Protección">
-
             <option value="Caldero de Cobre">
-
             <option value="Mapa del Tesoro Escondido">
-
             <option value="Pluma de Fénix">
-
         </datalist>
-
         <select id="filtroCategoria">
-
-            <option value="Todos">
-                Todas las categorías
-            </option>
-
-            <option value="Varitas">
-                Varitas
-            </option>
-
-            <option value="Pociones">
-                Pociones
-            </option>
-
-            <option value="Libros">
-                Libros
-            </option>
-
-            <option value="Cristales">
-                Cristales
-            </option>
-
-            <option value="Amuletos">
-                Amuletos
-            </option>
-
-            <option value="Calderos">
-                Calderos
-            </option>
-
-            <option value="Pergaminos">
-                Pergaminos
-            </option>
-
-            <option value="Reliquias">
-                Reliquias
-            </option>
-
+            <option value="Todos">Todas las categorías</option>
+            <option value="Varitas">Varitas</option>
+            <option value="Pociones">Pociones</option>
+            <option value="Libros">Libros</option>
+            <option value="Cristales">Cristales</option>
+            <option value="Amuletos">Amuletos</option>
+            <option value="Calderos">Calderos</option>
+            <option value="Pergaminos">Pergaminos</option>
+            <option value="Reliquias">Reliquias</option>
         </select>
-
         <select id="filtroPrecio">
-
-            <option value="Todos">
-
-                Todos los precios
-
-            </option>
-
-            <option value="100">
-
-                Menos de $100
-
-            </option>
-
-            <option value="300">
-
-                De $100 a $300
-
-            </option>
-
-            <option value="9999">
-
-                Más de $300
-
-            </option>
-
+            <option value="Todos">Todos los precios</option>
+            <option value="100">Menos de $100</option>
+            <option value="300">De $100 a $300</option>
+            <option value="9999">Más de $300</option>
         </select>
-
     </section>
 
     <!-- CATÁLOGO -->
-
     <section class="catalogo-section">
-
-        <div class="catalogo-grid" id="productos-container">
-
-        </div>
-
+        <div class="catalogo-grid" id="productos-container"></div>
     </section>
 
     <!-- FOOTER -->
-
     <footer class="footer-mini">
-
         <p>
             © 2026 <span>Wizardly</span> — Mercado Arcano
             &nbsp;✦&nbsp; Todos los derechos mágicos reservados
         </p>
-
         <div class="footer-links">
             <a href="politicas.html">Políticas de Compra y Venta</a>
         </div>
-
     </footer>
+
+    <!-- ====================================================== -->
+    <!-- ===== MODAL DE SUBASTA (Pluma de Fénix) ===== -->
+    <!-- ====================================================== -->
+    <div class="subasta-overlay" id="subastaOverlay">
+        <div class="subasta-modal">
+
+            <!-- Botón cerrar -->
+            <button class="subasta-cerrar" id="cerrarSubasta" title="Cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h2>✦ Subasta Mágica ✦</h2>
+            <p class="subasta-sub">Puja por esta reliquia única</p>
+
+            <div class="subasta-contenido">
+
+                <!-- Producto -->
+                <div class="subasta-producto-info">
+                    <img src="../images/pluma de fenix.jpg" alt="Pluma de Fénix" onerror="this.src='../images/logo/Logo.png'" />
+                    <h3>Pluma de Fénix</h3>
+                    <p class="precio-base">Precio base: $450.00 MXN</p>
+                </div>
+
+                <!-- Lado derecho: temporizador, oferta, lista -->
+                <div>
+                    <!-- Temporizador -->
+                    <div class="temporizador" id="temporizador">
+                        <div class="tiempo" id="contador">02:00</div>
+                        <div class="label">Tiempo restante</div>
+                    </div>
+
+                    <!-- Oferta -->
+                    <div class="oferta-area">
+                        <label for="oferta-input">Tu oferta (MXN)</label>
+                        <div class="oferta-input-group">
+                            <input type="number" id="oferta-input" placeholder="Ej. 500" min="450" step="10" />
+                            <button id="btn-ofertar">Ofertar</button>
+                        </div>
+                        <div id="mensaje-oferta"></div>
+                    </div>
+
+                    <!-- Lista de ofertas -->
+                    <div class="lista-ofertas">
+                        <h4><i class="fa-solid fa-gavel"></i> Ofertas registradas</h4>
+                        <ul id="lista-ofertas-ul">
+                            <li class="sin-ofertas">Aún no hay ofertas. ¡Sé el primero!</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Acciones -->
+            <div class="subasta-acciones">
+                <button class="btn-carrito" id="agregarCarritoSubasta">
+                    <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+                </button>
+                <button class="btn-cerrar" id="cerrarSubastaBtn">Seguir explorando</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+
+    <!-- ===== CÓDIGO ORIGINAL DEL CATÁLOGO ===== -->
     <script>
-
         const productos = [
-
             {
                 id: 1,
                 nombre: "Varita de Saúco",
@@ -240,7 +532,6 @@
                 etiqueta: "Nuevo",
                 imagen: "../images/varita sauco.webp"
             },
-
             {
                 id: 2,
                 nombre: "Poción de Invisibilidad",
@@ -249,7 +540,6 @@
                 etiqueta: "Oferta",
                 imagen: "../images/pocion invisiobilidad.jpg"
             },
-
             {
                 id: 3,
                 nombre: "Grimorio de Hechizos Antiguos",
@@ -258,7 +548,6 @@
                 etiqueta: "Nuevo",
                 imagen: "../images/grimorio.jpg"
             },
-
             {
                 id: 4,
                 nombre: "Cristal de Adivinación",
@@ -267,7 +556,6 @@
                 etiqueta: "",
                 imagen: "../images/cristal de adivinacion.webp"
             },
-
             {
                 id: 5,
                 nombre: "Amuleto de Protección",
@@ -276,7 +564,6 @@
                 etiqueta: "Oferta",
                 imagen: "../images/Amuleto de proteccion.jpeg"
             },
-
             {
                 id: 6,
                 nombre: "Caldero de Cobre",
@@ -285,7 +572,6 @@
                 etiqueta: "",
                 imagen: "../images/Caldero.jpg"
             },
-
             {
                 id: 7,
                 nombre: "Mapa del Tesoro Escondido",
@@ -294,7 +580,6 @@
                 etiqueta: "Nuevo",
                 imagen: "../images/mapa del tesoro.jpg"
             },
-
             {
                 id: 8,
                 nombre: "Pluma de Fénix",
@@ -303,45 +588,25 @@
                 etiqueta: "Nuevo",
                 imagen: "../images/pluma de fenix.jpg"
             }
-
         ];
 
         const container = document.getElementById("productos-container");
 
         function mostrarProductos(lista) {
-
             container.innerHTML = "";
-
             lista.forEach(prod => {
-
                 const card = document.createElement("div");
                 card.className = "producto-card";
-
                 card.innerHTML = `
-
-${prod.etiqueta != "" ?
+                    ${prod.etiqueta != "" ?
                         `<span class="etiqueta ${prod.etiqueta.toLowerCase()}">${prod.etiqueta}</span>` : ""}
-
-<img src="${prod.imagen}" alt="${prod.nombre}">
-
-<h3>${prod.nombre}</h3>
-
-<p class="producto-precio">
-$${prod.precio.toFixed(2)} MXN
-</p>
-
-<a
-href="detalle.html?id=${prod.id}"
-class="btn-detalle">
-Ver detalle
-</a>
-
-`;
-
+                    <img src="${prod.imagen}" alt="${prod.nombre}">
+                    <h3>${prod.nombre}</h3>
+                    <p class="producto-precio">$${prod.precio.toFixed(2)} MXN</p>
+                    <a href="detalle.html?id=${prod.id}" class="btn-detalle">Ver detalle</a>
+                `;
                 container.appendChild(card);
-
             });
-
         }
 
         mostrarProductos(productos);
@@ -351,77 +616,242 @@ Ver detalle
         const precio = document.getElementById("filtroPrecio");
 
         function filtrar() {
-
             let lista = productos;
-
             const texto = buscador.value.toLowerCase();
-
             if (texto != "") {
-
                 lista = lista.filter(producto =>
-
                     producto.nombre.toLowerCase().includes(texto)
-
                 );
-
             }
-
             if (categoria.value != "Todos") {
-
                 lista = lista.filter(producto =>
-
                     producto.categoria === categoria.value
-
                 );
-
             }
-
             if (precio.value == "100") {
-
-                lista = lista.filter(producto =>
-
-                    producto.precio < 100
-
-                );
-
+                lista = lista.filter(producto => producto.precio < 100);
+            } else if (precio.value == "300") {
+                lista = lista.filter(producto => producto.precio >= 100 && producto.precio <= 300);
+            } else if (precio.value == "9999") {
+                lista = lista.filter(producto => producto.precio > 300);
             }
-
-            else if (precio.value == "300") {
-
-                lista = lista.filter(producto =>
-
-                    producto.precio >= 100 &&
-                    producto.precio <= 300
-
-                );
-
-            }
-
-            else if (precio.value == "9999") {
-
-                lista = lista.filter(producto =>
-
-                    producto.precio > 300
-
-                );
-
-            }
-
             mostrarProductos(lista);
-
         }
 
         buscador.addEventListener("input", filtrar);
-
         categoria.addEventListener("change", filtrar);
-
         precio.addEventListener("change", filtrar);
-
     </script>
 
-    script src="../js/carrito.js"></script>
-    <script src="../js/carrito.js"></script>
-    <script src="../js/script.js"></script>
+    <!-- ===== SCRIPT DE LA SUBASTA (actualizado) ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ── Elementos del DOM ──
+            const overlay = document.getElementById('subastaOverlay');
+            const contadorEl = document.getElementById('contador');
+            const temporizadorEl = document.getElementById('temporizador');
+            const inputOferta = document.getElementById('oferta-input');
+            const btnOfertar = document.getElementById('btn-ofertar');
+            const mensajeOferta = document.getElementById('mensaje-oferta');
+            const listaOfertas = document.getElementById('lista-ofertas-ul');
+            const btnCerrar1 = document.getElementById('cerrarSubasta');
+            const btnCerrar2 = document.getElementById('cerrarSubastaBtn');
+            const btnCarrito = document.getElementById('agregarCarritoSubasta');
+
+            // ── Datos de la subasta (Pluma de Fénix) ──
+            const PRODUCTO_SUBASTA = {
+                id: 9999, // ID único para no confundir con el catálogo
+                nombre: 'Pluma de Fénix (Subasta)',
+                precioBase: 450,
+                imagen: '../images/pluma de fenix.jpg',
+                categoria: 'Reliquias',
+                descripcion: 'Edición limitada de la subasta mágica.'
+            };
+
+            // ── Estado ──
+            let tiempoRestante = 120; // 2 minutos
+            let temporizadorInterval = null;
+            let ofertas = [];
+            let subastaFinalizada = false;
+            let subastaMostrada = false;
+            let ultimaOfertaUsuario = null; // guardará el monto de la última oferta del usuario
+
+            // Nombres de postores simulados
+            const postores = [
+                'Merlín G.', 'Hermione L.', 'Gandalf R.',
+                'Sabrina M.', 'Dumbledore V.', 'Morgana L.',
+                'Salazar S.', 'Rowena R.', 'Godric G.'
+            ];
+
+            // ── Funciones ──
+
+            function formatearTiempo(segundos) {
+                const m = Math.floor(segundos / 60);
+                const s = segundos % 60;
+                return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            }
+
+            function actualizarTemporizador() {
+                contadorEl.textContent = formatearTiempo(tiempoRestante);
+                if (tiempoRestante <= 0) {
+                    clearInterval(temporizadorInterval);
+                    temporizadorEl.classList.add('finalizado');
+                    contadorEl.textContent = '00:00';
+                    btnOfertar.disabled = true;
+                    subastaFinalizada = true;
+                    if (ofertas.length === 0) {
+                        ofertas.push({ nombre: 'Subasta finalizada', monto: PRODUCTO_SUBASTA.precioBase });
+                        renderOfertas();
+                    }
+                }
+            }
+
+            function iniciarTemporizador() {
+                if (temporizadorInterval) clearInterval(temporizadorInterval);
+                tiempoRestante = 120;
+                temporizadorEl.classList.remove('finalizado');
+                btnOfertar.disabled = false;
+                subastaFinalizada = false;
+                actualizarTemporizador();
+                temporizadorInterval = setInterval(() => {
+                    tiempoRestante--;
+                    actualizarTemporizador();
+                    if (tiempoRestante <= 0) {
+                        clearInterval(temporizadorInterval);
+                    }
+                }, 1000);
+            }
+
+            function renderOfertas() {
+                listaOfertas.innerHTML = '';
+                if (ofertas.length === 0) {
+                    listaOfertas.innerHTML = '<li class="sin-ofertas">Aún no hay ofertas. ¡Sé el primero!</li>';
+                    return;
+                }
+                const ofertasMostrar = ofertas.slice(-6).reverse();
+                ofertasMostrar.forEach(o => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${o.nombre}</span>
+                        <span class="oferta-monto">$${o.monto.toFixed(2)} MXN</span>
+                    `;
+                    listaOfertas.appendChild(li);
+                });
+            }
+
+            function registrarOferta(monto) {
+                const nombre = postores[Math.floor(Math.random() * postores.length)];
+                ofertas.push({ nombre, monto });
+                // Guardamos la última oferta del usuario (asumimos que el usuario es el que hizo clic)
+                ultimaOfertaUsuario = monto;
+                renderOfertas();
+                mensajeOferta.textContent = `✅ Oferta registrada — ${nombre} ofertó $${monto.toFixed(2)}`;
+                mensajeOferta.className = 'mensaje-exito';
+                setTimeout(() => {
+                    mensajeOferta.textContent = '';
+                    mensajeOferta.className = '';
+                }, 4000);
+            }
+
+            // ── Eventos ──
+
+            btnOfertar.addEventListener('click', function() {
+                if (subastaFinalizada) {
+                    mensajeOferta.textContent = '⛔ La subasta ha finalizado.';
+                    mensajeOferta.className = 'mensaje-error';
+                    return;
+                }
+                const valor = parseFloat(inputOferta.value);
+                if (isNaN(valor) || valor < PRODUCTO_SUBASTA.precioBase) {
+                    mensajeOferta.textContent = `⚠️ La oferta mínima es $${PRODUCTO_SUBASTA.precioBase}.`;
+                    mensajeOferta.className = 'mensaje-error';
+                    return;
+                }
+                registrarOferta(valor);
+                inputOferta.value = '';
+            });
+
+            inputOferta.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    btnOfertar.click();
+                }
+            });
+
+            // ── Agregar al carrito con el precio de la última oferta ──
+            btnCarrito.addEventListener('click', function() {
+                // Determinar el precio a usar: si hay ofertas, usar la última oferta del usuario, sino el precio base
+                let precioFinal = PRODUCTO_SUBASTA.precioBase;
+                let mensajePrecio = '';
+
+                if (ultimaOfertaUsuario !== null && ultimaOfertaUsuario > 0) {
+                    precioFinal = ultimaOfertaUsuario;
+                    mensajePrecio = ` (precio de subasta: $${precioFinal.toFixed(2)})`;
+                } else if (ofertas.length > 0) {
+                    // Si no hay oferta del usuario pero hay ofertas de otros, tomamos la más alta
+                    const ofertaMasAlta = ofertas.reduce((max, o) => o.monto > max.monto ? o : max, ofertas[0]);
+                    precioFinal = ofertaMasAlta.monto;
+                    mensajePrecio = ` (precio de subasta: $${precioFinal.toFixed(2)})`;
+                } else {
+                    mensajePrecio = ' (precio base)';
+                }
+
+                // Crear el objeto producto con el precio dinámico y nombre especial
+                const productoSubasta = {
+                    id: PRODUCTO_SUBASTA.id,
+                    nombre: PRODUCTO_SUBASTA.nombre, // ya incluye "(Subasta)"
+                    precio: precioFinal,
+                    imagen: PRODUCTO_SUBASTA.imagen,
+                    categoria: PRODUCTO_SUBASTA.categoria,
+                    // Añadimos una propiedad extra para identificar que es subastado (opcional)
+                    esSubasta: true
+                };
+
+                if (typeof agregarAlCarrito === 'function') {
+                    agregarAlCarrito(productoSubasta, 1);
+                    btnCarrito.innerHTML = `<i class="fa-solid fa-check"></i> ¡Agregado! ${mensajePrecio}`;
+                    setTimeout(() => {
+                        btnCarrito.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Agregar al carrito';
+                    }, 3000);
+                } else {
+                    alert('Error: la función agregarAlCarrito no está disponible.');
+                }
+            });
+
+            // ── Cerrar modal ──
+            function cerrarModal() {
+                overlay.classList.remove('visible');
+                if (temporizadorInterval) {
+                    clearInterval(temporizadorInterval);
+                }
+            }
+
+            btnCerrar1.addEventListener('click', cerrarModal);
+            btnCerrar2.addEventListener('click', cerrarModal);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) cerrarModal();
+            });
+
+            // ── Mostrar subasta después de 5 segundos ──
+            setTimeout(function() {
+                if (!subastaMostrada) {
+                    overlay.classList.add('visible');
+                    iniciarTemporizador();
+                    subastaMostrada = true;
+                }
+            }, 2500);
+
+            // ── Inicializar contador del carrito ──
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof actualizarContador === 'function') {
+                    actualizarContador();
+                }
+            });
+
+            console.log('✨ Subasta simulada (Pluma de Fénix) cargada. Aparecerá en 5 segundos.');
+        })();
+    </script>
 
 </body>
 
