@@ -1,0 +1,621 @@
+/* =========================================
+   WIZARDLY - COMUNIDAD CSS
+   ========================================= */
+
+
+/* CONTENEDOR GENERAL */
+
+.catalogo-section{
+
+padding-top:80px;
+padding-bottom:80px;
+
+}
+
+
+
+
+/* TARJETA DEL FORMULARIO */
+
+.contact-card{
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,.08),
+rgba(255,255,255,.03)
+);
+
+
+border:1px solid rgba(212,175,55,.25);
+
+
+border-radius:25px;
+
+
+padding:40px;
+
+
+max-width:850px;
+
+
+margin:auto;
+
+
+backdrop-filter:blur(12px);
+
+
+box-shadow:
+0 0 30px rgba(0,0,0,.4);
+
+
+animation: aparecer .8s ease;
+
+}
+
+
+
+
+
+
+/* TITULO FORMULARIO */
+
+
+.contact-card h3{
+
+font-family:'Cinzel',serif;
+
+
+color:var(--gold);
+
+
+font-size:1.8rem;
+
+
+display:flex;
+
+
+align-items:center;
+
+
+gap:12px;
+
+}
+
+
+
+
+
+/* INPUTS */
+
+
+.input-group{
+
+margin-bottom:20px;
+
+}
+
+
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+
+
+width:100%;
+
+
+padding:15px 18px;
+
+
+border-radius:15px;
+
+
+border:1px solid rgba(212,175,55,.25);
+
+
+background:
+rgba(0,0,0,.35);
+
+
+color:white;
+
+
+font-family:'Lato',sans-serif;
+
+
+font-size:1rem;
+
+
+outline:none;
+
+
+transition:.35s;
+
+}
+
+
+
+
+.input-group textarea{
+
+resize:none;
+
+}
+
+
+
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus{
+
+
+border-color:var(--gold);
+
+
+box-shadow:
+0 0 15px rgba(212,175,55,.35);
+
+
+transform:translateY(-2px);
+
+}
+
+
+
+
+.input-group select option{
+
+background:#171020;
+
+color:white;
+
+}
+
+
+
+
+
+
+
+/* BOTON LIKE */
+
+
+.btn-like{
+
+
+background:
+rgba(255,255,255,.08);
+
+
+border:
+1px solid rgba(255,255,255,.18);
+
+
+padding:
+10px 20px;
+
+
+border-radius:50px;
+
+
+cursor:pointer;
+
+
+font-size:1rem;
+
+
+color:white;
+
+
+transition:.35s;
+
+
+font-family:'Cinzel',serif;
+
+
+}
+
+
+
+.btn-like:hover{
+
+
+background:#ff4b6e;
+
+
+transform:
+translateY(-4px)
+scale(1.05);
+
+
+box-shadow:
+0 0 25px rgba(255,75,110,.5);
+
+
+}
+
+
+
+.btn-like:active{
+
+transform:scale(.9);
+
+}
+
+
+
+.btn-like span{
+
+
+margin-left:6px;
+
+
+font-weight:bold;
+
+}
+
+
+
+
+
+
+
+/* TARJETAS DE COMENTARIOS */
+
+
+.comentario-card{
+
+
+position:relative;
+
+
+overflow:hidden;
+
+
+animation:
+aparecer .6s ease;
+
+
+transition:.4s;
+
+
+}
+
+
+
+
+
+.comentario-card:hover{
+
+
+transform:
+translateY(-8px);
+
+
+box-shadow:
+0 15px 35px rgba(212,175,55,.18);
+
+
+}
+
+
+
+
+.comentario-card::before{
+
+
+content:"";
+
+
+position:absolute;
+
+
+top:0;
+
+
+left:0;
+
+
+width:5px;
+
+
+height:100%;
+
+
+background:
+linear-gradient(
+180deg,
+var(--gold),
+transparent
+);
+
+
+}
+
+
+
+
+
+
+.comentario-card h3{
+
+
+font-family:'Cinzel',serif;
+
+
+color:white;
+
+
+font-size:1.3rem;
+
+
+}
+
+
+
+
+
+
+
+.comentario-card p{
+
+
+color:
+rgba(255,255,255,.85);
+
+
+font-size:1rem;
+
+
+}
+
+
+
+
+
+.comentario-card small{
+
+
+font-family:'Lato',sans-serif;
+
+
+}
+
+
+
+
+
+
+
+/* ETIQUETA NUEVO */
+
+
+.comentario-card span{
+
+
+font-family:'Cinzel',serif;
+
+
+}
+
+
+
+
+
+
+
+/* ANIMACIONES */
+
+
+@keyframes aparecer{
+
+
+from{
+
+
+opacity:0;
+
+
+transform:
+translateY(30px);
+
+
+}
+
+
+
+to{
+
+
+opacity:1;
+
+
+transform:
+translateY(0);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+/* EFECTO MAGICO EN COMENTARIOS */
+
+
+.comentario-card:hover::after{
+
+
+content:"✦";
+
+
+position:absolute;
+
+
+right:25px;
+
+
+top:20px;
+
+
+font-size:2rem;
+
+
+color:var(--gold);
+
+
+opacity:.7;
+
+
+animation:
+brillar 1s infinite alternate;
+
+
+}
+
+
+
+
+@keyframes brillar{
+
+
+from{
+
+
+filter:
+drop-shadow(0 0 5px gold);
+
+
+}
+
+
+
+to{
+
+
+filter:
+drop-shadow(0 0 20px gold);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+/* RESPONSIVE */
+
+
+@media(max-width:768px){
+
+
+
+.contact-card{
+
+
+padding:25px;
+
+
+}
+
+
+
+.comentario-card{
+
+
+padding:20px;
+
+
+}
+
+
+
+}
+/* =========================================
+   NUEVAS CLASES PARA FORO / IMÁGENES
+   ========================================= */
+
+.comentario-imagen {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    margin-top: 15px;
+    border: 1px solid rgba(212,175,55,.25);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    display: block;
+}
+
+/* Ocultar la imagen si no tiene un link (src vacío) */
+.comentario-imagen[src=""] {
+    display: none;
+}
+
+.acciones-comentario {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 15px;
+}
+/* =========================================
+   NOTIFICACIONES FLOTANTES (TOAST MAGIC)
+   ========================================= */
+
+.toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toast-magic {
+    background: linear-gradient(145deg, #171020, #1e1b29);
+    border: 1px solid rgba(212, 175, 55, 0.6);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 
+                0 0 15px rgba(212, 175, 55, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(8px);
+    
+    /* Estado inicial (oculto a la derecha) */
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s;
+}
+
+/* Estado activo (visible) */
+.toast-magic.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-magic i {
+    color: #d4af37; /* Dorado de Wizardly */
+    font-size: 1.2rem;
+}
