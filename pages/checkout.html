@@ -1,79 +1,873 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Wizardly — Checkout</title>
 
     <link rel="icon" href="../images/favicon/favicon.jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/carrito.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
+
 <body>
 
-    <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
-                <div class="logo-text">
-                    <span class="brand">Wizardly</span>
-                    <span class="tagline">Mercado Arcano</span>
-                </div>
-            </a>
-            <ul class="menu">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="opiniones.html">Opiniones</a></li>
-                <li><a href="campa.html">Campaña</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="promociones.html">Promociones</a></li>
-                <li>
-                    <a href="carrito.html" class="carrito-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="contador-carrito">0</span>
-                    </a>
-                </li>
-                <li><a href="login.html" class="btn-login">Acceder</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
 
-    <section class="checkout-placeholder">
-        <canvas id="stardust"></canvas>
-        <div class="checkout-content">
-            <span class="checkout-icono">⚗️</span>
-            <span class="hero-eyebrow">✦ Próximamente ✦</span>
-            <h2>Pasarela de Pago</h2>
-            <p>Estamos conjurando el sistema de pago.<br>Por ahora, tu pedido está guardado en el carrito.</p>
-            <div class="checkout-btns">
-                <a href="carrito.html" class="btn">
-                    <i class="fa-solid fa-arrow-left"></i> Volver al carrito
-                </a>
-               <a href="catalogo.html" class="btn-explorar">
-    <i class="fa-solid fa-hat-wizard"></i>
-    Seguir explorando
+<nav class="navbar">
+
+<a href="../index.html" class="logo">
+
+<img src="../images/logo/Logo.png">
+
+<div class="logo-text">
+<span class="brand">Wizardly</span>
+<span class="tagline">Mercado Arcano</span>
+</div>
+
 </a>
-            </div>
+
+<ul class="menu">
+
+<li><a href="../index.html">Inicio</a></li>
+
+<li><a href="catalogo.html">Catálogo</a></li>
+
+<li><a href="opiniones.html">Opiniones</a></li>
+
+<li><a href="campa.html">Campaña</a></li>
+
+<li><a href="comunidad.html">Comunidad</a></li>
+
+<li><a href="contacto.html">Contacto</a></li>
+
+<li>
+
+<a href="carrito.html" class="carrito-link">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="contador-carrito">0</span>
+
+</a>
+
+</li>
+
+<li>
+
+<a href="login.html" class="btn-login">
+
+Acceder
+
+</a>
+
+</li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero-catalogo">
+
+<canvas id="stardust"></canvas>
+
+<div class="hero-content">
+
+<span class="hero-eyebrow">
+
+✦ Finaliza tu Compra ✦
+
+</span>
+
+<h2>Checkout Arcano</h2>
+
+<p>
+
+Un último hechizo antes de recibir tus reliquias mágicas.
+
+</p>
+
+</div>
+
+</section>
+
+<section class="catalogo-section">
+
+<div class="section-header">
+
+<span class="section-eyebrow">
+
+✦ Proceso Seguro ✦
+
+</span>
+
+<h2>Proceso de Compra</h2>
+
+</div>
+
+<div class="checkout-progress">
+
+<div class="paso activo">
+
+<div class="circulo">1</div>
+
+<p>Dirección</p>
+
+</div>
+
+<div class="linea"></div>
+
+<div class="paso" id="pasoPago">
+
+<div class="circulo">2</div>
+
+<p>Pago</p>
+
+</div>
+
+<div class="linea"></div>
+
+<div class="paso" id="pasoFinal">
+
+<div class="circulo">3</div>
+
+<p>Confirmación</p>
+
+</div>
+
+</div>
+
+<div class="contact-card" id="bloqueDireccion">
+
+<h3>
+
+<i class="fa-solid fa-location-dot"></i>
+
+Dirección de envío
+
+</h3>
+
+<form id="formDireccion">
+
+<div class="input-group">
+
+<input
+type="text"
+placeholder="Nombre completo"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="tel"
+placeholder="Teléfono"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="text"
+placeholder="Estado"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="text"
+placeholder="Ciudad"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="text"
+placeholder="Calle y número"
+required>
+
+</div>
+
+<div class="input-group">
+
+<input
+type="text"
+placeholder="Código Postal"
+required>
+
+</div>
+
+<div class="input-group">
+
+<textarea
+rows="4"
+placeholder="Referencias para la entrega"></textarea>
+
+</div>
+
+<button class="btn" type="submit">
+
+Continuar al Pago
+
+<i class="fa-solid fa-arrow-right"></i>
+
+</button>
+
+</form>
+
+</div>
+<!-- PASO 2 -->
+
+<div class="contact-card" id="bloquePago" style="display:none;">
+
+    <h3>
+
+        <i class="fa-solid fa-credit-card"></i>
+
+        Método de Pago
+
+    </h3>
+
+    <p style="margin-bottom:30px;color:var(--text-muted);">
+
+        Selecciona cómo deseas realizar tu compra.
+
+    </p>
+
+    <div class="metodos-pago">
+
+        <!-- TARJETA -->
+
+        <div class="metodo-card seleccionado" data-metodo="tarjeta">
+
+            <i class="fa-solid fa-credit-card fa-2x"></i>
+
+            <h4>Tarjeta Bancaria</h4>
+
+            <p>Visa, Mastercard, American Express</p>
+
         </div>
-    </section>
+
+        <!-- TRANSFERENCIA -->
+
+        <div class="metodo-card" data-metodo="transferencia">
+
+            <i class="fa-solid fa-building-columns fa-2x"></i>
+
+            <h4>Transferencia</h4>
+
+            <p>Transferencia SPEI</p>
+
+        </div>
+
+        <!-- WALLET -->
+
+        <div class="metodo-card" data-metodo="wallet">
+
+            <i class="fa-solid fa-wallet fa-2x"></i>
+
+            <h4>Wallet Arcana</h4>
+
+            <p>Saldo disponible</p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- FORMULARIO TARJETA -->
+
+    <div id="datosTarjeta">
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                placeholder="Nombre del Titular">
+
+        </div>
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                maxlength="19"
+                placeholder="Número de Tarjeta">
+
+        </div>
+
+        <div style="display:flex;gap:20px;">
+
+            <div class="input-group" style="flex:1;">
+
+                <input
+                    type="text"
+                    maxlength="5"
+                    placeholder="MM/AA">
+
+            </div>
+
+            <div class="input-group" style="flex:1;">
+
+                <input
+                    type="password"
+                    maxlength="3"
+                    placeholder="CVV">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TRANSFERENCIA -->
+
+    <div id="datosTransferencia" style="display:none;">
+
+        <div class="info-card">
+
+            <h3>
+
+                Banco Arcano
+
+            </h3>
+
+            <br>
+
+            <p>
+
+                <strong>CLABE:</strong>
+
+                123 456 789 123 456 789
+
+            </p>
+
+            <br>
+
+            <p>
+
+                <strong>Beneficiario:</strong>
+
+                Wizardly S.A. de C.V.
+
+            </p>
+
+            <br>
+
+            <p>
+
+                <strong>Referencia:</strong>
+
+                WIZ-45871
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- WALLET -->
+
+    <div id="datosWallet" style="display:none;">
+
+        <div class="info-card">
+
+            <h3>
+
+                Wallet Arcana
+
+            </h3>
+
+            <br>
+
+            <h2 style="color:var(--gold);">
+
+                $12,500 MXN
+
+            </h2>
+
+            <br>
+
+            <p>
+
+                Tu saldo es suficiente para completar la compra.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <button
+        class="btn"
+        id="btnPagar">
+
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+        Confirmar Compra
+
+    </button>
+
+</div>
+<!-- PASO 3 -->
+
+<div class="contact-card" id="bloqueConfirmacion" style="display:none;">
+
+    <div style="text-align:center;">
+
+        <div style="font-size:85px;margin-bottom:20px;">
+            ✅
+        </div>
+
+        <span class="hero-eyebrow">
+
+            ✦ Pago aprobado ✦
+
+        </span>
+
+        <h2 style="margin-top:15px;">
+
+            ¡Gracias por tu compra!
+
+        </h2>
+
+        <p style="margin:25px 0;color:var(--text-muted);">
+
+            Tu pedido ha sido registrado correctamente y nuestro
+            Consejo Arcano comenzará a preparar tus reliquias.
+
+        </p>
+
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-card">
+
+            <h3>
+
+                <i class="fa-solid fa-box"></i>
+
+                Número de Pedido
+
+            </h3>
+
+            <h2
+                id="numeroPedido"
+                style="color:var(--gold);margin-top:15px;">
+
+                WZ-000000
+
+            </h2>
+
+        </div>
+
+        <div class="info-card">
+
+            <h3>
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                Fecha
+
+            </h3>
+
+            <h2
+                id="fechaCompra"
+                style="color:var(--gold);margin-top:15px;">
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="info-card">
+
+        <h3>
+
+            <i class="fa-solid fa-scroll"></i>
+
+            Resumen del Pedido
+
+        </h3>
+
+        <div
+            id="resumenCompra"
+            style="margin-top:25px;">
+
+        </div>
+
+        <hr style="margin:25px 0;">
+
+        <div style="display:flex;justify-content:space-between;">
+
+            <strong>Total</strong>
+
+            <strong
+                id="totalFinal"
+                style="color:var(--gold);">
+
+                $0 MXN
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+
+        <a
+            href="../index.html"
+            class="btn">
+
+            <i class="fa-solid fa-house"></i>
+
+            Volver al Inicio
+
+        </a>
+
+        <a
+            href="catalogo.html"
+            class="btn-explorar">
+
+            <i class="fa-solid fa-hat-wizard"></i>
+
+            Seguir Comprando
+
+        </a>
+
+    </div>
+
+</div>
+
+</section>
 
 <footer class="footer-mini">
 
-    <p>
-        © 2026 <span>Wizardly</span> — Mercado Arcano
-        &nbsp;✦&nbsp; Todos los derechos mágicos reservados
-    </p>
+<p>
 
-    <div class="footer-links">
-        <a href="politicas.html">Políticas de Compra y Venta</a>
-    </div>
+© 2026
+<span>Wizardly</span>
+
+— Mercado Arcano
+
+&nbsp;✦&nbsp;
+
+Todos los derechos mágicos reservados
+
+</p>
+
+<div class="footer-links">
+
+<a href="politicas.html">
+
+Políticas de Compra y Venta
+
+</a>
+
+</div>
 
 </footer>
 
-    <script src="../js/carrito.js"></script>
-    <script src="../js/script.js"></script>
+<script src="../js/carrito.js"></script>
+<script src="../js/script.js"></script>
+
+<script>
+//-----------------------------------------------------
+// PASO 1 -> PASO 2
+//-----------------------------------------------------
+
+const formDireccion = document.getElementById("formDireccion");
+
+const bloqueDireccion = document.getElementById("bloqueDireccion");
+const bloquePago = document.getElementById("bloquePago");
+const bloqueConfirmacion = document.getElementById("bloqueConfirmacion");
+
+const pasoPago = document.getElementById("pasoPago");
+const pasoFinal = document.getElementById("pasoFinal");
+
+formDireccion.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    bloqueDireccion.style.display = "none";
+    bloquePago.style.display = "block";
+
+    pasoPago.classList.add("activo");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+
+//-----------------------------------------------------
+// MÉTODOS DE PAGO
+//-----------------------------------------------------
+
+const tarjetas = document.querySelectorAll(".metodo-card");
+
+const tarjeta = document.getElementById("datosTarjeta");
+const transferencia = document.getElementById("datosTransferencia");
+const wallet = document.getElementById("datosWallet");
+
+tarjetas.forEach(card=>{
+
+    card.addEventListener("click",()=>{
+
+        tarjetas.forEach(c=>c.classList.remove("seleccionado"));
+
+        card.classList.add("seleccionado");
+
+        tarjeta.style.display="none";
+        transferencia.style.display="none";
+        wallet.style.display="none";
+
+        const metodo = card.dataset.metodo;
+
+        if(metodo==="tarjeta"){
+
+            tarjeta.style.display="block";
+
+        }
+
+        if(metodo==="transferencia"){
+
+            transferencia.style.display="block";
+
+        }
+
+        if(metodo==="wallet"){
+
+            wallet.style.display="block";
+
+        }
+
+    });
+
+});
+
+
+//-----------------------------------------------------
+// RESUMEN DE COMPRA
+//-----------------------------------------------------
+
+function cargarResumen(){
+
+    const carrito = obtenerCarrito();
+
+    const resumen = document.getElementById("resumenCompra");
+
+    const totalFinal = document.getElementById("totalFinal");
+
+    resumen.innerHTML="";
+
+    let total=0;
+
+    carrito.forEach(producto=>{
+
+        total += producto.precio*producto.cantidad;
+
+        resumen.innerHTML += `
+
+        <div style="
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:15px;
+        ">
+
+            <span>
+
+                ${producto.nombre}
+
+                x${producto.cantidad}
+
+            </span>
+
+            <strong>
+
+                $${(producto.precio*producto.cantidad).toFixed(2)}
+
+            </strong>
+
+        </div>
+
+        `;
+
+    });
+
+    totalFinal.textContent="$"+total.toFixed(2)+" MXN";
+
+}
+//-----------------------------------------------------
+// CONFIRMAR COMPRA
+//-----------------------------------------------------
+
+document.getElementById("btnPagar").addEventListener("click",function(){
+
+    cargarResumen();
+
+    bloquePago.style.display="none";
+
+    bloqueConfirmacion.style.display="block";
+
+    pasoFinal.classList.add("activo");
+
+    //-------------------------------------------------
+    // Número de pedido aleatorio
+    //-------------------------------------------------
+
+    const numero =
+        "WZ-" +
+        Math.floor(
+            100000 + Math.random()*900000
+        );
+
+    document.getElementById("numeroPedido").textContent=numero;
+
+    //-------------------------------------------------
+    // Fecha actual
+    //-------------------------------------------------
+
+    const hoy=new Date();
+
+    document.getElementById("fechaCompra").textContent=
+        hoy.toLocaleDateString("es-MX",{
+
+            day:"2-digit",
+            month:"long",
+            year:"numeric"
+
+        });
+
+    //-------------------------------------------------
+    // Vaciar carrito
+    //-------------------------------------------------
+
+    localStorage.removeItem("carrito");
+
+    actualizarContadorCarrito();
+
+    //-------------------------------------------------
+    // Notificación
+    //-------------------------------------------------
+
+    mostrarNotificacion(
+
+        "✨ Pago aprobado correctamente.",
+
+        "success"
+
+    );
+
+    //-------------------------------------------------
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+});
+//-----------------------------------------------------
+// INICIALIZACIÓN
+//-----------------------------------------------------
+
+actualizarContadorCarrito();
+
+window.scrollTo({
+    top:0
+});
+
+document.querySelectorAll(".paso")[0].classList.add("activo");
+
+
+//-----------------------------------------------------
+// FORMATEAR NÚMERO DE TARJETA
+//-----------------------------------------------------
+
+const numeroTarjeta = document.querySelector(
+'#datosTarjeta input[placeholder="Número de Tarjeta"]'
+);
+
+if(numeroTarjeta){
+
+numeroTarjeta.addEventListener("input",function(e){
+
+let valor=e.target.value.replace(/\D/g,"");
+
+valor=valor.substring(0,16);
+
+valor=valor.replace(/(.{4})/g,"$1 ").trim();
+
+e.target.value=valor;
+
+});
+
+}
+
+
+//-----------------------------------------------------
+// FORMATEAR FECHA
+//-----------------------------------------------------
+
+const fecha=document.querySelector(
+'#datosTarjeta input[placeholder="MM/AA"]'
+);
+
+if(fecha){
+
+fecha.addEventListener("input",function(e){
+
+let valor=e.target.value.replace(/\D/g,"");
+
+if(valor.length>=2){
+
+valor=valor.substring(0,2)+"/"+valor.substring(2,4);
+
+}
+
+e.target.value=valor;
+
+});
+
+}
+
+</script>
+
 </body>
+
 </html>
