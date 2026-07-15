@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wizardly — Tienda Mágica</title>
-<link rel="stylesheet" href="css/cookies.css">
+    <link rel="stylesheet" href="css/cookies.css">
 
     <link rel="icon" href="images/logo/favicon/favicon.jpeg" type="image/png">
     <link rel="stylesheet" href="css/styles.css">
@@ -56,6 +56,8 @@
                 <li><a href="pages/contacto.html">Contacto</a></li>
                 <li><a href="pages/promociones.html">Promociones</a></li>
                 <li><a href="pages/comunidad.html">Comunidad</a></li>
+                <li><a href="pages/marketplace.html">Marketplace</a></li>
+             
                 <li>
                     <a href="pages/carrito.html" class="carrito-link">
                         <i class="fa-solid fa-cart-shopping"></i>
@@ -68,133 +70,133 @@
 
         </nav>
     </header>
-<!-- ========================================= -->
-<!-- BANNER DE COOKIES -->
-<!-- ========================================= -->
+    <!-- ========================================= -->
+    <!-- BANNER DE COOKIES -->
+    <!-- ========================================= -->
 
-<div id="cookie-overlay" class="cookie-overlay">
+    <div id="cookie-overlay" class="cookie-overlay">
 
-    <div class="cookie-box">
+        <div class="cookie-box">
 
-        <div class="cookie-header">
+            <div class="cookie-header">
 
-            🍪 Cookies Arcanas
+                🍪 Cookies Arcanas
+
+            </div>
+
+            <p>
+
+                Utilizamos pequeños hechizos para recordar tus preferencias,
+                mejorar tu experiencia dentro del Mercado Arcano y proteger
+                tus artefactos mágicos.
+
+            </p>
+
+            <div class="cookie-buttons">
+
+                <button id="configurarCookies" class="cookie-secundario">
+
+                    Configurar
+
+                </button>
+
+                <button id="aceptarCookies" class="cookie-principal">
+
+                    Aceptar todas
+
+                </button>
+
+            </div>
 
         </div>
 
-        <p>
+    </div>
 
-            Utilizamos pequeños hechizos para recordar tus preferencias,
-            mejorar tu experiencia dentro del Mercado Arcano y proteger
-            tus artefactos mágicos.
 
-        </p>
 
-        <div class="cookie-buttons">
 
-            <button id="configurarCookies" class="cookie-secundario">
 
-                Configurar
+    <!-- ========================================= -->
+    <!-- VENTANA CONFIGURACIÓN -->
+    <!-- ========================================= -->
 
-            </button>
+    <div id="config-modal" class="config-overlay">
 
-            <button id="aceptarCookies" class="cookie-principal">
+        <div class="config-box">
 
-                Aceptar todas
+            <h2>⚙ Preferencias Arcanas</h2>
+
+            <p>
+
+                Activa los hechizos mágicos que deseas permitir.
+
+            </p>
+
+            <div class="cookie-item">
+
+                <span>Cookies necesarias</span>
+
+                <label class="switch">
+
+                    <input type="checkbox" checked disabled>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="cookie-item">
+
+                <span>Analíticas</span>
+
+                <label class="switch">
+
+                    <input type="checkbox" checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="cookie-item">
+
+                <span>Marketing</span>
+
+                <label class="switch">
+
+                    <input type="checkbox">
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="cookie-item">
+
+                <span>Personalización</span>
+
+                <label class="switch">
+
+                    <input type="checkbox" checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <button id="guardarCookies" class="cookie-principal">
+
+                Guardar preferencias
 
             </button>
 
         </div>
 
     </div>
-
-</div>
-
-
-
-
-
-<!-- ========================================= -->
-<!-- VENTANA CONFIGURACIÓN -->
-<!-- ========================================= -->
-
-<div id="config-modal" class="config-overlay">
-
-    <div class="config-box">
-
-        <h2>⚙ Preferencias Arcanas</h2>
-
-        <p>
-
-            Activa los hechizos mágicos que deseas permitir.
-
-        </p>
-
-        <div class="cookie-item">
-
-            <span>Cookies necesarias</span>
-
-            <label class="switch">
-
-                <input type="checkbox" checked disabled>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <div class="cookie-item">
-
-            <span>Analíticas</span>
-
-            <label class="switch">
-
-                <input type="checkbox" checked>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <div class="cookie-item">
-
-            <span>Marketing</span>
-
-            <label class="switch">
-
-                <input type="checkbox">
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <div class="cookie-item">
-
-            <span>Personalización</span>
-
-            <label class="switch">
-
-                <input type="checkbox" checked>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <button id="guardarCookies" class="cookie-principal">
-
-            Guardar preferencias
-
-        </button>
-
-    </div>
-
-</div>
     <!-- HERO -->
     <section class="hero">
 
@@ -214,92 +216,92 @@
     <!-- HISTORIA + INFO -->
     <section class="section-historia" id="nosotros">
 
-    <div class="section-header">
-        <span class="section-eyebrow">✦ Nuestra esencia ✦</span>
-        <h3>Más de seis siglos de magia</h3>
-    </div>
+        <div class="section-header">
+            <span class="section-eyebrow">✦ Nuestra esencia ✦</span>
+            <h3>Más de seis siglos de magia</h3>
+        </div>
 
-    <div class="ornament-divider"><span>✦</span></div>
+        <div class="ornament-divider"><span>✦</span></div>
 
-    <div class="info-grid">
+        <div class="info-grid">
 
-        <!-- Historia -->
-        <div class="info-card card-historia">
-            <span class="card-icon">📜</span>
-            <h4>Nuestra Historia</h4>
-            <p>
-                Wizardly nació en 1347 cuando la archimaga Seraphina Coldwell fundó un pequeño puesto
-                en el mercado de las sombras de Edimburgo, vendiendo pociones de clarividencia y
-                pergaminos encantados a viajeros de los reinos del norte. Con el paso de los siglos,
-                el modesto puesto se convirtió en el emporio arcano más respetado del mundo conocido,
-                expandiéndose más allá del velo físico para llegar hoy a cualquier rincón donde la
-                magia sea necesitada.
-            <div class="mapa-magico">
-                <img src="../images/croquis.png" alt="Croquis de Wizardly">
+            <!-- Historia -->
+            <div class="info-card card-historia">
+                <span class="card-icon">📜</span>
+                <h4>Nuestra Historia</h4>
+                <p>
+                    Wizardly nació en 1347 cuando la archimaga Seraphina Coldwell fundó un pequeño puesto
+                    en el mercado de las sombras de Edimburgo, vendiendo pociones de clarividencia y
+                    pergaminos encantados a viajeros de los reinos del norte. Con el paso de los siglos,
+                    el modesto puesto se convirtió en el emporio arcano más respetado del mundo conocido,
+                    expandiéndose más allá del velo físico para llegar hoy a cualquier rincón donde la
+                    magia sea necesitada.
+                <div class="mapa-magico">
+                    <img src="../images/croquis.png" alt="Croquis de Wizardly">
+                </div>
+                </p>
             </div>
-            </p>
-        </div>
 
-        <!-- Misión -->
-        <div class="info-card card-mision">
-            <span class="card-icon">⚗️</span>
-            <h4>Qué Vendemos</h4>
-            <p>
-                Varitas talladas en madera de saúco, pociones de metamorfosis, grimorios de hechizos
-                ancestrales, cristales de adivinación, amuletos de protección y todo cuanto un
-                practicante de las artes arcanas pueda necesitar — certificado y con garantía mágica.
-            </p>
-        </div>
+            <!-- Misión -->
+            <div class="info-card card-mision">
+                <span class="card-icon">⚗️</span>
+                <h4>Qué Vendemos</h4>
+                <p>
+                    Varitas talladas en madera de saúco, pociones de metamorfosis, grimorios de hechizos
+                    ancestrales, cristales de adivinación, amuletos de protección y todo cuanto un
+                    practicante de las artes arcanas pueda necesitar — certificado y con garantía mágica.
+                </p>
+            </div>
 
-        <!-- Horarios -->
-        <div class="info-card card-horarios">
-            <span class="card-icon">🕯️</span>
-            <h4>Horarios</h4>
-            <address>
-                <div class="dato-linea">
-                    <i class="fa-solid fa-moon"></i>
-                    <span>Lunes a Viernes<br>9:00 am — 8:00 pm</span>
-                </div>
-                <div class="dato-linea">
-                    <i class="fa-solid fa-star"></i>
-                    <span>Sábados<br>10:00 am — 6:00 pm</span>
-                </div>
-                <div class="dato-linea">
-                    <i class="fa-solid fa-ban"></i>
-                    <span>Domingos y solsticios<br>Cerrado</span>
-                </div>
+            <!-- Horarios -->
+            <div class="info-card card-horarios">
+                <span class="card-icon">🕯️</span>
+                <h4>Horarios</h4>
+                <address>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-moon"></i>
+                        <span>Lunes a Viernes<br>9:00 am — 8:00 pm</span>
+                    </div>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Sábados<br>10:00 am — 6:00 pm</span>
+                    </div>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-ban"></i>
+                        <span>Domingos y solsticios<br>Cerrado</span>
+                    </div>
+                </address>
+            </div>
+
+            <!-- Ubicación -->
+            <div class="info-card card-ubicacion">
+                <span class="card-icon">🗺️</span>
+                <h4>Encuéntranos</h4>
+
+                <address>
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Callejón de la Niebla 13, Barrio de las Sombras, Aguascalientes, México</span>
+                    </div>
+
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>contacto@wizardly.mx</span>
+                    </div>
+
+                    <div class="dato-linea">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+52 (449) 777-0013</span>
+                    </div>
+                </address>
+
+
+
+            </div>
             </address>
         </div>
 
-        <!-- Ubicación -->
-        <div class="info-card card-ubicacion">
-            <span class="card-icon">🗺️</span>
-            <h4>Encuéntranos</h4>
-
-            <address>
-                <div class="dato-linea">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span>Callejón de la Niebla 13, Barrio de las Sombras, Aguascalientes, México</span>
-                </div>
-
-                <div class="dato-linea">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>contacto@wizardly.mx</span>
-                </div>
-
-                <div class="dato-linea">
-                    <i class="fa-solid fa-phone"></i>
-                    <span>+52 (449) 777-0013</span>
-                </div>
-            </address>
-
-
-
         </div>
-        </address>
-    </div>
-
-    </div>
     </section>
 
     <!-- FOOTER -->
@@ -307,7 +309,7 @@
     <script src="js/carrito.js"></script>
     <script src="js/script.js"></script>
 
-<script src="js/cookies.js"></script>
+    <script src="js/cookies.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Marketplace</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .market-hero {
+            min-height: 30vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background:
+                linear-gradient(160deg, rgba(112,26,255,0.1) 0%, rgba(10,4,18,0) 60%),
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('../images/banner/banner-principal.jpg') center/cover no-repeat;
+            padding-top: 90px;
+        }
+        .market-hero h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.6rem;
+            color: var(--gold);
+        }
+        .market-hero p {
+            font-family: 'Jim Nightshade', cursive;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+        }
+
+        .market-section {
+            background: var(--bg-surface);
+            padding: 40px 60px 100px;
+            min-height: 60vh;
+        }
+        .market-section::before {
+            content: '';
+            display: block;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin-bottom: 40px;
+        }
+
+        .market-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .market-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .market-header h2 span {
+            font-size: 0.75rem;
+            background: rgba(192,132,252,0.15);
+            color: var(--lilac);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+        .market-filtros {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .market-filtros input,
+        .market-filtros select {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 9px 16px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .market-filtros input:focus,
+        .market-filtros select:focus {
+            border-color: var(--gold-dim);
+        }
+        .market-filtros select option {
+            background: var(--bg-card);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+        .market-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .market-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+            border-color: var(--gold-dim);
+        }
+        .market-card-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background: #1a0d2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--border);
+        }
+        .market-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .market-card-body {
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .market-card-nombre {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .market-card-precio {
+            font-family: 'Jim Nightshade', cursive;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+        .market-card-desc {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .market-card-footer {
+            padding: 10px 16px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+        }
+        .market-card-autor {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .market-card-autor i {
+            color: var(--lilac);
+        }
+        .market-card-cat {
+            font-family: 'Cinzel', serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(192,132,252,0.12);
+            color: var(--lilac);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        .btn-agregar-carrito {
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            border-radius: 30px;
+            color: var(--gold);
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-agregar-carrito:hover {
+            background: rgba(246,213,122,0.1);
+            color: var(--gold-glow);
+        }
+
+        .market-vacio {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .market-vacio i {
+            font-size: 3rem;
+            color: var(--border);
+            display: block;
+            margin-bottom: 16px;
+        }
+        .market-vacio p {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 700px) {
+            .market-section { padding: 30px 20px 80px; }
+            .market-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="marketplace.html" class="active">Marketplace</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="carrito-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="contador-carrito">0</span>
+                    </a>
+                </li>
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="market-hero">
+        <div class="hero-content">
+            <span class="hero-eyebrow">✦ Intercambio entre magos ✦</span>
+            <h2>Marketplace Arcano</h2>
+            <p>Descubre artefactos únicos publicados por la comunidad.</p>
+        </div>
+    </section>
+
+    <!-- CONTENIDO -->
+    <section class="market-section">
+        <div class="market-header">
+            <h2>
+                <i class="fa-solid fa-store"></i> Artefactos disponibles
+                <span id="contador-market">0</span>
+            </h2>
+        </div>
+
+        <div class="market-filtros">
+            <input type="text" id="market-buscar" placeholder="🔍 Buscar artefacto...">
+            <select id="market-cat">
+                <option value="">Todas las categorías</option>
+                <option>Varitas</option>
+                <option>Pociones</option>
+                <option>Libros</option>
+                <option>Cristales</option>
+                <option>Amuletos</option>
+                <option>Calderos</option>
+                <option>Pergaminos</option>
+                <option>Reliquias</option>
+                <option>Otro</option>
+            </select>
+        </div>
+
+        <div class="market-grid" id="market-grid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        const CLAVE_MARKET = 'wizardly_marketplace';
+
+        // ── Productos fijos (siempre visibles) ──
+        const PRODUCTOS_FIJOS = [
+            {
+                id: -1,
+                nombre: "Amuleto de la Luna",
+                precio: 180.00,
+                categoria: "Amuletos",
+                descripcion: "Protege contra energías oscuras.",
+                foto: "",
+                autor: "Wizardly Oficial",
+                fecha: "Siempre disponible",
+                esFijo: true
+            },
+            {
+                id: -2,
+                nombre: "Cristal de Clarividencia",
+                precio: 320.00,
+                categoria: "Cristales",
+                descripcion: "Revela visiones del futuro.",
+                foto: "",
+                autor: "Wizardly Oficial",
+                fecha: "Siempre disponible",
+                esFijo: true
+            }
+        ];
+
+        function obtenerPublicaciones() {
+            return JSON.parse(localStorage.getItem(CLAVE_MARKET)) || [];
+        }
+
+        function obtenerTodosLosProductos() {
+            const usuarios = obtenerPublicaciones();
+            // Combinar fijos + usuarios, evitando duplicados por id
+            const todos = [...PRODUCTOS_FIJOS];
+            usuarios.forEach(p => {
+                if (!todos.some(t => t.id === p.id)) {
+                    todos.push(p);
+                }
+            });
+            return todos;
+        }
+
+        function renderMarket(lista) {
+            if (!lista) lista = obtenerTodosLosProductos();
+            const grid = document.getElementById('market-grid');
+            const contador = document.getElementById('contador-market');
+            contador.textContent = `${lista.length} publicación${lista.length !== 1 ? 'es' : ''}`;
+
+            if (lista.length === 0) {
+                grid.innerHTML = `
+                    <div class="market-vacio">
+                        <i class="fa-solid fa-hat-wizard"></i>
+                        <p>No hay artefactos disponibles en el marketplace.</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = '';
+            lista.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'market-card';
+
+                const imgHTML = p.foto
+                    ? `<img class="market-card-img" src="${p.foto}" alt="${p.nombre}">`
+                    : `<div class="market-card-img"><i class="fa-solid fa-hat-wizard"></i></div>`;
+
+                const precioHTML = p.precio !== null && p.precio !== undefined
+                    ? `<p class="market-card-precio">$${p.precio.toFixed(2)} MXN</p>`
+                    : `<p class="market-card-precio" style="color:var(--text-muted);font-size:0.9rem;">Precio a consultar</p>`;
+
+                card.innerHTML = `
+                    ${imgHTML}
+                    <div class="market-card-body">
+                        <p class="market-card-nombre">${p.nombre}</p>
+                        ${precioHTML}
+                        ${p.descripcion ? `<p class="market-card-desc">${p.descripcion}</p>` : ''}
+                    </div>
+                    <div class="market-card-footer">
+                        <span class="market-card-autor">
+                            <i class="fa-solid fa-circle-user"></i>${p.autor || 'Anónimo'}
+                        </span>
+                        <div style="display:flex;gap:6px;align-items:center;">
+                            ${p.categoria ? `<span class="market-card-cat">${p.categoria}</span>` : ''}
+                            <button class="btn-agregar-carrito" onclick="agregarAlCarritoDesdeMarket(${p.id})">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ── Agregar al carrito desde marketplace ──
+        function agregarAlCarritoDesdeMarket(id) {
+            const todos = obtenerTodosLosProductos();
+            const producto = todos.find(p => p.id === id);
+            if (!producto) {
+                mostrarToast('⚠️ Producto no encontrado.', 'error');
+                return;
+            }
+            // Crear objeto para carrito (sin campos extra)
+            const itemCarrito = {
+                id: producto.id,
+                nombre: producto.nombre,
+                precio: producto.precio,
+                imagen: producto.foto || '../images/logo/Logo.png',
+                categoria: producto.categoria || 'Otro'
+            };
+            if (typeof agregarAlCarrito === 'function') {
+                agregarAlCarrito(itemCarrito, 1);
+                mostrarToast(`✦ ${producto.nombre} agregado al carrito.`, 'ok');
+            } else {
+                alert('Error: función agregarAlCarrito no disponible.');
+            }
+        }
+
+        // ── Toast ──
+        function mostrarToast(msg, tipo = 'ok') {
+            let t = document.getElementById('toast-market');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toast-market';
+                t.style.cssText = `
+                    position:fixed; bottom:28px; left:50%;
+                    transform: translateX(-50%) translateY(12px);
+                    background: var(--bg-card); border: 1px solid var(--gold-dim);
+                    border-radius: 30px; padding: 12px 28px;
+                    font-family: 'Cinzel', serif; font-size: 0.78rem;
+                    opacity: 0; pointer-events: none;
+                    transition: opacity 0.3s, transform 0.3s;
+                    z-index: 9999; white-space: nowrap;
+                `;
+                document.body.appendChild(t);
+            }
+            t.textContent = msg;
+            t.style.color = tipo === 'ok' ? 'var(--gold)' : '#f87171';
+            t.style.borderColor = tipo === 'ok' ? 'var(--gold-dim)' : 'rgba(239,68,68,0.4)';
+            t.classList.add('visible');
+            t.style.opacity = '1';
+            t.style.transform = 'translateX(-50%) translateY(0)';
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => {
+                t.style.opacity = '0';
+                t.style.transform = 'translateX(-50%) translateY(12px)';
+            }, 3000);
+        }
+
+        // ── Filtros ──
+        function filtrarMarket() {
+            const txt = document.getElementById('market-buscar').value.toLowerCase();
+            const cat = document.getElementById('market-cat').value;
+            let lista = obtenerTodosLosProductos();
+            if (txt) lista = lista.filter(p => p.nombre.toLowerCase().includes(txt) || (p.descripcion && p.descripcion.toLowerCase().includes(txt)));
+            if (cat) lista = lista.filter(p => p.categoria === cat);
+            renderMarket(lista);
+        }
+
+        document.getElementById('market-buscar').addEventListener('input', filtrarMarket);
+        document.getElementById('market-cat').addEventListener('change', filtrarMarket);
+
+        // ── Init ──
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof actualizarContador === 'function') actualizarContador();
+            renderMarket();
+        });
+    </script>
+</body>
+</html>

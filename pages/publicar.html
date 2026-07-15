@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Publicar artefacto</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .pub-section {
+            background: var(--bg-surface);
+            padding: 120px 40px 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 80vh;
+        }
+        .pub-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 32px;
+            max-width: 560px;
+            width: 100%;
+        }
+        .pub-card h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .pub-card .subtitulo {
+            text-align: center;
+            font-family: 'Jim Nightshade', cursive;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .campo-pub {
+            margin-bottom: 18px;
+        }
+        .campo-pub label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+        .campo-pub input,
+        .campo-pub textarea,
+        .campo-pub select {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.25s;
+            resize: vertical;
+        }
+        .campo-pub input:focus,
+        .campo-pub textarea:focus,
+        .campo-pub select:focus {
+            border-color: var(--gold-dim);
+        }
+        .campo-pub textarea {
+            min-height: 80px;
+        }
+        .btn-publicar {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+            color: #0a0412;
+            border: none;
+            border-radius: 40px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 8px;
+        }
+        .btn-publicar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(217,169,61,0.4);
+        }
+        .btn-volver {
+            display: inline-block;
+            margin-top: 16px;
+            color: var(--text-muted);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+        .btn-volver:hover { color: var(--gold); }
+        #toast-pub {
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.35s, transform 0.35s;
+            pointer-events: none;
+        }
+        #toast-pub.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #toast-pub.ok {
+            background: rgba(74,222,128,0.1);
+            border: 1px solid rgba(74,222,128,0.3);
+            color: #4ade80;
+        }
+        #toast-pub.error {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #f87171;
+        }
+        .preview-foto {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+            border: 2px dashed var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .preview-foto:hover {
+            border-color: var(--gold-dim);
+        }
+        .preview-foto img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        .preview-foto i { font-size: 2rem; color: var(--border); }
+        #pub-foto-input { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="marketplace.html">Marketplace</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li>
+                    <a href="carrito.html" class="carrito-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="contador-carrito">0</span>
+                    </a>
+                </li>
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <section class="pub-section">
+        <div class="pub-card">
+            <h1>✦ Publica tu artefacto ✦</h1>
+            <p class="subtitulo">Comparte tus creaciones con la comunidad</p>
+
+            <div class="campo-pub">
+                <label>Nombre del artefacto *</label>
+                <input type="text" id="pub-nombre" placeholder="Ej. Cetro de obsidiana">
+            </div>
+
+            <div class="campo-pub">
+                <label>Precio (MXN) *</label>
+                <input type="number" id="pub-precio" placeholder="0.00" min="0" step="0.01">
+            </div>
+
+            <div class="campo-pub">
+                <label>Categoría</label>
+                <select id="pub-categoria">
+                    <option value="">Sin categoría</option>
+                    <option>Varitas</option>
+                    <option>Pociones</option>
+                    <option>Libros</option>
+                    <option>Cristales</option>
+                    <option>Amuletos</option>
+                    <option>Calderos</option>
+                    <option>Pergaminos</option>
+                    <option>Reliquias</option>
+                    <option>Otro</option>
+                </select>
+            </div>
+
+            <div class="campo-pub">
+                <label>Descripción</label>
+                <textarea id="pub-descripcion" rows="3" placeholder="Describe el poder de tu artefacto..."></textarea>
+            </div>
+
+            <div class="campo-pub">
+                <label>Foto del artefacto</label>
+                <input type="file" id="pub-foto-input" accept="image/*">
+                <div class="preview-foto" id="preview-foto" onclick="document.getElementById('pub-foto-input').click()">
+                    <i class="fa-solid fa-image"></i>
+                    <span>Toca para subir foto</span>
+                    <img id="preview-img" src="" alt="preview">
+                </div>
+            </div>
+
+            <button class="btn-publicar" onclick="publicarProducto()">
+                <i class="fa-solid fa-paper-plane"></i> Publicar artefacto
+            </button>
+
+            <div id="toast-pub"></div>
+
+            <a href="perfil.html" class="btn-volver">
+                <i class="fa-solid fa-arrow-left"></i> Volver a mi perfil
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        const CLAVE_MARKET = 'wizardly_marketplace';
+        let fotoBase64 = '';
+
+        // ── Cargar foto ──
+        document.getElementById('pub-foto-input').addEventListener('change', function() {
+            const file = this.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = e => {
+                fotoBase64 = e.target.result;
+                const img = document.getElementById('preview-img');
+                img.src = fotoBase64;
+                img.style.display = 'block';
+                document.querySelector('#preview-foto i').style.display = 'none';
+                document.querySelector('#preview-foto span').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function publicarProducto() {
+            const nombre = document.getElementById('pub-nombre').value.trim();
+            const precio = document.getElementById('pub-precio').value.trim();
+            const categoria = document.getElementById('pub-categoria').value;
+            const descripcion = document.getElementById('pub-descripcion').value.trim();
+            const toast = document.getElementById('toast-pub');
+
+            if (!nombre) {
+                toast.textContent = '⚠️ El nombre es obligatorio.';
+                toast.className = 'visible error';
+                setTimeout(() => toast.classList.remove('visible'), 3000);
+                return;
+            }
+            if (precio === '' || isNaN(parseFloat(precio)) || parseFloat(precio) < 0) {
+                toast.textContent = '⚠️ Ingresa un precio válido (mayor o igual a 0).';
+                toast.className = 'visible error';
+                setTimeout(() => toast.classList.remove('visible'), 3000);
+                return;
+            }
+
+            const usuarioDatos = JSON.parse(localStorage.getItem('usuarioDatos'));
+            const autor = usuarioDatos ? usuarioDatos.nombre : 'Mago Anónimo';
+
+            const nuevo = {
+                id: Date.now(),
+                nombre: nombre,
+                precio: parseFloat(precio),
+                categoria: categoria || '',
+                descripcion: descripcion || '',
+                foto: fotoBase64 || '',
+                autor: autor,
+                fecha: new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'short', year:'numeric' })
+            };
+
+            const lista = JSON.parse(localStorage.getItem(CLAVE_MARKET)) || [];
+            lista.unshift(nuevo);
+            localStorage.setItem(CLAVE_MARKET, JSON.stringify(lista));
+
+            // Limpiar
+            document.getElementById('pub-nombre').value = '';
+            document.getElementById('pub-precio').value = '';
+            document.getElementById('pub-categoria').value = '';
+            document.getElementById('pub-descripcion').value = '';
+            fotoBase64 = '';
+            document.getElementById('preview-img').src = '';
+            document.getElementById('preview-img').style.display = 'none';
+            document.querySelector('#preview-foto i').style.display = '';
+            document.querySelector('#preview-foto span').style.display = '';
+            document.getElementById('pub-foto-input').value = '';
+
+            toast.textContent = '✦ ¡Publicado exitosamente! (simulado)';
+            toast.className = 'visible ok';
+            setTimeout(() => {
+                toast.classList.remove('visible');
+                window.location.href = 'mis-publicaciones.html';
+            }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof actualizarContador === 'function') actualizarContador();
+        });
+    </script>
+</body>
+</html>

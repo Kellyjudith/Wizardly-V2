@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizardly — Mis Publicaciones</title>
+
+    <link rel="icon" href="../images/favicon/favicon.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .mispub-section {
+            background: var(--bg-surface);
+            padding: 120px 60px 100px;
+            min-height: 80vh;
+        }
+
+        .mispub-header {
+            max-width: 1000px;
+            margin: 0 auto 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .mispub-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            letter-spacing: 0.06em;
+        }
+
+        .mispub-header p {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .btn-ir-market {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+            color: #0a0412;
+            border-radius: 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-ir-market:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 169, 61, 0.35);
+        }
+
+        /* Lista de publicaciones */
+        .mispub-lista {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mispub-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            align-items: center;
+            gap: 20px;
+            padding: 18px 20px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .mispub-item:hover {
+            border-color: var(--gold-dim);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        .mispub-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #1a0d2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--border);
+            font-size: 2rem;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .mispub-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mispub-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mispub-nombre {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .mispub-meta {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+
+        .mispub-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .mispub-meta i {
+            font-size: 0.7rem;
+            color: var(--lilac);
+        }
+
+        .mispub-precio {
+            font-family: 'Jim Nightshade', cursive;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+
+        .mispub-desc {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-top: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .mispub-acciones {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .btn-editar-pub,
+        .btn-eliminar-pub {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+
+        .btn-editar-pub {
+            background: rgba(246, 213, 122, 0.08);
+            border-color: var(--gold-dim);
+            color: var(--gold);
+        }
+
+        .btn-editar-pub:hover {
+            background: rgba(246, 213, 122, 0.16);
+        }
+
+        .btn-eliminar-pub {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #f87171;
+        }
+
+        .btn-eliminar-pub:hover {
+            background: rgba(239, 68, 68, 0.18);
+        }
+
+        /* Vacío */
+        .mispub-vacio {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .mispub-vacio i {
+            font-size: 3.5rem;
+            color: var(--border);
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .mispub-vacio p {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        /* Modal edición */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            margin: 20px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+            transform: translateY(16px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.visible .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-header h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            color: var(--gold);
+        }
+
+        .modal-cerrar {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-cerrar:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-main);
+        }
+
+        .modal-body {
+            padding: 22px 24px;
+        }
+
+        .campo-edit {
+            margin-bottom: 16px;
+        }
+
+        .campo-edit label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.64rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .campo-edit input,
+        .campo-edit textarea,
+        .campo-edit select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 13px;
+            color: var(--text-main);
+            font-family: 'Lato', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.25s;
+            resize: none;
+        }
+
+        .campo-edit input:focus,
+        .campo-edit textarea:focus,
+        .campo-edit select:focus {
+            border-color: var(--gold-dim);
+        }
+
+        .campo-edit select option {
+            background: var(--bg-card);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-cancelar-modal {
+            padding: 9px 20px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: var(--text-muted);
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-cancelar-modal:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-guardar-modal {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 22px;
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold-glow));
+            color: #0a0412;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-guardar-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(217, 169, 61, 0.35);
+        }
+
+        /* Toast */
+        .toast-mispub {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(12px);
+            background: var(--bg-card);
+            border: 1px solid var(--gold-dim);
+            border-radius: 30px;
+            padding: 12px 28px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            color: var(--gold);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 9999;
+            white-space: nowrap;
+        }
+
+        .toast-mispub.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 700px) {
+            .mispub-section {
+                padding: 100px 20px 80px;
+            }
+
+            .mispub-item {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .mispub-acciones {
+                flex-direction: row;
+                grid-column: 1 / -1;
+            }
+
+            .mispub-img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
+                <div class="logo-text">
+                    <span class="brand">Wizardly</span>
+                    <span class="tagline">Mercado Arcano</span>
+                </div>
+            </a>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="marketplace.html">Marketplace</a></li>
+                <li>
+                    <a href="carrito.html" class="carrito-link">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="contador-carrito">0</span>
+                    </a>
+                </li>
+                <li><a href="login.html" class="btn-login">Acceder</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <section class="mispub-section">
+        <div class="mispub-header">
+            <div>
+                <h1>✦ Mis Publicaciones</h1>
+                <p id="mispub-subtitulo">Cargando...</p>
+            </div>
+            <a href="publicar.html" class="btn-ir-market">
+                <i class="fa-solid fa-plus"></i> Nueva publicación
+            </a>
+        </div>
+
+        <div class="mispub-lista" id="mispub-lista"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+    </footer>
+
+    <!-- MODAL EDITAR -->
+    <div class="modal-overlay" id="modal-editar" onclick="cerrarModalEditar(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Editar publicación</h3>
+                <button class="modal-cerrar"
+                    onclick="document.getElementById('modal-editar').classList.remove('visible')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="edit-id">
+                <div class="campo-edit">
+                    <label>Nombre</label>
+                    <input type="text" id="edit-nombre">
+                </div>
+                <div class="campo-edit">
+                    <label>Precio (MXN)</label>
+                    <input type="number" id="edit-precio" min="0" step="0.01">
+                </div>
+                <div class="campo-edit">
+                    <label>Categoría</label>
+                    <select id="edit-categoria">
+                        <option value="">Sin categoría</option>
+                        <option>Varitas</option>
+                        <option>Pociones</option>
+                        <option>Libros</option>
+                        <option>Cristales</option>
+                        <option>Amuletos</option>
+                        <option>Calderos</option>
+                        <option>Pergaminos</option>
+                        <option>Reliquias</option>
+                        <option>Otro</option>
+                    </select>
+                </div>
+                <div class="campo-edit">
+                    <label>Descripción</label>
+                    <textarea id="edit-descripcion" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancelar-modal"
+                    onclick="document.getElementById('modal-editar').classList.remove('visible')">Cancelar</button>
+                <button class="btn-guardar-modal" onclick="guardarEdicion()">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-mispub" id="toast-mispub"></div>
+
+    <script src="../js/carrito.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        const CLAVE_MARKET = 'wizardly_marketplace';
+
+        function obtenerPublicaciones() {
+            return JSON.parse(localStorage.getItem(CLAVE_MARKET)) || [];
+        }
+        function guardarPublicaciones(lista) {
+            localStorage.setItem(CLAVE_MARKET, JSON.stringify(lista));
+        }
+
+        // ── Obtener publicaciones del usuario actual ───────────
+        function obtenerMisPublicaciones() {
+            const ud = JSON.parse(localStorage.getItem('usuarioDatos'));
+            const autor = ud ? ud.nombre : 'Mago Anónimo';
+            return obtenerPublicaciones().filter(p => p.autor === autor);
+        }
+
+        // ── Render ─────────────────────────────────────────────
+        function renderMisPublicaciones() {
+            const lista = obtenerMisPublicaciones();
+            const contenedor = document.getElementById('mispub-lista');
+            const subtitulo = document.getElementById('mispub-subtitulo');
+
+            subtitulo.textContent = `${lista.length} publicación${lista.length !== 1 ? 'es' : ''} tuya${lista.length !== 1 ? 's' : ''}`;
+
+            if (lista.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="mispub-vacio">
+                        <i class="fa-solid fa-scroll"></i>
+                        <p>Aún no has publicado ningún artefacto.</p>
+                        <a href="marketplace.html" class="btn-ir-market">
+                            <i class="fa-solid fa-plus"></i> Publicar ahora
+                        </a>
+                    </div>`;
+                return;
+            }
+
+            contenedor.innerHTML = '';
+            lista.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'mispub-item';
+
+                const imgHTML = p.foto
+                    ? `<div class="mispub-img"><img src="${p.foto}" alt="${p.nombre}"></div>`
+                    : `<div class="mispub-img"><i class="fa-solid fa-hat-wizard"></i></div>`;
+
+                const precioHTML = p.precio !== null && p.precio !== undefined
+                    ? `<p class="mispub-precio">$${parseFloat(p.precio).toFixed(2)} MXN</p>`
+                    : `<p class="mispub-precio" style="color:var(--text-muted);font-size:0.85rem;">Precio a consultar</p>`;
+
+                item.innerHTML = `
+                    ${imgHTML}
+                    <div class="mispub-info">
+                        <p class="mispub-nombre">${p.nombre}</p>
+                        <div class="mispub-meta">
+                            ${p.categoria ? `<span><i class="fa-solid fa-tag"></i>${p.categoria}</span>` : ''}
+                            <span><i class="fa-solid fa-calendar"></i>${p.fecha || ''}</span>
+                        </div>
+                        ${precioHTML}
+                        ${p.descripcion ? `<p class="mispub-desc">${p.descripcion}</p>` : ''}
+                    </div>
+                    <div class="mispub-acciones">
+                        <button class="btn-editar-pub" onclick="abrirEditar(${p.id})">
+                            <i class="fa-solid fa-pen"></i> Editar
+                        </button>
+                        <button class="btn-eliminar-pub" onclick="eliminarPub(${p.id})">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(item);
+            });
+        }
+
+        // ── Editar ─────────────────────────────────────────────
+        function abrirEditar(id) {
+            const todas = obtenerPublicaciones();
+            const p = todas.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('edit-id').value = p.id;
+            document.getElementById('edit-nombre').value = p.nombre || '';
+            document.getElementById('edit-precio').value = p.precio ?? '';
+            document.getElementById('edit-categoria').value = p.categoria || '';
+            document.getElementById('edit-descripcion').value = p.descripcion || '';
+            document.getElementById('modal-editar').classList.add('visible');
+        }
+
+        function cerrarModalEditar(e) {
+            if (e.target.id === 'modal-editar')
+                document.getElementById('modal-editar').classList.remove('visible');
+        }
+
+        function guardarEdicion() {
+            const id = parseInt(document.getElementById('edit-id').value);
+            const nombre = document.getElementById('edit-nombre').value.trim();
+            const precio = document.getElementById('edit-precio').value.trim();
+            const categoria = document.getElementById('edit-categoria').value;
+            const descripcion = document.getElementById('edit-descripcion').value.trim();
+
+            const todas = obtenerPublicaciones();
+            const idx = todas.findIndex(p => p.id === id);
+            if (idx < 0) return;
+
+            todas[idx] = {
+                ...todas[idx],
+                nombre: nombre || todas[idx].nombre,
+                precio: precio !== '' ? parseFloat(precio) : null,
+                categoria,
+                descripcion
+            };
+
+            guardarPublicaciones(todas);
+            document.getElementById('modal-editar').classList.remove('visible');
+            renderMisPublicaciones();
+            mostrarToast('✦ Publicación actualizada (simulado)');
+        }
+
+        // ── Eliminar ───────────────────────────────────────────
+        // ── Eliminar con SweetAlert2 ──────────────────────────────
+        function eliminarPub(id) {
+            Swal.fire({
+                title: '¿Eliminar publicación?',
+                text: 'Esta acción no se puede deshacer.',
+                icon: 'warning',
+                background: '#1a1325',
+                color: '#f8ecd1',
+                showCancelButton: true,
+                confirmButtonText: '🗑 Sí, eliminar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#8e44ad',
+                cancelButtonColor: '#555',
+                reverseButtons: true,
+                allowOutsideClick: false,
+                customClass: { popup: 'swal-magic' }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Eliminar del localStorage
+                    const todas = obtenerPublicaciones().filter(p => p.id !== id);
+                    guardarPublicaciones(todas);
+                    renderMisPublicaciones();
+                    // Mostrar toast de éxito
+                    mostrarToast('🗑 Publicación eliminada correctamente');
+                }
+
+            });
+        }
+
+        // ── Toast ──────────────────────────────────────────────
+        function mostrarToast(msg) {
+            const t = document.getElementById('toast-mispub');
+            t.textContent = msg;
+            t.classList.add('visible');
+            clearTimeout(t._t);
+            t._t = setTimeout(() => t.classList.remove('visible'), 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarContador();
+            renderMisPublicaciones();
+        });
+    </script>
+</body>
+
+</html>
