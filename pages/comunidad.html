@@ -2,137 +2,44 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <title>Wizardly — Comunidad</title>
-
 
     <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap"
-        rel="stylesheet">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/styles.css">
-
     <link rel="stylesheet" href="../css/carrito.css">
-
     <link rel="stylesheet" href="../css/comunidad.css">
 
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-
-
 </head>
-
-
 
 <body data-page="comunidad">
 
-
-
     <div id="navbar-placeholder"></div>
 
-
     <!-- HERO -->
+    <section class="section-header comunidad-header">
+        <span class="comunidad-etiqueta">
+            ✦ Tablón del Reino Arcano ✦
+        </span>
 
-    <section class="hero-catalogo">
+        <h2 class="comunidad-titulo">
+            Muro de la Comunidad
+        </h2>
 
-
-        <canvas id="stardust"></canvas>
-
-
-
-        <div class="hero-content">
-
-
-
-            <span class="hero-eyebrow">
-
-                ✦ La Comunidad del Mercado Arcano ✦
-
-            </span>
-
-
-
-
-            <h2>
-                Comunidad Wizardly
-            </h2>
-
-
-
-
-            <p>
-
-                Comparte tus aventuras, opiniones y experiencias con otros magos.
-
-            </p>
-
-
-
-        </div>
-
-
+        <p class="comunidad-texto">
+            Comparte tus aventuras, descubre experiencias de otros hechiceros y deja tu huella dentro del Mercado Arcano.
+        </p>
     </section>
 
-
-
-
-
-    <!-- COMUNIDAD -->
-
-    <section class="catalogo-section">
-
-
-
-        <div class="section-header">
-
-
-
-            <span class="section-eyebrow">
-
-                ✦ Comparte tu experiencia ✦
-
-            </span>
-
-
-
-
-            <h2>
-                Muro de la Comunidad
-            </h2>
-
-
-
-
-            <p>
-
-                Publica un comentario y descubre lo que otros hechiceros opinan del Mercado Arcano.
-
-            </p>
-
-
-
-        </div>
-        <!-- FORMULARIO -->
-
-        <!-- FORMULARIO -->
+    <!-- FORMULARIO -->
+    <section class="comunidad-contenido">
         <div class="contact-card">
             <h3 style="margin-bottom:25px;">
                 <i class="fa-solid fa-feather-pointed"></i>
@@ -145,10 +52,10 @@
                 </div>
 
                 <div class="input-group">
-                    <textarea id="comentario" rows="5" placeholder="Comparte tu experiencia..." required></textarea>
+                    <!-- ID corregido a "comentario" -->
+                    <textarea id="comentario" rows="5" placeholder="Comparte una experiencia, haz una pregunta, muestra tu colección o publica una fotografía para toda la comunidad Wizardly." required></textarea>
                 </div>
 
-                <!-- NUEVO: Campo para URL de la imagen -->
                 <div class="input-group">
                     <input type="text" id="urlImagen" placeholder="URL de la imagen (opcional)">
                 </div>
@@ -164,8 +71,7 @@
 
         <!-- LISTA DE COMENTARIOS -->
         <div id="listaComentarios">
-
-            <!-- COMENTARIO ESTÁTICO DE EJEMPLO (Repite esta estructura para los demás) -->
+            <!-- COMENTARIO ESTÁTICO DE EJEMPLO -->
             <div class="info-card comentario-card">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <h3>🧙‍♂️ Alejandro M.</h3>
@@ -175,23 +81,18 @@
                     Compré la Varita de Saúco y la calidad superó mis expectativas. Llegó perfectamente protegida.
                 </p>
 
-                <!-- ESPACIO PARA TU IMAGEN: Solo pon el link dentro del src="" -->
-                <img src="" alt="Imagen compartida" class="comentario-imagen">
-
                 <div class="acciones-comentario">
                     <small style="color:var(--text-muted);">Hace 2 días</small>
                     <button class="btn-like">❤️ <span>0</span></button>
                 </div>
             </div>
             <br>
-
-            <!-- Puedes reemplazar el resto de tus comentarios estáticos usando la misma estructura de arriba -->
-
         </div>
     </section>
+
     <!-- SCRIPTS CORREGIDOS -->
     <script>
-        // 1. Función global para logs mágicos con estilos CSS integrados
+        // 1. Logs mágicos en consola
         function logMagico(mensaje, tipo = "success") {
             const estiloBase = "font-family: 'Lato', sans-serif; padding: 6px 12px; border-radius: 6px; font-size: 12px;";
 
@@ -214,7 +115,7 @@
             const formulario = document.getElementById("formComentario");
             const lista = document.getElementById("listaComentarios");
 
-            // 2. Función interactiva para el sistema de Likes (Evita likes infinitos)
+            // 2. Sistema de Likes
             function inicializarBotonLike(boton) {
                 const contador = boton.querySelector("span");
                 let likes = parseInt(contador.textContent) || 0;
@@ -237,46 +138,51 @@
                 });
             }
 
-            // Inicializar manejadores de eventos en los comentarios duros del HTML
+            // Inicializar likes en comentarios estáticos
             document.querySelectorAll(".btn-like").forEach(inicializarBotonLike);
 
-            // 3. Manejador del envío del Formulario
+            // 3. Publicación del comentario
             formulario.addEventListener("submit", function (e) {
                 e.preventDefault();
 
                 const nombre = document.getElementById("nombre").value;
                 const comentario = document.getElementById("comentario").value;
-                const urlImagen = document.getElementById("urlImagen").value;
+                const urlImagen = document.getElementById("urlImagen").value.trim();
                 const fecha = new Date();
 
                 const tarjeta = document.createElement("div");
                 tarjeta.className = "info-card comentario-card";
                 tarjeta.style.marginTop = "25px";
 
-                // Renderizado dinámico del nuevo comentario en el feed
+                // Si hay URL de imagen, crea la etiqueta <img>, si no, la omite
+                const htmlImagen = urlImagen !== "" ? `<img src="${urlImagen}" alt="Imagen adjunta" class="comentario-imagen">` : "";
+
                 tarjeta.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3>🧙 ${nombre}</h3>
-            </div>
-            
-            <p style="margin-top:15px;">${comentario}</p>
-            
-            <img src="${urlImagen}" alt="Imagen adjunta" class="comentario-imagen">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3>🧙 ${nombre}</h3>
+                    </div>
+                    
+                    <p style="margin-top:15px;">${comentario}</p>
+                    
+                    ${htmlImagen}
 
-            <div class="acciones-comentario">
-                <small style="color:var(--text-muted);">Publicado el ${fecha.toLocaleDateString()}</small>
-                <button class="btn-like">❤️ <span>0</span></button>
-            </div>
-        `;
+                    <div class="acciones-comentario">
+                        <small style="color:var(--text-muted);">Publicado el ${fecha.toLocaleDateString()}</small>
+                        <button class="btn-like">❤️ <span>0</span></button>
+                    </div>
+                `;
 
-                // Añadir al principio de la lista
+                // Agregar el comentario al inicio
                 lista.prepend(tarjeta);
-                // ... (Tu código de limpiar formulario y prepend tarjeta se queda igual)
+
+                // Activar el botón de Like en el comentario recién creado
+                const nuevoBotonLike = tarjeta.querySelector(".btn-like");
+                inicializarBotonLike(nuevoBotonLike);
+
+                // Limpiar formulario
                 formulario.reset();
 
-                // ---- REEMPLAZA EL BLOQUE DE NOTIFICACIÓN ANTERIOR POR ESTE ----
-
-                // 1. Asegurar que exista el contenedor en la página
+                // Notificación Toast
                 let contenedorToasts = document.querySelector(".toast-container");
                 if (!contenedorToasts) {
                     contenedorToasts = document.createElement("div");
@@ -284,31 +190,25 @@
                     document.body.appendChild(contenedorToasts);
                 }
 
-                // 2. Crear la notificación flotante
                 const nuevoToast = document.createElement("div");
                 nuevoToast.className = "toast-magic";
                 nuevoToast.innerHTML = `
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
-            <span>✨ ¡Hechizo concedido! Tu comentario ha sido publicado.</span>
-        `;
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>✨ ¡Hechizo concedido! Tu comentario ha sido publicado.</span>
+                `;
 
                 contenedorToasts.appendChild(nuevoToast);
 
-                // 3. Pequeño delay para activar la animación de entrada CSS
                 setTimeout(() => {
                     nuevoToast.classList.add("show");
                 }, 50);
 
-                // 4. Desvanecer y eliminar la notificación automáticamente después de 4 segundos
                 setTimeout(() => {
                     nuevoToast.classList.remove("show");
-                    setTimeout(() => nuevoToast.remove(), 500); // Lo borra del DOM al terminar la animación
+                    setTimeout(() => nuevoToast.remove(), 500);
                 }, 4000);
 
-                // Mantener también tus hermosos logs en consola por si los necesitas
                 logMagico(`¡Comentario de "${nombre}" publicado con éxito!`, "success");
-                // Activar el botón de la tarjeta recién creada
-
             });
         });
     </script>

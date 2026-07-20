@@ -453,8 +453,26 @@
                     <div class="lista-ofertas">
                         <h4><i class="fa-solid fa-gavel"></i> Ofertas registradas</h4>
                         <ul id="lista-ofertas-ul">
-                            <li class="sin-ofertas">Aún no hay ofertas. ¡Sé el primero!</li>
-                        </ul>
+
+    <li class="oferta-item">
+        <span>
+            <i class="fa-solid fa-user-wizard"></i>
+            ArcaneHunter
+        </span>
+
+        <strong>$498.00 MXN</strong>
+    </li>
+
+    <li class="oferta-item">
+        <span>
+            <i class="fa-solid fa-hat-wizard"></i>
+            MysticMage
+        </span>
+
+        <strong>$499.00 MXN</strong>
+    </li>
+
+</ul>
                     </div>
                 </div>
 
@@ -679,22 +697,52 @@
                 }, 1000);
             }
 
-            function renderOfertas() {
-                listaOfertas.innerHTML = '';
-                if (ofertas.length === 0) {
-                    listaOfertas.innerHTML = '<li class="sin-ofertas">Aún no hay ofertas. ¡Sé el primero!</li>';
-                    return;
-                }
-                const ofertasMostrar = ofertas.slice(-6).reverse();
-                ofertasMostrar.forEach(o => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <span>${o.nombre}</span>
-                        <span class="oferta-monto">$${o.monto.toFixed(2)} MXN</span>
-                    `;
-                    listaOfertas.appendChild(li);
-                });
-            }
+          function renderOfertas() {
+
+    listaOfertas.innerHTML = "";
+
+    // Ofertas precargadas
+    const ofertasIniciales = [
+
+        {
+            nombre: " ArcaneHunter",
+            monto: 498
+        },
+
+        {
+            nombre: " MysticMage",
+            monto: 499
+        }
+
+    ];
+
+    // Unimos las ofertas iniciales con las del usuario
+    const todasLasOfertas = [...ofertasIniciales, ...ofertas];
+
+    // Ordenar de mayor a menor
+    todasLasOfertas.sort((a, b) => b.monto - a.monto);
+
+    // Mostrar solamente las últimas 8
+    todasLasOfertas.slice(0,8).forEach((o, index) => {
+
+        const li = document.createElement("li");
+
+        // La mejor oferta tendrá un estilo especial
+        li.className = index === 0 ? "oferta-item mejor-oferta" : "oferta-item";
+
+        li.innerHTML = `
+            <span>${o.nombre}</span>
+
+            <span class="oferta-monto">
+                $${o.monto.toFixed(2)} MXN
+            </span>
+        `;
+
+        listaOfertas.appendChild(li);
+
+    });
+
+}
 
             function registrarOferta(monto) {
                 const nombre = postores[Math.floor(Math.random() * postores.length)];

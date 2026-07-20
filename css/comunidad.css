@@ -13,7 +13,73 @@ padding-bottom:80px;
 }
 
 
+/*=============================================
+ENCABEZADO
+=============================================*/
 
+.comunidad-header{
+
+margin-bottom:70px;
+
+text-align:center;
+
+}
+
+.comunidad-etiqueta{
+
+display:inline-block;
+
+padding:12px 28px;
+
+border-radius:50px;
+
+background:rgba(246,213,122,.08);
+
+border:1px solid rgba(246,213,122,.25);
+
+font-family:'Cinzel';
+
+letter-spacing:5px;
+
+color:var(--gold);
+
+text-transform:uppercase;
+
+margin-bottom:25px;
+
+}
+
+.comunidad-titulo{
+
+font-family:'Cinzel Decorative',serif;
+
+font-size:3.3rem;
+
+color:var(--gold);
+
+margin-bottom:18px;
+
+text-shadow:
+
+0 0 20px rgba(246,213,122,.35),
+
+0 0 45px rgba(246,213,122,.18);
+
+}
+
+.comunidad-texto{
+
+max-width:760px;
+
+margin:auto;
+
+font-size:1.15rem;
+
+line-height:2;
+
+color:#d7d1e9;
+
+}
 
 /* TARJETA DEL FORMULARIO */
 
