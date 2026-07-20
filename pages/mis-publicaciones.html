@@ -450,11 +450,19 @@
                 <h1>✦ Mis Publicaciones</h1>
                 <p id="mispub-subtitulo">Cargando...</p>
             </div>
-            <a href="publicar.html" class="btn-ir-market">
-                <i class="fa-solid fa-plus"></i> Nueva publicación
-            </a>
-        </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
 
+                <a href="marketplace.html" class="btn-ir-market">
+                    <i class="fa-solid fa-store"></i>
+                    Ver Marketplace
+                </a>
+
+                <a href="publicar.html" class="btn-ir-market">
+                    <i class="fa-solid fa-plus"></i>
+                    Nueva publicación
+                </a>
+            </div>
+            
         <div class="mispub-lista" id="mispub-lista"></div>
     </section>
 
@@ -530,9 +538,22 @@
 
         // ── Obtener publicaciones del usuario actual ───────────
         function obtenerMisPublicaciones() {
+
             const ud = JSON.parse(localStorage.getItem('usuarioDatos'));
-            const autor = ud ? ud.nombre : 'Mago Anónimo';
-            return obtenerPublicaciones().filter(p => p.autor === autor);
+
+            const autor = ud
+                ? ud.nombre
+                : 'Mago Anónimo';
+
+            return obtenerPublicaciones()
+                .filter(p =>
+
+                    p.autor === autor ||
+
+                    p.autor === "Wizardly Oficial"
+
+                );
+
         }
 
         // ── Render ─────────────────────────────────────────────

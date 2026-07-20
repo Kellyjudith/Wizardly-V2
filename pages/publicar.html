@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
     <link rel="icon" href="../images/favicon/favicon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/carrito.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -22,6 +25,7 @@
             align-items: flex-start;
             min-height: 80vh;
         }
+
         .pub-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -30,6 +34,7 @@
             max-width: 560px;
             width: 100%;
         }
+
         .pub-card h1 {
             font-family: 'Cinzel Decorative', serif;
             font-size: 1.8rem;
@@ -37,6 +42,7 @@
             text-align: center;
             margin-bottom: 6px;
         }
+
         .pub-card .subtitulo {
             text-align: center;
             font-family: 'Jim Nightshade', cursive;
@@ -44,9 +50,11 @@
             color: var(--text-muted);
             margin-bottom: 28px;
         }
+
         .campo-pub {
             margin-bottom: 18px;
         }
+
         .campo-pub label {
             display: block;
             font-family: 'Cinzel', serif;
@@ -56,11 +64,12 @@
             color: var(--text-muted);
             margin-bottom: 5px;
         }
+
         .campo-pub input,
         .campo-pub textarea,
         .campo-pub select {
             width: 100%;
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 10px 14px;
@@ -71,14 +80,17 @@
             transition: border-color 0.25s;
             resize: vertical;
         }
+
         .campo-pub input:focus,
         .campo-pub textarea:focus,
         .campo-pub select:focus {
             border-color: var(--gold-dim);
         }
+
         .campo-pub textarea {
             min-height: 80px;
         }
+
         .btn-publicar {
             width: 100%;
             padding: 14px;
@@ -94,10 +106,12 @@
             transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 8px;
         }
+
         .btn-publicar:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 28px rgba(217,169,61,0.4);
+            box-shadow: 0 8px 28px rgba(217, 169, 61, 0.4);
         }
+
         .btn-volver {
             display: inline-block;
             margin-top: 16px;
@@ -108,7 +122,11 @@
             letter-spacing: 0.1em;
             transition: color 0.3s;
         }
-        .btn-volver:hover { color: var(--gold); }
+
+        .btn-volver:hover {
+            color: var(--gold);
+        }
+
         #toast-pub {
             margin-top: 14px;
             padding: 12px 16px;
@@ -121,25 +139,29 @@
             transition: opacity 0.35s, transform 0.35s;
             pointer-events: none;
         }
+
         #toast-pub.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
         #toast-pub.ok {
-            background: rgba(74,222,128,0.1);
-            border: 1px solid rgba(74,222,128,0.3);
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.3);
             color: #4ade80;
         }
+
         #toast-pub.error {
-            background: rgba(239,68,68,0.1);
-            border: 1px solid rgba(239,68,68,0.3);
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             color: #f87171;
         }
+
         .preview-foto {
             width: 100%;
             aspect-ratio: 1/1;
             border-radius: 10px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             border: 2px dashed var(--border);
             display: flex;
             flex-direction: column;
@@ -153,18 +175,29 @@
             cursor: pointer;
             transition: border-color 0.3s;
         }
+
         .preview-foto:hover {
             border-color: var(--gold-dim);
         }
+
         .preview-foto img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: none;
         }
-        .preview-foto i { font-size: 2rem; color: var(--border); }
-        #pub-foto-input { display: none; }
+
+        .preview-foto i {
+            font-size: 2rem;
+            color: var(--border);
+        }
+
+        #pub-foto-input {
+            display: none;
+        }
     </style>
 </head>
+
 <body data-page="publicar">
     <div id="navbar-placeholder"></div>
     <!-- CONTENIDO -->
@@ -239,7 +272,7 @@
         let fotoBase64 = '';
 
         // ── Cargar foto ──
-        document.getElementById('pub-foto-input').addEventListener('change', function() {
+        document.getElementById('pub-foto-input').addEventListener('change', function () {
             const file = this.files[0];
             if (!file) return;
             const reader = new FileReader();
@@ -261,31 +294,36 @@
             const descripcion = document.getElementById('pub-descripcion').value.trim();
             const toast = document.getElementById('toast-pub');
 
-            if (!nombre) {
-                toast.textContent = '⚠️ El nombre es obligatorio.';
-                toast.className = 'visible error';
-                setTimeout(() => toast.classList.remove('visible'), 3000);
-                return;
-            }
-            if (precio === '' || isNaN(parseFloat(precio)) || parseFloat(precio) < 0) {
-                toast.textContent = '⚠️ Ingresa un precio válido (mayor o igual a 0).';
-                toast.className = 'visible error';
-                setTimeout(() => toast.classList.remove('visible'), 3000);
-                return;
-            }
-
             const usuarioDatos = JSON.parse(localStorage.getItem('usuarioDatos'));
             const autor = usuarioDatos ? usuarioDatos.nombre : 'Mago Anónimo';
 
             const nuevo = {
+
                 id: Date.now(),
-                nombre: nombre,
-                precio: parseFloat(precio),
-                categoria: categoria || '',
-                descripcion: descripcion || '',
-                foto: fotoBase64 || '',
+
+                nombre: nombre || "Artículo sin nombre",
+
+                precio: precio !== ""
+                    ? parseFloat(precio)
+                    : null,
+
+                categoria: categoria || "",
+
+                descripcion: descripcion || "",
+
+                foto: fotoBase64 || "",
+
                 autor: autor,
-                fecha: new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'short', year:'numeric' })
+
+                fecha: new Date().toLocaleDateString(
+                    'es-MX',
+                    {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric'
+                    }
+                )
+
             };
 
             const lista = JSON.parse(localStorage.getItem(CLAVE_MARKET)) || [];
@@ -317,4 +355,5 @@
         });
     </script>
 </body>
+
 </html>

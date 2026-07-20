@@ -296,33 +296,48 @@ function renderCarrito() {
     let subtotal = 0;
 
     carrito.forEach(item => {
-        subtotal += item.precio * item.cantidad;
+
+        const precio = Number(item.precio) || 0;
+        const cantidad = Number(item.cantidad) || 0;
+
+        // Sumar al subtotal
+        subtotal += precio * cantidad;
 
         const fila = document.createElement('div');
         fila.className = 'carrito-item';
+
         fila.innerHTML = `
-            <img src="${item.imagen}" alt="${item.nombre}">
-            <div class="item-info">
-                <h4>${item.nombre}</h4>
-                <p class="item-precio">$${item.precio.toFixed(2)} MXN</p>
-            </div>
-            <div class="item-cantidad">
-                <button onclick="accionCarrito(${item.id}, -1)">−</button>
-                <span>${item.cantidad}</span>
-                <button onclick="accionCarrito(${item.id}, 1)">+</button>
-            </div>
-            <p class="item-subtotal">$${(item.precio * item.cantidad).toFixed(2)}</p>
-            <button class="item-eliminar" onclick="eliminarItem(${item.id})" title="Eliminar">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        `;
+        <img src="${item.imagen}" alt="${item.nombre}">
+        
+        <div class="item-info">
+            <h4>${item.nombre}</h4>
+            <p class="item-precio">
+                $${precio.toFixed(2)} MXN
+            </p>
+        </div>
+
+        <div class="item-cantidad">
+            <button onclick="accionCarrito(${item.id}, -1)">−</button>
+            <span>${cantidad}</span>
+            <button onclick="accionCarrito(${item.id}, 1)">+</button>
+        </div>
+
+        <p class="item-subtotal">
+            $${(precio * cantidad).toFixed(2)}
+        </p>
+
+        <button class="item-eliminar" onclick="eliminarItem(${item.id})" title="Eliminar">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    `;
+
         lista.appendChild(fila);
     });
 
     document.getElementById('resumen-subtotal').textContent = `$${subtotal.toFixed(2)} MXN`;
 
     // ── Descuento ──
-    const lineaDescuento  = document.getElementById('linea-descuento');
+    const lineaDescuento = document.getElementById('linea-descuento');
     const bloqueDescuento = document.getElementById('resumen-descuento-aplicado');
 
     if (lineaDescuento && bloqueDescuento) {
@@ -333,7 +348,7 @@ function renderCarrito() {
             document.getElementById('resumen-descuento-monto').textContent = `-$${descuentoAplicado.toFixed(2)}`;
             document.getElementById('resumen-total-con-descuento').textContent = `$${(subtotal - descuentoAplicado).toFixed(2)} MXN`;
         } else {
-            lineaDescuento.style.display  = 'none';
+            lineaDescuento.style.display = 'none';
             bloqueDescuento.style.display = 'none';
         }
     }

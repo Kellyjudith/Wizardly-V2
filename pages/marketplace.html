@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,9 @@
     <link rel="icon" href="../images/favicon/favicon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Lato:wght@300;400;700&family=Jim+Nightshade&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/carrito.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -21,16 +24,18 @@
             align-items: center;
             text-align: center;
             background:
-                linear-gradient(160deg, rgba(112,26,255,0.1) 0%, rgba(10,4,18,0) 60%),
-                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                linear-gradient(160deg, rgba(112, 26, 255, 0.1) 0%, rgba(10, 4, 18, 0) 60%),
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
                 url('../images/banner/banner-principal.jpg') center/cover no-repeat;
             padding-top: 90px;
         }
+
         .market-hero h2 {
             font-family: 'Cinzel Decorative', serif;
             font-size: 2.6rem;
             color: var(--gold);
         }
+
         .market-hero p {
             font-family: 'Jim Nightshade', cursive;
             font-size: 1.3rem;
@@ -42,6 +47,7 @@
             padding: 40px 60px 100px;
             min-height: 60vh;
         }
+
         .market-section::before {
             content: '';
             display: block;
@@ -58,6 +64,7 @@
             gap: 16px;
             margin-bottom: 24px;
         }
+
         .market-header h2 {
             font-family: 'Cinzel', serif;
             font-size: 1.2rem;
@@ -66,23 +73,26 @@
             align-items: center;
             gap: 12px;
         }
+
         .market-header h2 span {
             font-size: 0.75rem;
-            background: rgba(192,132,252,0.15);
+            background: rgba(192, 132, 252, 0.15);
             color: var(--lilac);
             padding: 3px 12px;
             border-radius: 20px;
             font-weight: 400;
         }
+
         .market-filtros {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-bottom: 28px;
         }
+
         .market-filtros input,
         .market-filtros select {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border);
             border-radius: 30px;
             padding: 9px 16px;
@@ -92,10 +102,12 @@
             outline: none;
             transition: border-color 0.3s;
         }
+
         .market-filtros input:focus,
         .market-filtros select:focus {
             border-color: var(--gold-dim);
         }
+
         .market-filtros select option {
             background: var(--bg-card);
         }
@@ -105,6 +117,7 @@
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 24px;
         }
+
         .market-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -114,11 +127,13 @@
             display: flex;
             flex-direction: column;
         }
+
         .market-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
             border-color: var(--gold-dim);
         }
+
         .market-card-img {
             width: 100%;
             aspect-ratio: 1/1;
@@ -130,11 +145,13 @@
             font-size: 3rem;
             color: var(--border);
         }
+
         .market-card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .market-card-body {
             padding: 16px;
             flex: 1;
@@ -142,17 +159,20 @@
             flex-direction: column;
             gap: 6px;
         }
+
         .market-card-nombre {
             font-family: 'Cinzel', serif;
             font-size: 0.9rem;
             color: var(--gold);
             font-weight: 600;
         }
+
         .market-card-precio {
             font-family: 'Jim Nightshade', cursive;
             font-size: 1.2rem;
             color: var(--text-main);
         }
+
         .market-card-desc {
             font-family: 'Lato', sans-serif;
             font-size: 0.78rem;
@@ -164,6 +184,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .market-card-footer {
             padding: 10px 16px 14px;
             display: flex;
@@ -171,6 +192,7 @@
             justify-content: space-between;
             border-top: 1px solid var(--border);
         }
+
         .market-card-autor {
             font-family: 'Lato', sans-serif;
             font-size: 0.7rem;
@@ -179,19 +201,22 @@
             align-items: center;
             gap: 6px;
         }
+
         .market-card-autor i {
             color: var(--lilac);
         }
+
         .market-card-cat {
             font-family: 'Cinzel', serif;
             font-size: 0.55rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            background: rgba(192,132,252,0.12);
+            background: rgba(192, 132, 252, 0.12);
             color: var(--lilac);
             padding: 2px 8px;
             border-radius: 20px;
         }
+
         .btn-agregar-carrito {
             background: transparent;
             border: 1px solid var(--gold-dim);
@@ -207,8 +232,9 @@
             align-items: center;
             gap: 6px;
         }
+
         .btn-agregar-carrito:hover {
-            background: rgba(246,213,122,0.1);
+            background: rgba(246, 213, 122, 0.1);
             color: var(--gold-glow);
         }
 
@@ -217,12 +243,14 @@
             text-align: center;
             padding: 60px 20px;
         }
+
         .market-vacio i {
             font-size: 3rem;
             color: var(--border);
             display: block;
             margin-bottom: 16px;
         }
+
         .market-vacio p {
             font-family: 'Cinzel', serif;
             font-size: 0.9rem;
@@ -230,11 +258,17 @@
         }
 
         @media (max-width: 700px) {
-            .market-section { padding: 30px 20px 80px; }
-            .market-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .market-section {
+                padding: 30px 20px 80px;
+            }
+
+            .market-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
         }
     </style>
 </head>
+
 <body data-page="marketplace">
 
     <div id="navbar-placeholder"></div>
@@ -286,47 +320,50 @@
     <script src="../js/script.js"></script>
     <script>
         const CLAVE_MARKET = 'wizardly_marketplace';
+        function inicializarMarketplace() {
 
-        // ── Productos fijos (siempre visibles) ──
-        const PRODUCTOS_FIJOS = [
-            {
-                id: -1,
-                nombre: "Amuleto de la Luna",
-                precio: 180.00,
-                categoria: "Amuletos",
-                descripcion: "Protege contra energías oscuras.",
-                foto: "",
-                autor: "Wizardly Oficial",
-                fecha: "Siempre disponible",
-                esFijo: true
-            },
-            {
-                id: -2,
-                nombre: "Cristal de Clarividencia",
-                precio: 320.00,
-                categoria: "Cristales",
-                descripcion: "Revela visiones del futuro.",
-                foto: "",
-                autor: "Wizardly Oficial",
-                fecha: "Siempre disponible",
-                esFijo: true
+            let publicaciones = JSON.parse(localStorage.getItem(CLAVE_MARKET));
+
+            if (!publicaciones || publicaciones.length === 0) {
+
+                publicaciones = [
+
+                    {
+                        id: 1,
+                        nombre: "Amuleto de la Luna",
+                        precio: 180,
+                        categoria: "Amuletos",
+                        descripcion: "Protege contra energías oscuras.",
+                        foto: "",
+                        autor: "Wizardly Oficial",
+                        fecha: "Siempre disponible"
+                    },
+
+                    {
+                        id: 2,
+                        nombre: "Cristal de Clarividencia",
+                        precio: 320,
+                        categoria: "Cristales",
+                        descripcion: "Revela visiones del futuro.",
+                        foto: "",
+                        autor: "Wizardly Oficial",
+                        fecha: "Siempre disponible"
+                    }
+
+                ];
+
+                localStorage.setItem(CLAVE_MARKET, JSON.stringify(publicaciones));
+
             }
-        ];
+
+        }
 
         function obtenerPublicaciones() {
             return JSON.parse(localStorage.getItem(CLAVE_MARKET)) || [];
         }
 
         function obtenerTodosLosProductos() {
-            const usuarios = obtenerPublicaciones();
-            // Combinar fijos + usuarios, evitando duplicados por id
-            const todos = [...PRODUCTOS_FIJOS];
-            usuarios.forEach(p => {
-                if (!todos.some(t => t.id === p.id)) {
-                    todos.push(p);
-                }
-            });
-            return todos;
+            return obtenerPublicaciones();
         }
 
         function renderMarket(lista) {
@@ -450,9 +487,16 @@
 
         // ── Init ──
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof actualizarContador === 'function') actualizarContador();
+
+            inicializarMarketplace();
+
+            if (typeof actualizarContador === 'function')
+                actualizarContador();
+
             renderMarket();
+
         });
     </script>
 </body>
+
 </html>
