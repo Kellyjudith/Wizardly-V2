@@ -274,16 +274,12 @@
                     const logueado = localStorage.getItem('usuarioLogueado');
                     if (logueado === 'true') {
                         window.location.href = 'checkout.html';
-                    } else {
-                        if (typeof mostrarNotificacion === 'function') {
-                            mostrarNotificacion('🔒 Debes iniciar sesión para continuar con la compra.', 'warning');
-                        } else {
-                            alert('🔒 Debes iniciar sesión para continuar con la compra.');
-                        }
+                    } 
+                        
                         setTimeout(() => {
                             window.location.href = 'login.html';
                         }, 1800);
-                    }
+                    
                 });
             }
         });
