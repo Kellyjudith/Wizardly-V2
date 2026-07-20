@@ -165,35 +165,8 @@
         #pub-foto-input { display: none; }
     </style>
 </head>
-<body>
-
-    <!-- NAVBAR -->
-    <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
-                <div class="logo-text">
-                    <span class="brand">Wizardly</span>
-                    <span class="tagline">Mercado Arcano</span>
-                </div>
-            </a>
-            <ul class="menu">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="marketplace.html">Marketplace</a></li>
-                <li><a href="promociones.html">Promociones</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li>
-                    <a href="carrito.html" class="carrito-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="contador-carrito">0</span>
-                    </a>
-                </li>
-                <li><a href="login.html" class="btn-login">Acceder</a></li>
-            </ul>
-        </nav>
-    </header>
-
+<body data-page="publicar">
+    <div id="navbar-placeholder"></div>
     <!-- CONTENIDO -->
     <section class="pub-section">
         <div class="pub-card">
@@ -259,6 +232,7 @@
     </footer>
 
     <script src="../js/carrito.js"></script>
+    <script src="../js/cargar-navbar.js"></script>
     <script src="../js/script.js"></script>
     <script>
         const CLAVE_MARKET = 'wizardly_marketplace';
@@ -330,7 +304,7 @@
             document.querySelector('#preview-foto span').style.display = '';
             document.getElementById('pub-foto-input').value = '';
 
-            toast.textContent = '✦ ¡Publicado exitosamente! (simulado)';
+            toast.textContent = '✦ ¡Publicado exitosamente!';
             toast.className = 'visible ok';
             setTimeout(() => {
                 toast.classList.remove('visible');

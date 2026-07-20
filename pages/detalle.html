@@ -44,47 +44,8 @@
     </style>
 </head>
 
-<body>
-
-    <!-- REDES FLOTANTES -->
-    <div class="social-float">
-        <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-    </div>
-
-    <!-- NAVBAR -->
-    <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
-                <div class="logo-text">
-                    <span class="brand">Wizardly</span>
-                    <span class="tagline">Mercado Arcano</span>
-                </div>
-            </a>
-            <ul class="menu">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="opiniones.html">Opiniones</a></li>
-                <li><a href="campa.html">Campaña</a></li>
-                <li><a href="../index.html#nosotros">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="promociones.html">Promociones</a></li>
-
-                <li>
-                    <a href="carrito.html" class="carrito-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="contador-carrito">0</span>
-                    </a>
-                </li>
-                <li><a href="login.html" class="btn-login">Acceder</a></li>
-            </ul>
-        </nav>
-    </header>
-
+<body data-page="detalle">
+    <div id="navbar-placeholder"></div>
     <!-- HERO -->
     <section class="hero-detalle">
         <div class="hero-content">
@@ -121,8 +82,9 @@
 
 </footer>
 
-    <!-- Scripts: carrito primero, luego el general -->
+    <!-- Scripts-->
     <script src="../js/carrito.js"></script>
+    <script src="../js/cargar-navbar.js"></script>
     <script src="../js/script.js"></script>
     <script>
         // ── Base de productos (única fuente de verdad) ──

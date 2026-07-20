@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wizardly — Catálogo</title>
+    <title>Wizardly — Campaña</title>
 
     <link rel="icon" href="../images/logo/favicon/favicon.png" type="image/png">
 
@@ -19,34 +19,7 @@
     <link rel="stylesheet" href="../css/catalogo.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
- <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/logo/Logo.png" alt="Logo Wizardly">
-                <div class="logo-text">
-                    <span class="brand">Wizardly</span>
-                    <span class="tagline">Mercado Arcano</span>
-                </div>
-            </a>
-            <ul class="menu">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html" class="active">Catálogo</a></li>
-                <li><a href="opiniones.html">Opiniones</a></li>
-                <li><a href="campa.html">Campaña</a></li>
-                <li><a href="../index.html#nosotros">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="promociones.html">Promociones</a></li>
-                <li><a href="comunidad.html">comunidad</a></li>
-                <li>
-                    <a href="carrito.html" class="carrito-link">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="contador-carrito">0</span>
-                    </a>
-                </li>
-                <li><a href="login.html" class="btn-login">Acceder</a></li>
-            </ul>
-        </nav>
-    </header>
+
     <style>
         /* Estilos específicos para esta Landing Page de Campaña */
         body {
@@ -274,7 +247,9 @@
         }
     </style>
 </head>
-<body>
+<body data-page="campa">
+
+    <div id="navbar-placeholder"></div>
 
     <main class="campaign-container">
         <section class="hero-product">
@@ -292,7 +267,7 @@
                     <i class="fa-solid fa-bolt"></i> Comprar Ahora por Tiempo Limitado
                 </a>
             </div>
-            
+
             <div class="product-image-wrapper">
                 <img src="../images/varita sauco.webp" alt="Varita de Saúco Mágica">
             </div>
@@ -300,7 +275,7 @@
 
         <section class="reviews-section">
             <h2>Testimonios de Grandes Hechiceros</h2>
-            
+
             <div class="reviews-grid">
                 <div class="review-card">
                     <div class="stars">
@@ -347,5 +322,10 @@
         </section>
     </main>
 
-    </body>
+    <script src="/js/carrito.js"></script>
+    <script src="/js/cargar-navbar.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/cookies.js"></script>
+
+</body>
 </html>
