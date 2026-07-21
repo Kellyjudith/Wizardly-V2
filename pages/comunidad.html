@@ -58,7 +58,7 @@
         /* CABECERA DEL RECUADRO */
         .comentario-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             margin-bottom: 14px;
         }
@@ -82,6 +82,8 @@
         .comentario-usuario-info {
             display: flex;
             flex-direction: column;
+            flex: 1;
+            min-width: 0;
         }
 
         .comentario-nombre {
@@ -167,6 +169,74 @@
         .btn-accion:hover {
             background: rgba(212, 175, 55, 0.15);
             border-color: #d4af37;
+        }
+
+        .comentario-acciones-propias {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            margin-left: auto;
+        }
+
+        .btn-editar-comentario {
+            color: #8fd8ff;
+            border-color: rgba(143, 216, 255, 0.35);
+        }
+
+        .btn-editar-comentario:hover {
+            background: rgba(143, 216, 255, 0.12);
+            border-color: #8fd8ff;
+        }
+
+        .btn-eliminar-comentario {
+            color: #ff7b7b;
+            border-color: rgba(255, 123, 123, 0.35);
+        }
+
+        .btn-eliminar-comentario:hover {
+            background: rgba(255, 123, 123, 0.14);
+            border-color: #ff7b7b;
+        }
+
+        .form-edicion-comentario {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 10px;
+        }
+
+        .form-edicion-comentario.activo {
+            display: flex;
+        }
+
+        .form-edicion-comentario input,
+        .form-edicion-comentario textarea {
+            width: 100%;
+            background: rgba(20, 15, 30, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-family: 'Lato', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .form-edicion-comentario input:focus,
+        .form-edicion-comentario textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .acciones-edicion {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
         }
 
         .btn-like.liked {
@@ -268,6 +338,112 @@
         .btn-enviar-respuesta:hover {
             background: #f3e8c8;
         }
+
+        .modal-confirmacion {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 4, 12, 0.78);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-confirmacion.activo {
+            display: flex;
+        }
+
+        .modal-confirmacion-contenido {
+            background: linear-gradient(145deg, rgba(26, 21, 40, 0.98), rgba(16, 12, 26, 1));
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 14px;
+            padding: 20px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+            text-align: center;
+        }
+
+        .modal-confirmacion-contenido h4 {
+            margin: 0 0 10px 0;
+            color: #f3e8c8;
+            font-family: 'Cinzel', serif;
+        }
+
+        .modal-confirmacion-contenido p {
+            margin: 0 0 16px 0;
+            color: #e2daf0;
+            line-height: 1.5;
+        }
+
+        .modal-confirmacion-botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-modal {
+            border: none;
+            border-radius: 999px;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .btn-modal.confirmar {
+            background: #d4af37;
+            color: #120e1c;
+        }
+
+        .btn-modal.cancelar {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f3e8c8;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .respuesta-acciones-propias {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .btn-editar-respuesta {
+            color: #8fd8ff;
+            border-color: rgba(143, 216, 255, 0.35);
+        }
+
+        .btn-editar-respuesta:hover {
+            background: rgba(143, 216, 255, 0.12);
+            border-color: #8fd8ff;
+        }
+
+        .btn-eliminar-respuesta {
+            color: #ff7b7b;
+            border-color: rgba(255, 123, 123, 0.35);
+        }
+
+        .btn-eliminar-respuesta:hover {
+            background: rgba(255, 123, 123, 0.14);
+            border-color: #ff7b7b;
+        }
+
+        .form-edicion-respuesta {
+            display: none;
+            margin-top: 8px;
+            flex-direction: column;
+            gap: 8px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .form-edicion-respuesta.activo {
+            display: flex;
+        }
     </style>
 </head>
 
@@ -289,6 +465,17 @@
             Publica tus consultas, comparte fotos de tus artefactos o responde a los hilos de otros miembros del gremio.
         </p>
     </section>
+
+    <div class="modal-confirmacion" id="modalConfirmacion" role="dialog" aria-modal="true" aria-labelledby="modalConfirmacionTitulo">
+        <div class="modal-confirmacion-contenido">
+            <h4 id="modalConfirmacionTitulo">Confirmar eliminación</h4>
+            <p id="modalConfirmacionTexto">¿Quieres eliminar este elemento del foro?</p>
+            <div class="modal-confirmacion-botones">
+                <button type="button" class="btn-modal confirmar" id="btnConfirmarEliminar">Sí, eliminar</button>
+                <button type="button" class="btn-modal cancelar" id="btnCancelarEliminar">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
     <section class="comunidad-contenido">
         <!-- FORMULARIO CREAR PUBLICACIÓN -->
@@ -735,15 +922,103 @@
 
     <!-- SCRIPTS CON LÓGICA DE RESPUESTAS -->
     <script>
-        function logMagico(mensaje, tipo = "success") {
-            const estiloBase = "font-family: 'Lato', sans-serif; padding: 6px 12px; border-radius: 6px; font-size: 12px;";
-            if (tipo === "success") {
-                console.log(
-                    `%c✦ Wizardly ✦ %c${mensaje}`,
-                    `${estiloBase} background: #171020; color: #d4af37; font-family: 'Cinzel'; border: 1px solid rgba(212,175,55,0.4); font-weight: bold;`,
-                    `${estiloBase} background: #1e1b29; color: #a9ffd0; border: 1px solid rgba(169,255,208,0.2);`
-                );
+        function mostrarToast(mensaje) {
+            let contenedorToasts = document.querySelector(".toast-container");
+            if (!contenedorToasts) {
+                contenedorToasts = document.createElement("div");
+                contenedorToasts.className = "toast-container";
+                document.body.appendChild(contenedorToasts);
             }
+
+            const nuevoToast = document.createElement("div");
+            nuevoToast.className = "toast-magic";
+            nuevoToast.innerHTML = `
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>${mensaje}</span>
+            `;
+
+            contenedorToasts.appendChild(nuevoToast);
+            requestAnimationFrame(() => nuevoToast.classList.add("show"));
+            setTimeout(() => {
+                nuevoToast.classList.remove("show");
+                setTimeout(() => nuevoToast.remove(), 500);
+            }, 3500);
+        }
+
+        function logMagico(mensaje) {
+            mostrarToast(mensaje);
+        }
+
+        const STORAGE_KEY = "wizardly-foro-comentarios";
+
+        function obtenerTextoVisible(texto) {
+            const valor = (texto || "").trim();
+            return valor ? valor : "Sin texto";
+        }
+
+        function escaparHtml(texto) {
+            return String(texto)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        function cargarComentariosPropios() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+            } catch (error) {
+                console.warn("No se pudieron cargar los comentarios guardados.", error);
+                return [];
+            }
+        }
+
+        function guardarComentariosPropios(comentarios) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(comentarios));
+        }
+
+        function guardarComentarioPropio(comentario) {
+            const comentarios = cargarComentariosPropios();
+            comentarios.push(comentario);
+            guardarComentariosPropios(comentarios);
+        }
+
+        function actualizarComentarioPropio(id, cambios) {
+            const comentarios = cargarComentariosPropios();
+            const indice = comentarios.findIndex(item => item.id === id);
+            if (indice !== -1) {
+                comentarios[indice] = { ...comentarios[indice], ...cambios };
+                guardarComentariosPropios(comentarios);
+            }
+        }
+
+        function eliminarComentarioPropio(id) {
+            const comentarios = cargarComentariosPropios().filter(item => item.id !== id);
+            guardarComentariosPropios(comentarios);
+        }
+
+        function mostrarModalConfirmacion(texto, callback) {
+            const modal = document.getElementById("modalConfirmacion");
+            const mensaje = document.getElementById("modalConfirmacionTexto");
+            const btnConfirmar = document.getElementById("btnConfirmarEliminar");
+            const btnCancelar = document.getElementById("btnCancelarEliminar");
+
+            mensaje.textContent = texto;
+            modal.classList.add("activo");
+
+            const resolver = (resultado) => {
+                modal.classList.remove("activo");
+                callback(resultado);
+            };
+
+            btnConfirmar.onclick = () => resolver(true);
+            btnCancelar.onclick = () => resolver(false);
+            modal.onclick = (event) => {
+                if (event.target === modal) {
+                    resolver(false);
+                }
+            };
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -754,9 +1029,65 @@
                 form.setAttribute("novalidate", "true");
             });
 
-            // Función para activar eventos dentro de CADA recuadro
+            function inicializarEventosRespuesta(respuesta) {
+                const btnEditarResp = respuesta.querySelector(".btn-editar-respuesta");
+                const btnEliminarResp = respuesta.querySelector(".btn-eliminar-respuesta");
+                const formEditarResp = respuesta.querySelector(".form-edicion-respuesta");
+                const textareaEditarResp = respuesta.querySelector(".input-texto-edicion-respuesta");
+                const btnCancelarResp = respuesta.querySelector(".btn-cancelar-edicion-respuesta");
+                const textoRespuesta = respuesta.querySelector(".respuesta-texto");
+
+                if (btnEditarResp && !btnEditarResp.dataset.activo) {
+                    btnEditarResp.dataset.activo = "true";
+                    btnEditarResp.addEventListener("click", () => {
+                        if (!formEditarResp) return;
+                        textareaEditarResp.value = respuesta.dataset.texto || "";
+                        formEditarResp.classList.add("activo");
+                        textareaEditarResp.focus();
+                    });
+                }
+
+                if (btnCancelarResp && !btnCancelarResp.dataset.activo) {
+                    btnCancelarResp.dataset.activo = "true";
+                    btnCancelarResp.addEventListener("click", () => {
+                        formEditarResp.classList.remove("activo");
+                        formEditarResp.reset();
+                    });
+                }
+
+                if (formEditarResp && !formEditarResp.dataset.activo) {
+                    formEditarResp.dataset.activo = "true";
+                    formEditarResp.addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const nuevoTexto = (textareaEditarResp.value || "").trim();
+                        respuesta.dataset.texto = nuevoTexto;
+                        textoRespuesta.textContent = obtenerTextoVisible(nuevoTexto);
+                        formEditarResp.classList.remove("activo");
+                        formEditarResp.reset();
+                        logMagico("Respuesta actualizada.", "success");
+                    });
+                }
+
+                if (btnEliminarResp && !btnEliminarResp.dataset.activo) {
+                    btnEliminarResp.dataset.activo = "true";
+                    btnEliminarResp.addEventListener("click", () => {
+                        mostrarModalConfirmacion("¿Quieres eliminar esta respuesta del hilo?", (confirmado) => {
+                            if (confirmado) {
+                                respuesta.remove();
+                                const contenedorRespuestas = respuesta.closest(".respuestas-contenedor");
+                                const numRespuestas = contenedorRespuestas?.querySelectorAll(".respuesta-item").length || 0;
+                                const contadorText = respuesta.closest(".comentario-card")?.querySelector(".contador-respuestas");
+                                if (contadorText) {
+                                    contadorText.innerHTML = `<i class="fa-regular fa-comments"></i> ${numRespuestas} ${numRespuestas === 1 ? 'respuesta' : 'respuestas'}`;
+                                }
+                                logMagico("🗑️ Respuesta eliminada.");
+                            }
+                        });
+                    });
+                }
+            }
+
             function inicializarEventosCard(card) {
-                // 1. Sistema de Likes
                 const btnLike = card.querySelector(".btn-like");
                 if (btnLike && !btnLike.dataset.activo) {
                     btnLike.dataset.activo = "true";
@@ -779,7 +1110,6 @@
                     });
                 }
 
-                // 2. Desplegar formulario de respuesta
                 const btnToggleResp = card.querySelector(".btn-toggle-responder");
                 const formResp = card.querySelector(".form-respuesta");
 
@@ -793,7 +1123,6 @@
                     });
                 }
 
-                // 3. Publicar respuesta en la tarjeta
                 if (formResp && !formResp.dataset.activo) {
                     formResp.dataset.activo = "true";
                     formResp.addEventListener("submit", (e) => {
@@ -810,73 +1139,171 @@
 
                         const nuevaRespuesta = document.createElement("div");
                         nuevaRespuesta.className = "respuesta-item";
+                        nuevaRespuesta.dataset.propio = "true";
+                        nuevaRespuesta.dataset.texto = texto;
+                        nuevaRespuesta.dataset.autor = autor;
                         nuevaRespuesta.innerHTML = `
                             <div class="respuesta-header">
                                 <span class="respuesta-autor">${autor}</span>
                                 <span class="respuesta-fecha">Ahora</span>
                             </div>
                             <p class="respuesta-texto">${texto}</p>
+                            <div class="respuesta-acciones-propias">
+                                <button type="button" class="btn-accion btn-editar-respuesta">
+                                    <i class="fa-solid fa-pen"></i> Editar
+                                </button>
+                                <button type="button" class="btn-accion btn-eliminar-respuesta">
+                                    <i class="fa-solid fa-trash"></i> Eliminar
+                                </button>
+                            </div>
+                            <form class="form-edicion-respuesta">
+                                <textarea class="input-texto-edicion-respuesta" rows="2" placeholder="Edita tu respuesta..."></textarea>
+                                <div class="acciones-edicion">
+                                    <button type="submit" class="btn-enviar-respuesta">Guardar</button>
+                                    <button type="button" class="btn-accion btn-cancelar-edicion-respuesta">Cancelar</button>
+                                </div>
+                            </form>
                         `;
 
                         contenedorRespuestas.appendChild(nuevaRespuesta);
+                        inicializarEventosRespuesta(nuevaRespuesta);
 
-                        // Actualizar contador visual de respuestas
                         const numRespuestas = contenedorRespuestas.querySelectorAll(".respuesta-item").length;
                         const contadorText = card.querySelector(".contador-respuestas");
                         if (contadorText) {
                             contadorText.innerHTML = `<i class="fa-regular fa-comments"></i> ${numRespuestas} ${numRespuestas === 1 ? 'respuesta' : 'respuestas'}`;
                         }
 
-                        // Resetear y ocultar form
                         formResp.reset();
                         formResp.classList.remove("activo");
 
-                        logMagico(`Respuesta de "${autor}" añadida al hilo.`, "success");
+                        logMagico(`✨ Respuesta añadida al hilo.`);
+                    });
+                }
+
+                const btnEditar = card.querySelector(".btn-editar-comentario");
+                const btnEliminar = card.querySelector(".btn-eliminar-comentario");
+                const formEditar = card.querySelector(".form-edicion-comentario");
+                const inputNombreEdicion = formEditar?.querySelector(".input-nombre-edicion");
+                const inputTextoEdicion = formEditar?.querySelector(".input-texto-edicion");
+                const btnCancelarEdicion = formEditar?.querySelector(".btn-cancelar-edicion");
+
+                if (card.dataset.propio === "true" && btnEditar && !btnEditar.dataset.activo) {
+                    btnEditar.dataset.activo = "true";
+                    btnEditar.addEventListener("click", () => {
+                        if (!formEditar) return;
+                        inputNombreEdicion.value = card.dataset.nombre || "Anónimo";
+                        inputTextoEdicion.value = card.dataset.texto || "";
+                        formEditar.classList.add("activo");
+                        inputTextoEdicion.focus();
+                    });
+                }
+
+                if (card.dataset.propio === "true" && btnCancelarEdicion && !btnCancelarEdicion.dataset.activo) {
+                    btnCancelarEdicion.dataset.activo = "true";
+                    btnCancelarEdicion.addEventListener("click", () => {
+                        formEditar.classList.remove("activo");
+                        formEditar.reset();
+                    });
+                }
+
+                if (card.dataset.propio === "true" && formEditar && !formEditar.dataset.activo) {
+                    formEditar.dataset.activo = "true";
+                    formEditar.addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const nombreEditado = (inputNombreEdicion.value || "").trim() || "Anónimo";
+                        const textoEditado = (inputTextoEdicion.value || "").trim();
+                        const textoVisible = obtenerTextoVisible(textoEditado);
+
+                        const nombreElemento = card.querySelector(".comentario-nombre");
+                        const textoElemento = card.querySelector(".comentario-texto");
+                        const avatar = card.querySelector(".comentario-avatar");
+
+                        if (nombreElemento) {
+                            nombreElemento.innerHTML = `${escaparHtml(nombreEditado)}<span class="badge-verificado">✦ Miembro</span>`;
+                        }
+                        if (textoElemento) {
+                            textoElemento.textContent = textoVisible;
+                        }
+                        if (avatar && nombreEditado) {
+                            avatar.textContent = nombreEditado.charAt(0).toUpperCase();
+                        }
+
+                        card.dataset.nombre = nombreEditado;
+                        card.dataset.texto = textoEditado;
+
+                        if (card.dataset.comentarioId) {
+                            actualizarComentarioPropio(card.dataset.comentarioId, {
+                                nombre: nombreEditado,
+                                comentario: textoEditado,
+                                inicial: nombreEditado.charAt(0).toUpperCase() || "🧙‍♂️"
+                            });
+                        }
+
+                        formEditar.classList.remove("activo");
+                        formEditar.reset();
+                        logMagico(`✏️ Comentario actualizado.`);
+                    });
+                }
+
+                if (card.dataset.propio === "true" && btnEliminar && !btnEliminar.dataset.activo) {
+                    btnEliminar.dataset.activo = "true";
+                    btnEliminar.addEventListener("click", () => {
+                        const id = card.dataset.comentarioId;
+                        if (!id) return;
+                        mostrarModalConfirmacion("¿Quieres eliminar esta publicación del foro?", (confirmado) => {
+                            if (confirmado) {
+                                card.remove();
+                                eliminarComentarioPropio(id);
+                                logMagico("🗑️ Publicación eliminada del foro.");
+                            }
+                        });
                     });
                 }
             }
 
-            // Inicializar tarjetas que ya existen
             document.querySelectorAll(".comentario-card").forEach(inicializarEventosCard);
 
-            // Publicación de un nuevo recuadro en el foro
-            formulario.addEventListener("submit", function (e) {
-                e.preventDefault();
-
-                const nombre = (document.getElementById("nombre").value || "").trim() || "Anónimo";
-                const comentario = (document.getElementById("comentario").value || "").trim() || "Sin texto";
-                const urlImagen = document.getElementById("urlImagen").value.trim();
-
-                const fechaActual = new Date().toLocaleDateString('es-ES', {
-                    day: 'numeric',
-                    month: 'short'
-                });
-
-                const inicial = nombre.charAt(0).toUpperCase() || "🧙‍♂️";
+            const comentariosGuardados = cargarComentariosPropios();
+            comentariosGuardados.forEach((item) => {
+                const existe = document.querySelector(`[data-comentario-id="${item.id}"]`);
+                if (existe) return;
 
                 const tarjeta = document.createElement("div");
-                tarjeta.className = "comentario-card";
+                tarjeta.className = "comentario-card comentario-propio";
+                tarjeta.dataset.propio = "true";
+                tarjeta.dataset.comentarioId = item.id;
+                tarjeta.dataset.nombre = item.nombre;
+                tarjeta.dataset.texto = item.comentario;
 
-                const htmlImagen = urlImagen !== "" ? `
+                const htmlImagen = item.urlImagen ? `
                     <div class="comentario-imagen-container">
-                        <img src="${urlImagen}" alt="Adjunto" onerror="this.parentElement.style.display='none'">
+                        <img src="${item.urlImagen}" alt="Adjunto" onerror="this.parentElement.style.display='none'">
                     </div>
                 ` : "";
 
                 tarjeta.innerHTML = `
                     <div class="comentario-header">
-                        <div class="comentario-avatar">${inicial}</div>
+                        <div class="comentario-avatar">${item.inicial || item.nombre.charAt(0).toUpperCase()}</div>
                         <div class="comentario-usuario-info">
                             <h4 class="comentario-nombre">
-                                ${nombre}
+                                ${escaparHtml(item.nombre)}
                                 <span class="badge-verificado">✦ Miembro</span>
                             </h4>
-                            <span class="comentario-fecha">${fechaActual}</span>
+                            <span class="comentario-fecha">${item.fecha || "Ahora"}</span>
+                        </div>
+                        <div class="comentario-acciones-propias">
+                            <button class="btn-accion btn-editar-comentario" type="button">
+                                <i class="fa-solid fa-pen"></i> Editar
+                            </button>
+                            <button class="btn-accion btn-eliminar-comentario" type="button">
+                                <i class="fa-solid fa-trash"></i> Eliminar
+                            </button>
                         </div>
                     </div>
-                    
-                    <p class="comentario-texto">${comentario}</p>
-                    
+
+                    <p class="comentario-texto">${escaparHtml(obtenerTextoVisible(item.comentario))}</p>
+
                     ${htmlImagen}
 
                     <div class="comentario-footer">
@@ -898,18 +1325,117 @@
                         <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                         <button type="submit" class="btn-enviar-respuesta">Responder</button>
                     </form>
+
+                    <form class="form-edicion-comentario">
+                        <input type="text" class="input-nombre-edicion" placeholder="Tu nombre...">
+                        <textarea class="input-texto-edicion" rows="2" placeholder="Edita tu comentario..."></textarea>
+                        <div class="acciones-edicion">
+                            <button type="submit" class="btn-enviar-respuesta">Guardar</button>
+                            <button type="button" class="btn-accion btn-cancelar-edicion">Cancelar</button>
+                        </div>
+                    </form>
                 `;
 
-                // Agregar el recuadro al principio de la cuadrícula
                 lista.prepend(tarjeta);
-
-                // Activar los botones y el hilo de la nueva tarjeta
                 inicializarEventosCard(tarjeta);
+            });
 
-                // Limpiar formulario
+            formulario.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const nombre = (document.getElementById("nombre").value || "").trim() || "Anónimo";
+                const comentario = (document.getElementById("comentario").value || "").trim();
+                const urlImagen = document.getElementById("urlImagen").value.trim();
+
+                const fechaActual = new Date().toLocaleDateString('es-ES', {
+                    day: 'numeric',
+                    month: 'short'
+                });
+
+                const inicial = nombre.charAt(0).toUpperCase() || "🧙‍♂️";
+                const id = `comentario-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "comentario-card comentario-propio";
+                tarjeta.dataset.propio = "true";
+                tarjeta.dataset.comentarioId = id;
+                tarjeta.dataset.nombre = nombre;
+                tarjeta.dataset.texto = comentario;
+
+                const htmlImagen = urlImagen !== "" ? `
+                    <div class="comentario-imagen-container">
+                        <img src="${urlImagen}" alt="Adjunto" onerror="this.parentElement.style.display='none'">
+                    </div>
+                ` : "";
+
+                tarjeta.innerHTML = `
+                    <div class="comentario-header">
+                        <div class="comentario-avatar">${inicial}</div>
+                        <div class="comentario-usuario-info">
+                            <h4 class="comentario-nombre">
+                                ${escaparHtml(nombre)}
+                                <span class="badge-verificado">✦ Miembro</span>
+                            </h4>
+                            <span class="comentario-fecha">${fechaActual}</span>
+                        </div>
+                        <div class="comentario-acciones-propias">
+                            <button class="btn-accion btn-editar-comentario" type="button">
+                                <i class="fa-solid fa-pen"></i> Editar
+                            </button>
+                            <button class="btn-accion btn-eliminar-comentario" type="button">
+                                <i class="fa-solid fa-trash"></i> Eliminar
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="comentario-texto">${escaparHtml(obtenerTextoVisible(comentario))}</p>
+
+                    ${htmlImagen}
+
+                    <div class="comentario-footer">
+                        <div class="acciones-grupo">
+                            <button class="btn-accion btn-like">
+                                <i class="fa-solid fa-heart"></i> <span>0</span>
+                            </button>
+                            <button class="btn-accion btn-toggle-responder">
+                                <i class="fa-solid fa-reply"></i> Responder
+                            </button>
+                        </div>
+                        <span class="comentario-fecha contador-respuestas"><i class="fa-regular fa-comments"></i> 0 respuestas</span>
+                    </div>
+
+                    <div class="respuestas-contenedor"></div>
+
+                    <form class="form-respuesta">
+                        <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                        <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
+                        <button type="submit" class="btn-enviar-respuesta">Responder</button>
+                    </form>
+
+                    <form class="form-edicion-comentario">
+                        <input type="text" class="input-nombre-edicion" placeholder="Tu nombre...">
+                        <textarea class="input-texto-edicion" rows="2" placeholder="Edita tu comentario..."></textarea>
+                        <div class="acciones-edicion">
+                            <button type="submit" class="btn-enviar-respuesta">Guardar</button>
+                            <button type="button" class="btn-accion btn-cancelar-edicion">Cancelar</button>
+                        </div>
+                    </form>
+                `;
+
+                guardarComentarioPropio({
+                    id,
+                    nombre,
+                    comentario,
+                    urlImagen,
+                    fecha: fechaActual,
+                    inicial,
+                    propio: true
+                });
+
+                lista.prepend(tarjeta);
+                inicializarEventosCard(tarjeta);
                 formulario.reset();
 
-                // Toast
                 let contenedorToasts = document.querySelector(".toast-container");
                 if (!contenedorToasts) {
                     contenedorToasts = document.createElement("div");
@@ -931,7 +1457,7 @@
                     setTimeout(() => nuevoToast.remove(), 500);
                 }, 4000);
 
-                logMagico(`Nuevo hilo creado por "${nombre}".`, "success");
+                logMagico(`✨ Publicación enviada al muro del foro.`);
             });
         });
     </script>
