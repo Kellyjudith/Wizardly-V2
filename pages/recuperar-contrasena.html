@@ -23,6 +23,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            gap: 24px;
+            padding: 40px 20px 60px;
+            box-sizing: border-box;
             background:
                 linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)),
                 url('../images/banner/banner-principal.jpg')
@@ -196,15 +200,14 @@
         </p>
 
         <!-- Formulario -->
-        <form id="recuperarForm">
+        <form id="recuperarForm" novalidate>
 
             <div class="input-group">
                 <i class="fa-solid fa-envelope"></i>
                 <input
                     type="email"
                     id="correoRecuperar"
-                    placeholder="Tu Correo Electrónico"
-                    required>
+                    placeholder="Tu Correo Electrónico">
             </div>
 
             <button type="submit" class="btn btn-recuperar">
@@ -230,6 +233,13 @@
 
     </div>
 
+    <footer class="footer-mini">
+        <p>© 2026 <span>Wizardly</span> — Mercado Arcano &nbsp;✦&nbsp; Todos los derechos mágicos reservados</p>
+        <div class="footer-links">
+            <a href="politicas.html">Políticas de Compra y Venta</a>
+        </div>
+    </footer>
+
     <script>
 
         const form = document.getElementById('recuperarForm');
@@ -239,11 +249,11 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const correo = document.getElementById('correoRecuperar').value;
+            const correo = document.getElementById('correoRecuperar').value.trim();
+            const correoMostrar = correo || 'correo no proporcionado';
 
-            correoMostrado.textContent = correo;
+            correoMostrado.textContent = correoMostrar;
 
-          
             form.style.display = 'none';
             banner.classList.add('visible');
         });

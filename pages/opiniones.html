@@ -287,13 +287,13 @@
 
         <h2>Comparte tu experiencia</h2>
 
-        <form id="formOpinion">
+        <form id="formOpinion" novalidate>
 
             <div class="campo">
 
                 <label>Nombre</label>
 
-                <input type="text" id="nombre" required>
+                <input type="text" id="nombre">
 
             </div>
 
@@ -369,7 +369,7 @@
 
                 <label>Comentario</label>
 
-                <textarea id="comentario" rows="5" required></textarea>
+                <textarea id="comentario" rows="5"></textarea>
 
             </div>
 
@@ -457,9 +457,9 @@
 
             e.preventDefault();
 
-            const nombre = document.getElementById("nombre").value;
+            const nombre = document.getElementById("nombre").value.trim() || "Anónimo";
 
-            const comentario = document.getElementById("comentario").value;
+            const comentario = document.getElementById("comentario").value.trim() || "Sin comentario";
 
             const estrellas = document.getElementById("estrellas").value;
 

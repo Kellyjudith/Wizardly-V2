@@ -87,7 +87,7 @@
 
                 <div class="redes-lista">
 
-                    <a href="https://facebook.com" target="_blank" class="red-item red-fb">
+                    <a href="#" onclick="event.preventDefault();" class="red-item red-fb">
                         <div class="red-icon"><i class="fa-brands fa-facebook-f"></i></div>
                         <div class="red-info">
                             <span class="red-nombre">Facebook</span>
@@ -96,7 +96,7 @@
                         <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
                     </a>
 
-                    <a href="https://instagram.com" target="_blank" class="red-item red-ig">
+                    <a href="#" onclick="event.preventDefault();" class="red-item red-ig">
                         <div class="red-icon"><i class="fa-brands fa-instagram"></i></div>
                         <div class="red-info">
                             <span class="red-nombre">Instagram</span>
@@ -105,7 +105,7 @@
                         <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
                     </a>
 
-                    <a href="https://tiktok.com" target="_blank" class="red-item red-tt">
+                    <a href="#" onclick="event.preventDefault();" class="red-item red-tt">
                         <div class="red-icon"><i class="fa-brands fa-tiktok"></i></div>
                         <div class="red-info">
                             <span class="red-nombre">TikTok</span>
@@ -114,7 +114,7 @@
                         <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
                     </a>
 
-                    <a href="https://twitter.com" target="_blank" class="red-item red-tw">
+                    <a href="/pages/admin.html" class="red-item red-tw">
                         <div class="red-icon"><i class="fa-brands fa-x-twitter"></i></div>
                         <div class="red-info">
                             <span class="red-nombre">X / Twitter</span>
@@ -123,7 +123,7 @@
                         <i class="fa-solid fa-arrow-up-right-from-square red-arrow"></i>
                     </a>
 
-                    <a href="https://youtube.com" target="_blank" class="red-item red-yt">
+                    <a href="#" onclick="event.preventDefault();" class="red-item red-yt">
                         <div class="red-icon"><i class="fa-brands fa-youtube"></i></div>
                         <div class="red-info">
                             <span class="red-nombre">YouTube</span>
@@ -159,22 +159,20 @@
             const correo = document.getElementById('correo').value.trim();
             const mensaje = document.getElementById('mensaje').value.trim();
 
-            if (!nombre || !correo || !mensaje) {
-                alert('Por favor completa todos los campos antes de enviar.');
-                return;
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.classList.add('visible');
             }
 
-            const toast = document.getElementById('toast');
-            toast.classList.add('visible');
-
-            // Limpiar campos
             document.getElementById('nombre').value = '';
             document.getElementById('correo').value = '';
             document.getElementById('mensaje').value = '';
 
-            // Ocultar toast después de 4 segundos
-            setTimeout(() => toast.classList.remove('visible'), 4000);
-        } 
+            if (toast) {
+                clearTimeout(window._toastContactoTimer);
+                window._toastContactoTimer = setTimeout(() => toast.classList.remove('visible'), 4000);
+            }
+        }
     </script>
     <script>
         // ============================================================

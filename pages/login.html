@@ -30,6 +30,10 @@
             display:flex;
             justify-content:center;
             align-items:center;
+            flex-direction: column;
+            gap: 24px;
+            padding: 40px 20px 60px;
+            box-sizing: border-box;
 
             background:
             linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
@@ -183,7 +187,7 @@
 
         <h2>Iniciar Sesión</h2>
 
-        <form id="loginForm">
+        <form id="loginForm" novalidate>
 
             <div class="input-group">
 
@@ -192,8 +196,7 @@
                 <input
                     type="email"
                     id="correo"
-                    placeholder="Correo Electrónico"
-                    required>
+                    placeholder="Correo Electrónico">
 
             </div>
 
@@ -204,8 +207,7 @@
                 <input
                     type="password"
                     id="password"
-                    placeholder="Contraseña Secreta"
-                    required>
+                    placeholder="Contraseña Secreta">
 
             </div>
 
@@ -241,56 +243,46 @@
 
     </div>
 
+
     <script>
-const formulario = document.getElementById("loginForm");
+        const formulario = document.getElementById("loginForm");
+        const mensaje = document.getElementById("mensaje-login");
 
-formulario.addEventListener("submit", function(e){
+        formulario.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-    e.preventDefault();
+            const correoInput = document.getElementById("correo").value.trim();
+            const passwordInput = document.getElementById("password").value.trim();
+            const hayDatosCompletos = correoInput && passwordInput;
 
-    const correo = document.getElementById("correo").value;
+            let nombre = "Mago Invitado";
+            let correo = "invitado@wizardly.mx";
+            let usuario = "@WizardGuest";
 
-    // Obtener nombre a partir del correo
-    let nombre = correo.split("@")[0];
+            if (hayDatosCompletos) {
+                const baseNombre = correoInput.split("@")[0] || "Mago";
+                nombre = baseNombre.charAt(0).toUpperCase() + baseNombre.slice(1);
+                correo = correoInput;
+                usuario = "@" + baseNombre.replace(/[^a-zA-Z0-9]/g, "");
+            }
 
-    nombre =
-        nombre.charAt(0).toUpperCase() +
-        nombre.slice(1);
+            localStorage.setItem("usuarioDatos", JSON.stringify({ nombre, correo, usuario }));
+            localStorage.setItem("usuarioLogueado", "true");
 
-    // Guardar sesión
-    // Guardar datos del usuario
-localStorage.setItem(
-    "usuarioDatos",
-    JSON.stringify({
-        nombre:nombre,
-        correo:correo
-    })
-);
+            if (mensaje) {
+                mensaje.classList.add("mostrar");
+            }
 
-// Marcar sesión iniciada
-localStorage.setItem("usuarioLogueado","true");
-
-    const mensaje =
-        document.getElementById("mensaje-login");
-
-    mensaje.classList.add("mostrar");
-
-    setTimeout(() => {
-
-        window.location.href = "perfil.html";
-
-    },2000);
-
-});
-        
-src="../js/script.js"
+            setTimeout(() => {
+                window.location.href = "perfil.html";
+            }, 1200);
+        });
     </script>
-</script>
 
-<script src="../js/script.js"></script>
-<div id="mensaje-login" class="mensaje-login">
-    ✨ Bienvenido al Mercado Arcano ✨
-</div>
+    <script src="../js/script.js"></script>
+    <div id="mensaje-login" class="mensaje-login">
+        ✨ Bienvenido al Mercado Arcano ✨
+    </div>
 </body>
 
 </html>

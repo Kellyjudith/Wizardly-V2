@@ -27,6 +27,10 @@
     <!-- PERFIL -->
     <section class="section-historia" style="padding-top: 100px;">
 
+        <div style="display:flex;justify-content:center;margin-bottom:16px;">
+            <div class="avatar-perfil" id="avatarPerfil">M</div>
+        </div>
+
         <div class="section-header">
             <span class="section-eyebrow">✦ Bienvenido de nuevo ✦</span>
             <h2 id="nombreUsuario">Bienvenido Mago</h2>
@@ -93,11 +97,23 @@
         //===============================
         // CARGAR DATOS DEL USUARIO
         //===============================
-        const usuario = JSON.parse(localStorage.getItem("usuarioDatos"));
+        const usuarioDatosGuardados = localStorage.getItem("usuarioDatos");
+        const usuario = usuarioDatosGuardados ? JSON.parse(usuarioDatosGuardados) : null;
+
         if (usuario) {
-            document.getElementById("nombreUsuario").textContent = "Bienvenido, " + usuario.nombre;
-            document.getElementById("datoNombre").textContent = usuario.nombre;
-            document.getElementById("datoCorreo").textContent = usuario.correo;
+            const nombre = usuario.nombre || "Mago Invitado";
+            const correo = usuario.correo || "invitado@wizardly.mx";
+            const usuarioAlias = usuario.usuario || "@WizardGuest";
+
+            document.getElementById("nombreUsuario").textContent = "Bienvenido, " + nombre;
+            document.getElementById("datoNombre").textContent = nombre;
+            document.getElementById("datoCorreo").textContent = correo;
+            document.getElementById("datoUsuario").textContent = usuarioAlias;
+
+            const avatarPerfil = document.getElementById("avatarPerfil");
+            if (avatarPerfil) {
+                avatarPerfil.textContent = nombre.charAt(0).toUpperCase();
+            }
         } else {
             window.location.href = "login.html";
         }
@@ -120,8 +136,9 @@
         //===============================
         (function () {
             const CLAVE_MARKET = 'wizardly_marketplace';
-            const ud = JSON.parse(localStorage.getItem('usuarioDatos'));
-            const autor = ud ? ud.nombre : 'Mago Anónimo';
+            const datosGuardados = localStorage.getItem('usuarioDatos');
+            const ud = datosGuardados ? JSON.parse(datosGuardados) : null;
+            const autor = ud && ud.nombre ? ud.nombre : 'Mago Anónimo';
             const todas = JSON.parse(localStorage.getItem(CLAVE_MARKET)) || [];
             const mias = todas.filter(p => p.autor === autor);
             const preview = document.getElementById('perfil-mispub-preview');

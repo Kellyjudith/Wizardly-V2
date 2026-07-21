@@ -5,15 +5,15 @@ if (canvas) {
     let stars = [];
 
     function resize() {
-        canvas.width  = window.innerWidth;
+        canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
 
     function init() {
         stars = Array.from({ length: 120 }, () => ({
-            x:     Math.random() * canvas.width,
-            y:     Math.random() * canvas.height,
-            r:     Math.random() * 1.4 + 0.3,
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.4 + 0.3,
             alpha: Math.random(),
             speed: Math.random() * 0.004 + 0.002,
             phase: Math.random() * Math.PI * 2
@@ -37,20 +37,56 @@ if (canvas) {
     resize();
     init();
     draw();
-    document.addEventListener("mousemove", function(e){
 
-    const sparkle = document.createElement("span");
+    document.addEventListener("mousemove", function (e) {
+        const sparkle = document.createElement("span");
+        sparkle.classList.add("sparkle");
+        sparkle.style.left = e.pageX + "px";
+        sparkle.style.top = e.pageY + "px";
+        document.body.appendChild(sparkle);
 
-    sparkle.classList.add("sparkle");
-
-    sparkle.style.left = e.pageX + "px";
-    sparkle.style.top = e.pageY + "px";
-
-    document.body.appendChild(sparkle);
-
-    setTimeout(() => {
-        sparkle.remove();
-    }, 1000);
-
-});
+        setTimeout(() => {
+            sparkle.remove();
+        }, 1000);
+    });
 }
+
+function obtenerRutaPerfil() {
+    return window.location.pathname.includes('/pages/') ? 'perfil.html' : 'pages/perfil.html';
+}
+
+function obtenerRutaLogin() {
+    return window.location.pathname.includes('/pages/') ? 'login.html' : 'pages/login.html';
+}
+
+function actualizarNavbarUsuario() {
+    const btnLogin = document.querySelector('.btn-login');
+    if (!btnLogin) return;
+
+    const estaLogueado = localStorage.getItem('usuarioLogueado') === 'true';
+    const datosRaw = localStorage.getItem('usuarioDatos');
+    let datosUsuario = null;
+
+    try {
+        datosUsuario = datosRaw ? JSON.parse(datosRaw) : null;
+    } catch (error) {
+        datosUsuario = null;
+    }
+
+    if (estaLogueado && datosUsuario?.nombre) {
+        const nombre = String(datosUsuario.nombre).trim();
+        const inicial = nombre.charAt(0).toUpperCase() || 'U';
+
+        btnLogin.setAttribute('href', obtenerRutaPerfil());
+        btnLogin.classList.add('btn-perfil-nav');
+        btnLogin.innerHTML = `<span class="avatar-nav">${inicial}</span> Perfil`;
+    } else {
+        btnLogin.setAttribute('href', obtenerRutaLogin());
+        btnLogin.classList.remove('btn-perfil-nav');
+        btnLogin.innerHTML = 'Acceder';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', actualizarNavbarUsuario);
+document.addEventListener('navbarCargado', actualizarNavbarUsuario);
+window.addEventListener('storage', actualizarNavbarUsuario);

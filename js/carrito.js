@@ -150,41 +150,56 @@ let descuentoAplicado = 0;
 
 // ── Validar cupón ─────────────────────────────────────────────
 function validarCupon(codigo, carrito) {
-    const promo = PROMOCIONES.find(p => p.codigo === codigo);
-    if (!promo) return { valido: false, mensaje: 'Código no válido.' };
-
-    const condiciones = promo.condiciones;
-    const totalCarrito = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
-    const categoriasEnCarrito = [...new Set(carrito.map(item => item.categoria))];
-
-    if (condiciones.montoMinimo > 0 && totalCarrito < condiciones.montoMinimo) {
-        return { valido: false, mensaje: `El monto mínimo es $${condiciones.montoMinimo}.` };
+    if (!Array.isArray(carrito) || carrito.length === 0) {
+        return { valido: false, mensaje: 'Tu carrito está vacío, agrega productos primero', promo: null };
     }
 
-    if (condiciones.categorias.length > 0) {
-        const tieneCategoria = condiciones.categorias.some(cat => categoriasEnCarrito.includes(cat));
-        if (!tieneCategoria) {
-            return { valido: false, mensaje: `Este código aplica solo para: ${condiciones.categorias.join(', ')}.` };
+    const promo = PROMOCIONES.find(p => p.codigo === codigo);
+    if (!promo) {
+        return { valido: false, mensaje: 'Código no válido.', promo: null };
+    }
+
+    const totalCarrito = carrito.reduce((sum, item) => sum + (Number(item.precio) || 0) * (Number(item.cantidad) || 0), 0);
+    const categoriasEnCarrito = [...new Set(carrito.map(item => item.categoria).filter(Boolean))];
+
+    if (codigo === 'LUNA20') {
+        const pociones = carrito.filter(item => item.categoria === 'Pociones');
+        const subtotalPociones = pociones.reduce((sum, item) => sum + (Number(item.precio) || 0) * (Number(item.cantidad) || 0), 0);
+        if (pociones.length === 0 || subtotalPociones < 200) {
+            return { valido: false, mensaje: 'Necesitas pociones por al menos $200 en tu carrito', promo: null };
         }
+        return { valido: true, mensaje: 'Código aplicado correctamente.', promo };
+    }
+
+    if (codigo === '2X1AMULETO') {
+        const totalAmuletos = carrito
+            .filter(item => item.categoria === 'Amuletos')
+            .reduce((sum, item) => sum + (Number(item.cantidad) || 0), 0);
+
+        if (totalAmuletos < 2) {
+            return { valido: false, mensaje: 'Necesitas al menos 2 amuletos en tu carrito', promo: null };
+        }
+        return { valido: true, mensaje: 'Código aplicado correctamente.', promo };
     }
 
     if (codigo === 'KITMAGO15') {
         const catsRequeridas = ['Varitas', 'Libros', 'Calderos'];
-        const tieneTodas = catsRequeridas.every(cat => categoriasEnCarrito.includes(cat));
-        if (!tieneTodas) {
-            return { valido: false, mensaje: 'Debes tener al menos una varita, un libro y un caldero.' };
+        const faltantes = catsRequeridas.filter(cat => !categoriasEnCarrito.includes(cat));
+        if (faltantes.length > 0) {
+            return { valido: false, mensaje: `Te falta agregar: ${faltantes.join(', ')}`, promo: null };
         }
+        return { valido: true, mensaje: 'Código aplicado correctamente.', promo };
     }
 
-    if (codigo === '2X1AMULETO') {
-        const amuletos = carrito.filter(item => item.categoria === 'Amuletos');
-        const totalAmuletos = amuletos.reduce((sum, item) => sum + item.cantidad, 0);
-        if (totalAmuletos < 2) {
-            return { valido: false, mensaje: 'Necesitas al menos 2 amuletos para aplicar el 2x1.' };
+    if (codigo === 'ENVIOGATIS') {
+        if (totalCarrito < 500) {
+            const faltante = (500 - totalCarrito).toFixed(2);
+            return { valido: false, mensaje: `Necesitas $${faltante} más para aplicar este cupón`, promo: null };
         }
+        return { valido: true, mensaje: 'Código aplicado correctamente.', promo };
     }
 
-    return { valido: true, mensaje: 'Código aplicado correctamente.', promo };
+    return { valido: false, mensaje: 'Código no válido.', promo: null };
 }
 
 // ── Calcular descuento ────────────────────────────────────────
@@ -220,19 +235,14 @@ function aplicarCupon() {
     }
 
     const carrito = obtenerCarrito();
-    if (carrito.length === 0) {
-        mensajeEl.textContent = '⚠️ Tu carrito está vacío.';
-        mensajeEl.className = 'cupon-mensaje error';
-        return;
-    }
-
     const resultado = validarCupon(codigo, carrito);
+
     if (!resultado.valido) {
         mensajeEl.textContent = '❌ ' + resultado.mensaje;
         mensajeEl.className = 'cupon-mensaje error';
         cuponActivo = null;
         descuentoAplicado = 0;
-        localStorage.removeItem('codigo_promocional');
+        localStorage.setItem('codigo_promocional', codigo);
         renderCarrito();
         return;
     }
@@ -253,40 +263,87 @@ function renderCarrito() {
     const carrito = obtenerCarrito();
     const lista = document.getElementById('carrito-lista');
     const btnPagar = document.getElementById('btn-pagar');
+    const mensajeEl = document.getElementById('mensaje-cupon');
 
-    const codigoGuardado = localStorage.getItem('codigo_promocional');
-    if (codigoGuardado && !cuponActivo) {
-        const resultado = validarCupon(codigoGuardado, carrito);
-        if (resultado.valido) {
-            cuponActivo = codigoGuardado;
-            descuentoAplicado = calcularDescuento(carrito, resultado.promo);
-            const mensajeEl = document.getElementById('mensaje-cupon');
-            if (mensajeEl) {
-                mensajeEl.textContent = '✅ Código aplicado correctamente.';
-                mensajeEl.className = 'cupon-mensaje exito';
-            }
-        } else {
-            localStorage.removeItem('codigo_promocional');
-            cuponActivo = null;
-            descuentoAplicado = 0;
+    if (!Array.isArray(carrito) || carrito.length === 0) {
+        cuponActivo = null;
+        descuentoAplicado = 0;
+        localStorage.removeItem('codigo_promocional');
+
+        if (mensajeEl) {
+            mensajeEl.textContent = '';
+            mensajeEl.className = 'cupon-mensaje';
         }
-    }
 
-    if (carrito.length === 0) {
         lista.innerHTML = `
             <div class="carrito-vacio">
                 <span class="vacio-icono">🧙‍♂️</span>
                 <p>Tu carrito está vacío.</p>
-                <a href="catalogo.html" class="btn-detalle">Explorar catálogo</a>
+                <a href="catalogo.html" class="btn-explorar">Explorar catálogo</a>
             </div>
         `;
         document.getElementById('resumen-subtotal').textContent = '$0.00 MXN';
         document.getElementById('resumen-total').textContent = '$0.00 MXN';
         document.getElementById('linea-descuento').style.display = 'none';
         document.getElementById('resumen-descuento-aplicado').style.display = 'none';
+        document.getElementById('linea-envio').style.display = 'none';
         btnPagar.style.opacity = '0.4';
         btnPagar.style.pointerEvents = 'none';
         return;
+    }
+
+    const codigoGuardado = cuponActivo || localStorage.getItem('codigo_promocional');
+    if (codigoGuardado) {
+        const resultado = validarCupon(codigoGuardado, carrito);
+        if (resultado.valido) {
+            cuponActivo = codigoGuardado;
+            descuentoAplicado = calcularDescuento(carrito, resultado.promo);
+            if (mensajeEl) {
+                mensajeEl.textContent = '✅ Código aplicado correctamente.';
+                mensajeEl.className = 'cupon-mensaje exito';
+            }
+        } else {
+            cuponActivo = null;
+            descuentoAplicado = 0;
+            localStorage.removeItem('codigo_promocional');
+
+            if (mensajeEl) {
+                let mensajeError = '❌ Cupón eliminado: ya no aplica con tu carrito actual';
+
+                if (codigoGuardado === 'LUNA20') {
+                    const pociones = carrito.filter(item => item.categoria === 'Pociones');
+                    const subtotalPociones = pociones.reduce((sum, item) => sum + (Number(item.precio) || 0) * (Number(item.cantidad) || 0), 0);
+
+                    if (pociones.length === 0) {
+                        mensajeError = '❌ Necesitas pociones en tu carrito para aplicar LUNA20';
+                    } else {
+                        const faltante = (200 - subtotalPociones).toFixed(2);
+                        mensajeError = `❌ Necesitas $${faltante} más en pociones para aplicar LUNA20`;
+                    }
+                } else if (codigoGuardado === '2X1AMULETO') {
+                    mensajeError = '❌ Necesitas al menos 2 amuletos para aplicar 2X1AMULETO';
+                } else if (codigoGuardado === 'KITMAGO15') {
+                    const categoriasRequeridas = ['Varitas', 'Libros', 'Calderos'];
+                    const categoriasEnCarrito = [...new Set(carrito.map(item => item.categoria).filter(Boolean))];
+                    const faltantes = categoriasRequeridas.filter(cat => !categoriasEnCarrito.includes(cat));
+                    mensajeError = `❌ Te falta agregar: ${faltantes.join(', ')} para KITMAGO15`;
+                } else if (codigoGuardado === 'ENVIOGATIS') {
+                    const subtotalActual = carrito.reduce((sum, item) => sum + (Number(item.precio) || 0) * (Number(item.cantidad) || 0), 0);
+                    if (subtotalActual <= 0) {
+                        mensajeError = '❌ Agrega productos por al menos $500 para envío gratis';
+                    } else {
+                        const faltante = (500 - subtotalActual).toFixed(2);
+                        mensajeError = `❌ Necesitas $${faltante} más para el envío gratis`;
+                    }
+                }
+
+                mensajeEl.textContent = mensajeError;
+                mensajeEl.className = 'cupon-mensaje error';
+            }
+        }
+    } else if (mensajeEl) {
+        mensajeEl.textContent = '';
+        mensajeEl.className = 'cupon-mensaje';
     }
 
     btnPagar.style.opacity = '1';
@@ -357,22 +414,22 @@ function renderCarrito() {
     const totalFinal = Math.max(0, subtotal - descuentoAplicado);
     document.getElementById('resumen-total').textContent = `$${totalFinal.toFixed(2)} MXN`;
 
-    // ── Envío: solo visible si aplica ENVIOGATIS con monto mínimo cumplido ──
+    // ── Envío: solo visible si aplica ENVIOGATIS con monto mínimo cumplido o subtotal >= 500 sin cupón ──
     const lineaEnvio = document.getElementById('linea-envio');
     const envioTexto = document.getElementById('envio-texto');
 
     if (lineaEnvio && envioTexto) {
-        if (cuponActivo === 'ENVIOGATIS') {
+        const mostrarEnvioGratis = (cuponActivo === 'ENVIOGATIS' && subtotal >= 500) || (!cuponActivo && subtotal >= 500);
+
+        if (mostrarEnvioGratis) {
             lineaEnvio.style.display = 'flex';
-            envioTexto.innerHTML = 'Gratis <span style="font-size:0.65rem; background:rgba(74,222,128,0.2); padding:2px 8px; border-radius:12px; margin-left:6px;">por promoción</span>';
-        } else {
-            // Sin cupón de envío: mostrar "Gratis" solo si supera $500
-            if (subtotal >= 500) {
-                lineaEnvio.style.display = 'flex';
-                envioTexto.textContent = 'Gratis';
+            if (cuponActivo === 'ENVIOGATIS') {
+                envioTexto.innerHTML = 'Gratis <span style="font-size:0.65rem; background:rgba(74,222,128,0.2); padding:2px 8px; border-radius:12px; margin-left:6px;">por promoción</span>';
             } else {
-                lineaEnvio.style.display = 'none';
+                envioTexto.textContent = 'Gratis';
             }
+        } else {
+            lineaEnvio.style.display = 'none';
         }
     }
 }

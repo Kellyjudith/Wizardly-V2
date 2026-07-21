@@ -241,6 +241,41 @@ a:hover {
     box-shadow: 0 0 18px rgba(246, 213, 122, 0.2);
 }
 
+.btn-perfil-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar-nav {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--lilac-dim);
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-perfil {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--lilac-dim);
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 24px rgba(124, 58, 237, 0.25);
+}
+
 .mensaje-login {
     position: fixed;
     top: 100px;

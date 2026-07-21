@@ -46,6 +46,10 @@
             background: var(--bg-surface);
             padding: 40px 60px 100px;
             min-height: 60vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: clamp(110px, 7vw, 150px);
+            padding-right: clamp(30px, 4vw, 60px);
         }
 
         .market-section::before {
@@ -180,6 +184,7 @@
             line-height: 1.5;
             flex: 1;
             display: -webkit-box;
+            line-clamp: 2;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;

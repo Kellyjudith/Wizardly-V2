@@ -298,13 +298,13 @@
                 Crear nueva publicación
             </h3>
 
-            <form id="formComentario">
+            <form id="formComentario" novalidate>
                 <div class="input-group">
-                    <input type="text" id="nombre" placeholder="Tu nombre o pseudónimo mágico" required>
+                    <input type="text" id="nombre" placeholder="Tu nombre o pseudónimo mágico">
                 </div>
 
                 <div class="input-group">
-                    <textarea id="comentario" rows="3" placeholder="Escribe tu mensaje, duda o reseña para el foro..." required></textarea>
+                    <textarea id="comentario" rows="3" placeholder="Escribe tu mensaje, duda o reseña para el foro..."></textarea>
                 </div>
 
                 <div class="input-group">
@@ -361,8 +361,8 @@
                 </div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -414,8 +414,8 @@
                 </div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -456,8 +456,8 @@
                 <div class="respuestas-contenedor"></div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -508,8 +508,8 @@
                 </div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -558,8 +558,8 @@
                 </div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -595,8 +595,8 @@
                 <div class="respuestas-contenedor"></div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -641,8 +641,8 @@
                 </div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -678,8 +678,8 @@
                 <div class="respuestas-contenedor"></div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -724,8 +724,8 @@
                 </div>
 
                 <form class="form-respuesta">
-                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                    <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                    <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                     <button type="submit" class="btn-enviar-respuesta">Responder</button>
                 </form>
             </div>
@@ -749,6 +749,10 @@
         document.addEventListener("DOMContentLoaded", () => {
             const formulario = document.getElementById("formComentario");
             const lista = document.getElementById("listaComentarios");
+
+            document.querySelectorAll("#formComentario, .form-respuesta").forEach(form => {
+                form.setAttribute("novalidate", "true");
+            });
 
             // Función para activar eventos dentro de CADA recuadro
             function inicializarEventosCard(card) {
@@ -794,10 +798,8 @@
                     formResp.dataset.activo = "true";
                     formResp.addEventListener("submit", (e) => {
                         e.preventDefault();
-                        const autor = formResp.querySelector(".input-nombre-resp").value.trim();
-                        const texto = formResp.querySelector(".input-texto-resp").value.trim();
-
-                        if (!autor || !texto) return;
+                        const autor = (formResp.querySelector(".input-nombre-resp").value || "").trim() || "Anónimo";
+                        const texto = (formResp.querySelector(".input-texto-resp").value || "").trim() || "Sin texto";
 
                         let contenedorRespuestas = card.querySelector(".respuestas-contenedor");
                         if (!contenedorRespuestas) {
@@ -841,8 +843,8 @@
             formulario.addEventListener("submit", function (e) {
                 e.preventDefault();
 
-                const nombre = document.getElementById("nombre").value.trim();
-                const comentario = document.getElementById("comentario").value.trim();
+                const nombre = (document.getElementById("nombre").value || "").trim() || "Anónimo";
+                const comentario = (document.getElementById("comentario").value || "").trim() || "Sin texto";
                 const urlImagen = document.getElementById("urlImagen").value.trim();
 
                 const fechaActual = new Date().toLocaleDateString('es-ES', {
@@ -892,8 +894,8 @@
                     <div class="respuestas-contenedor"></div>
 
                     <form class="form-respuesta">
-                        <input type="text" class="input-nombre-resp" placeholder="Tu nombre..." required>
-                        <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..." required></textarea>
+                        <input type="text" class="input-nombre-resp" placeholder="Tu nombre...">
+                        <textarea class="input-texto-resp" rows="2" placeholder="Escribe tu respuesta..."></textarea>
                         <button type="submit" class="btn-enviar-respuesta">Responder</button>
                     </form>
                 `;

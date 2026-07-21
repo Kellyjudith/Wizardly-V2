@@ -266,8 +266,7 @@
             const input = document.getElementById('codigo-promo-input');
             const mensaje = document.getElementById('mensaje-promo');
             const codigo = input.value.trim().toUpperCase();
-
-            const codigosValidos = ['LUNA20', '2X1AMULETO', 'KITMAGO15', 'ENVIOGATIS'];
+            const carrito = JSON.parse(localStorage.getItem('wizardly_carrito')) || [];
 
             if (!codigo) {
                 mensaje.innerHTML = '⚠️ Ingresa un código.';
@@ -275,26 +274,38 @@
                 return;
             }
 
-            if (codigosValidos.includes(codigo)) {
-                // Guardar código en localStorage
-                localStorage.setItem('codigo_promocional', codigo);
-
-                // Mostrar mensaje de éxito
-                mensaje.innerHTML = '✅ <strong>Código válido</strong> — El descuento se aplicará al finalizar tu compra.';
-                mensaje.className = 'mensaje-exito';
-
-                // Redirigir al carrito después de 1.5 segundos para ver el descuento aplicado
-                setTimeout(() => {
-                    window.location.href = 'carrito.html';
-                }, 1500);
-            } else {
-                mensaje.innerHTML = '❌ <strong>Código no válido</strong>. Verifica que esté bien escrito.';
+            if (!Array.isArray(carrito) || carrito.length === 0) {
+                mensaje.innerHTML = '⚠️ Tu carrito está vacío, agrega productos primero.';
                 mensaje.className = 'mensaje-error';
                 localStorage.removeItem('codigo_promocional');
+                return;
             }
+
+            const resultado = typeof validarCupon === 'function' ? validarCupon(codigo, carrito) : { valido: false, mensaje: 'Código no válido.' };
+
+            if (!resultado.valido) {
+                mensaje.innerHTML = `❌ ${resultado.mensaje}`;
+                mensaje.className = 'mensaje-error';
+                localStorage.removeItem('codigo_promocional');
+                return;
+            }
+
+            const textosExito = {
+                LUNA20: '✅ LUNA20 aplicado — 20% OFF en pociones',
+                '2X1AMULETO': '✅ 2X1AMULETO aplicado — 2x1 en amuletos',
+                KITMAGO15: '✅ KITMAGO15 aplicado — 15% OFF',
+                ENVIOGATIS: '✅ ENVIOGATIS aplicado — Envío gratis'
+            };
+
+            localStorage.setItem('codigo_promocional', codigo);
+            mensaje.innerHTML = textosExito[codigo] || '✅ Código aplicado correctamente.';
+            mensaje.className = 'mensaje-exito';
+
+            setTimeout(() => {
+                window.location.href = 'carrito.html';
+            }, 1200);
         }
 
-        // Cargar contador del carrito al iniciar
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof actualizarContador === 'function') {
                 actualizarContador();
