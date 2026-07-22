@@ -192,6 +192,14 @@
 
             <br>
 
+            <!-- DIRECCIÓN DE ENVÍO MOSTRADA EN CONFIRMACIÓN -->
+            <div class="info-card">
+                <h3><i class="fa-solid fa-location-dot"></i> Dirección de Envío</h3>
+                <p id="direccionConfirmada" style="margin-top:12px; color:rgba(240, 230, 210, 0.9); font-size:1.05rem; line-height:1.6;"></p>
+            </div>
+
+            <br>
+
             <div class="info-card">
                 <h3><i class="fa-solid fa-scroll"></i> Resumen del Pedido</h3>
                 <div id="resumenCompra" style="margin-top:20px;"></div>
@@ -252,25 +260,56 @@
 
             let metodoSeleccionado = "tarjeta";
 
+            // Variable global para mantener la dirección entre el Paso 1 y Paso 3
+            let direccionGuardadaHTML = '<span style="color:rgba(240, 230, 210, 0.5); font-style:italic;">Dirección no especificada</span>';
+
             // --- INICIALIZACIÓN DE CARRITO ---
             if (typeof actualizarContadorCarrito === "function") {
                 actualizarContadorCarrito();
             }
 
-            // --- NAVEGACIÓN PASO 1 -> PASO 2 (SIN VALIDACIÓN OBLIGATORIA) ---
-            formDireccion.addEventListener("submit", (e) => {
-                e.preventDefault();
+            // --- NAVEGACIÓN PASO 1 -> PASO 2 ---
+            if (formDireccion) {
+                formDireccion.addEventListener("submit", (e) => {
+                    e.preventDefault();
 
-                // Pasa directamente al Paso 2 sin bloquear
-                bloqueDireccion.style.display = "none";
-                bloquePago.style.display = "block";
+                    // Capturar datos del formulario del Paso 1
+                    const nombre = document.getElementById("nombreCompleto")?.value.trim();
+                    const tel = document.getElementById("telefono")?.value.trim();
+                    const calle = document.getElementById("calle")?.value.trim();
+                    const ciudad = document.getElementById("ciudad")?.value.trim();
+                    const estado = document.getElementById("estado")?.value.trim();
+                    const cp = document.getElementById("codigoPostal")?.value.trim();
+                    const ref = document.getElementById("referencias")?.value.trim();
 
-                if (pasoPago) {
-                    pasoPago.classList.add("activo");
-                }
+                    const partesUbicacion = [calle, ciudad, estado, cp ? `C.P. ${cp}` : ''].filter(Boolean);
 
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            });
+                    // Si ningún campo fue llenado, asigna "Dirección no especificada"
+                    if (partesUbicacion.length === 0 && !nombre && !tel) {
+                        direccionGuardadaHTML = `<span style="color:rgba(240, 230, 210, 0.5); font-style:italic;">Dirección no especificada</span>`;
+                    } else {
+                        let html = "";
+                        if (nombre || tel) {
+                            html += `<strong>${nombre || 'Destinatario sin nombre'}</strong> ${tel ? `(${tel})` : ''}<br>`;
+                        }
+                        html += partesUbicacion.length > 0 ? partesUbicacion.join(', ') : 'Dirección no especificada';
+                        if (ref) {
+                            html += `<br><small style="color:rgba(240, 230, 210, 0.6); font-style:italic;">Ref: ${ref}</small>`;
+                        }
+                        direccionGuardadaHTML = html;
+                    }
+
+                    // Cambiar vista al Paso 2
+                    bloqueDireccion.style.display = "none";
+                    bloquePago.style.display = "block";
+
+                    if (pasoPago) {
+                        pasoPago.classList.add("activo");
+                    }
+
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            }
 
             // --- VOLVER AL PASO 1 ---
             if (btnVolverDireccion) {
@@ -343,7 +382,6 @@
                 formPago.addEventListener("submit", (e) => {
                     e.preventDefault();
 
-                    // Animación de botón procesando pago
                     if (btnPagar) {
                         btnPagar.disabled = true;
                         btnPagar.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Invocando hechizo...`;
@@ -352,17 +390,22 @@
                     setTimeout(() => {
                         cargarResumen();
 
+                        // Renderizar la dirección guardada previamente en el elemento del Paso 3
+                        const elDireccion = document.getElementById("direccionConfirmada");
+                        if (elDireccion) {
+                            elDireccion.innerHTML = direccionGuardadaHTML;
+                        }
+
                         bloquePago.style.display = "none";
                         bloqueConfirmacion.style.display = "block";
 
                         if (pasoFinal) pasoFinal.classList.add("activo");
 
-                        // Generar Número de pedido simulado
+                        // Generar número de pedido y fecha
                         const numero = "WZ-" + Math.floor(100000 + Math.random() * 900000);
                         const elPedido = document.getElementById("numeroPedido");
                         if (elPedido) elPedido.textContent = numero;
 
-                        // Fecha Actual
                         const hoy = new Date();
                         const elFecha = document.getElementById("fechaCompra");
                         if (elFecha) {
@@ -373,7 +416,7 @@
                             });
                         }
 
-                        // Vaciar Carrito tras la compra exitosa
+                        // Limpiar carrito tras la compra
                         localStorage.removeItem("carrito");
                         if (typeof actualizarContadorCarrito === "function") {
                             actualizarContadorCarrito();
@@ -384,7 +427,7 @@
                 });
             }
 
-            // --- AUTOFORMATO DE CAMPOS (OPCIONAL DE AYUDA) ---
+            // --- AUTOFORMATO DE CAMPOS DE TARJETA ---
             const inputCardNumber = document.getElementById("cardNumber");
             if (inputCardNumber) {
                 inputCardNumber.addEventListener("input", (e) => {
