@@ -18,6 +18,104 @@
     <link rel="stylesheet" href="../css/carrito.css">
     <link rel="stylesheet" href="../css/checkout.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        .factura-opciones {
+            margin-top: 22px;
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212,175,55,0.18);
+        }
+
+        .factura-opciones h4 {
+            margin: 0 0 10px 0;
+            color: var(--gold, #d4af37);
+            font-family: 'Cinzel', serif;
+        }
+
+        .factura-opciones p {
+            color: rgba(240,230,210,0.7);
+            margin-bottom: 12px;
+        }
+
+        .factura-botones {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .factura-btn {
+            border: 1px solid rgba(212,175,55,0.26);
+            background: transparent;
+            color: var(--gold, #d4af37);
+            padding: 8px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+        }
+
+        .factura-btn.activo {
+            background: var(--gold, #d4af37);
+            color: #120e1c;
+        }
+
+        .factura-form {
+            display: none;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .factura-form.activo {
+            display: flex;
+        }
+
+        .comprobante-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+            border: 1px solid rgba(212,175,55,0.22);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 18px;
+        }
+
+        .comprobante-card h3 {
+            margin-top: 0;
+            color: var(--gold, #d4af37);
+            font-family: 'Cinzel', serif;
+        }
+
+        .comprobante-grid {
+            display: grid;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .comprobante-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+
+        .comprobante-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .comprobante-table th,
+        .comprobante-table td {
+            text-align: left;
+            padding: 8px 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .comprobante-total {
+            color: var(--gold, #d4af37);
+            font-weight: 700;
+        }
+    </style>
 </head>
 
 <body data-page="checkout">
@@ -212,9 +310,28 @@
 
             <br>
 
+            <div class="info-card">
+                <h3><i class="fa-solid fa-receipt"></i> Comprobante visual</h3>
+                <div id="comprobanteCompra"></div>
+                <div style="margin-top:15px; display:flex; justify-content:center;">
+                    <button type="button" class="btn" id="btnDescargarFactura">
+                        <i class="fa-solid fa-download"></i> Descargar PDF
+                    </button>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="info-card">
+                <h3><i class="fa-solid fa-file-invoice"></i> Facturación</h3>
+                <div id="facturaAccionContainer"></div>
+            </div>
+
+            <br>
+
             <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
-                <a href="../index.html" class="btn">
-                    <i class="fa-solid fa-house"></i> Volver al Inicio
+                <a href="perfil.html#mis-compras" class="btn">
+                    <i class="fa-solid fa-bag-shopping"></i> Ver mis compras
                 </a>
                 <a href="catalogo.html" class="btn-explorar">
                     <i class="fa-solid fa-hat-wizard"></i> Seguir Comprando
@@ -375,6 +492,163 @@
                 }
 
                 if (totalFinal) totalFinal.textContent = `$${total.toFixed(2)} MXN`;
+                return { carrito, total };
+            }
+
+            function obtenerFacturaSeleccionada() {
+                const opcion = document.querySelector(".factura-btn.activo")?.dataset.factura || "no";
+                if (opcion !== "si") {
+                    return { solicitada: false, rfc: "", razonSocial: "", usoCFDI: "" };
+                }
+
+                return {
+                    solicitada: true,
+                    rfc: inputRFC?.value.trim() || "",
+                    razonSocial: inputRazon?.value.trim() || "",
+                    usoCFDI: inputUsoCFDI?.value.trim() || ""
+                };
+            }
+
+            function guardarPedido(pedido) {
+                const pedidos = JSON.parse(localStorage.getItem("wizardly_pedidos") || "[]");
+                pedidos.push(pedido);
+                localStorage.setItem("wizardly_pedidos", JSON.stringify(pedidos));
+            }
+
+            function actualizarPedidoPorFolio(folio, cambios) {
+                const pedidos = JSON.parse(localStorage.getItem("wizardly_pedidos") || "[]");
+                const index = pedidos.findIndex(item => item.folio === folio);
+                if (index === -1) return null;
+                pedidos[index] = { ...pedidos[index], ...cambios };
+                localStorage.setItem("wizardly_pedidos", JSON.stringify(pedidos));
+                return pedidos[index];
+            }
+
+            function renderFacturaResumen(pedido) {
+                const contenedor = document.getElementById("facturaAccionContainer");
+                if (!contenedor) return;
+
+                const factura = pedido?.factura || {};
+                const solicitada = Boolean(factura.solicitada);
+
+                contenedor.innerHTML = `
+                    <div class="factura-opciones" style="margin:0;">
+                        <h4><i class="fa-solid fa-receipt"></i> Facturación</h4>
+                        <p></p>
+                        ${solicitada ? '<p style="color:var(--gold, #d4af37); font-weight:700;">Factura registrada para este pedido.</p>' : ''}
+                        ${solicitada ? '' : `<button type="button" class="btn" id="btnSolicitarFacturaResumen">Solicitar factura</button>`}
+                        <div class="factura-form" id="formFacturaResumen" style="${solicitada ? 'display:none' : 'display:none'}">
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="text" id="razonSocialFacturaResumen" placeholder="Razón social (opcional)">
+                            </div>
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="text" id="rfcFacturaResumen" placeholder="RFC (opcional)">
+                            </div>
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="text" id="codigoPostalFacturaResumen" placeholder="Código Postal (opcional)">
+                            </div>
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="text" id="regimenFiscalFacturaResumen" placeholder="Régimen Fiscal (opcional)">
+                            </div>
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="text" id="usoCfdiFacturaResumen" placeholder="Uso CFDI (opcional)">
+                            </div>
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="email" id="correoFacturaResumen" placeholder="Correo electrónico (opcional)">
+                            </div>
+                            <div class="input-group" style="flex:1; min-width:220px;">
+                                <input type="text" id="nombreReceptorFacturaResumen" placeholder="Nombre del receptor (opcional)">
+                            </div>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; width:100%; margin-top:6px;">
+                                <button type="button" class="btn" id="btnGuardarFacturaResumen">Guardar factura</button>
+                                <button type="button" class="btn-explorar" id="btnCancelarFacturaResumen">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if (!solicitada) {
+                    document.getElementById("btnSolicitarFacturaResumen")?.addEventListener("click", () => {
+                        const form = document.getElementById("formFacturaResumen");
+                        if (form) form.style.display = "flex";
+                    });
+
+                    document.getElementById("btnGuardarFacturaResumen")?.addEventListener("click", () => {
+                        const datosFactura = {
+                            solicitada: true,
+                            razonSocial: document.getElementById("razonSocialFacturaResumen")?.value.trim() || "Wizardly S.A. de C.V.",
+                            rfc: document.getElementById("rfcFacturaResumen")?.value.trim() || "WIZ2026001A",
+                            codigoPostal: document.getElementById("codigoPostalFacturaResumen")?.value.trim() || "01000",
+                            regimenFiscal: document.getElementById("regimenFiscalFacturaResumen")?.value.trim() || "General de Ley Personas Morales",
+                            usoCFDI: document.getElementById("usoCfdiFacturaResumen")?.value.trim() || "G03",
+                            correoElectronico: document.getElementById("correoFacturaResumen")?.value.trim() || "factura@wizardly.mx",
+                            nombreReceptor: document.getElementById("nombreReceptorFacturaResumen")?.value.trim() || "Cliente Wizardly"
+                        };
+
+                        const actualizado = actualizarPedidoPorFolio(pedido.folio, {
+                            factura: datosFactura,
+                            estado: "Factura solicitada"
+                        });
+
+                        if (actualizado) {
+                            renderFacturaResumen(actualizado);
+                        }
+                    });
+
+                    document.getElementById("btnCancelarFacturaResumen")?.addEventListener("click", () => {
+                        const form = document.getElementById("formFacturaResumen");
+                        if (form) form.style.display = "none";
+                    });
+                }
+            }
+
+            function mostrarComprobante(pedido) {
+                const contenedor = document.getElementById("comprobanteCompra");
+                if (!contenedor) return;
+
+                const productosHtml = pedido.productos.map((producto, index) => `
+                    <tr>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>$${Number(producto.precio || 0).toFixed(2)} MXN</td>
+                        <td>$${Number(producto.subtotal || 0).toFixed(2)} MXN</td>
+                    </tr>
+                `).join("");
+
+                const descuento = Number(pedido.descuento || 0);
+                const total = Number(pedido.total || 0);
+
+                contenedor.innerHTML = `
+                    <div class="comprobante-card">
+                        <h3>Wizardly</h3>
+                        <p style="margin:6px 0 0; color:rgba(240,230,210,0.7);">Comprobante de compra</p>
+                        <div class="comprobante-grid">
+                            <div class="comprobante-row"><span>Cliente</span><strong>${pedido.cliente.nombre || "Cliente Wizardly"}</strong></div>
+                            <div class="comprobante-row"><span>Folio</span><strong>${pedido.folio}</strong></div>
+                            <div class="comprobante-row"><span>Fecha</span><strong>${pedido.fecha}</strong></div>
+                            <div class="comprobante-row"><span>Hora</span><strong>${pedido.hora}</strong></div>
+                            <div class="comprobante-row"><span>Método de pago</span><strong>${pedido.metodoPago}</strong></div>
+                            <div class="comprobante-row"><span>Estado</span><strong>${pedido.estado}</strong></div>
+                        </div>
+                        <table class="comprobante-table">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cant.</th>
+                                    <th>Precio u.</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>${productosHtml}</tbody>
+                        </table>
+                        <div class="comprobante-grid">
+                            <div class="comprobante-row"><span>Subtotal</span><strong>$${Number(pedido.subtotal || total + descuento).toFixed(2)} MXN</strong></div>
+                            <div class="comprobante-row"><span>Descuento</span><strong>$${descuento.toFixed(2)} MXN</strong></div>
+                            <div class="comprobante-row"><span>Total</span><strong class="comprobante-total">$${total.toFixed(2)} MXN</strong></div>
+                        </div>
+                        ${pedido.factura?.solicitada ? `<div class="comprobante-grid"><div class="comprobante-row"><span>Factura</span><strong>Solicitada</strong></div></div>` : ""}
+                    </div>
+                `;
             }
 
             // --- CONFIRMAR COMPRA (PASO 2 -> PASO 3) ---
@@ -388,9 +662,8 @@
                     }
 
                     setTimeout(() => {
-                        cargarResumen();
+                        const resumen = cargarResumen();
 
-                        // Renderizar la dirección guardada previamente en el elemento del Paso 3
                         const elDireccion = document.getElementById("direccionConfirmada");
                         if (elDireccion) {
                             elDireccion.innerHTML = direccionGuardadaHTML;
@@ -401,12 +674,11 @@
 
                         if (pasoFinal) pasoFinal.classList.add("activo");
 
-                        // Generar número de pedido y fecha
+                        const hoy = new Date();
                         const numero = "WZ-" + Math.floor(100000 + Math.random() * 900000);
                         const elPedido = document.getElementById("numeroPedido");
                         if (elPedido) elPedido.textContent = numero;
 
-                        const hoy = new Date();
                         const elFecha = document.getElementById("fechaCompra");
                         if (elFecha) {
                             elFecha.textContent = hoy.toLocaleDateString("es-MX", {
@@ -416,8 +688,59 @@
                             });
                         }
 
-                        // Limpiar carrito tras la compra
-                        localStorage.removeItem("carrito");
+                        const carrito = resumen?.carrito || [];
+                        const subtotal = carrito.reduce((sum, producto) => sum + (Number(producto.precio) || 0) * (Number(producto.cantidad) || 0), 0);
+                        const descuento = 0;
+                        const total = subtotal - descuento;
+                        const pedido = {
+                            folio: numero,
+                            fecha: hoy.toLocaleDateString("es-MX", {
+                                day: "2-digit",
+                                month: "long",
+                                year: "numeric"
+                            }),
+                            hora: hoy.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" }),
+                            estado: "Completado",
+                            productos: carrito.map(producto => ({
+                                nombre: producto.nombre,
+                                precio: Number(producto.precio) || 0,
+                                cantidad: Number(producto.cantidad) || 1,
+                                subtotal: ((Number(producto.precio) || 0) * (Number(producto.cantidad) || 1))
+                            })),
+                            cantidades: carrito.map(producto => Number(producto.cantidad) || 1),
+                            totales: carrito.map(producto => ((Number(producto.precio) || 0) * (Number(producto.cantidad) || 1))),
+                            subtotal: subtotal,
+                            descuento: descuento,
+                            total: total,
+                            metodoPago: metodoSeleccionado,
+                            cliente: {
+                                nombre: document.getElementById("nombreCompleto")?.value.trim() || "Cliente Wizardly",
+                                telefono: document.getElementById("telefono")?.value.trim() || "",
+                                direccion: direccionGuardadaHTML
+                            },
+                            factura: {
+                                solicitada: false,
+                                razonSocial: "",
+                                rfc: "",
+                                codigoPostal: "",
+                                regimenFiscal: "",
+                                usoCFDI: "",
+                                correoElectronico: "",
+                                nombreReceptor: ""
+                            },
+                            direccion: direccionGuardadaHTML
+                        };
+
+                        guardarPedido(pedido);
+                        mostrarComprobante(pedido);
+                        renderFacturaResumen(pedido);
+
+                        if (typeof vaciarCarrito === "function") {
+                            vaciarCarrito();
+                        } else {
+                            localStorage.removeItem("wizardly_carrito");
+                        }
+
                         if (typeof actualizarContadorCarrito === "function") {
                             actualizarContadorCarrito();
                         }

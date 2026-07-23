@@ -20,6 +20,132 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/carrito.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        .compras-lista {
+            display: grid;
+            gap: 14px;
+            margin-top: 12px;
+        }
+
+        .compra-card {
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 14px;
+            padding: 16px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .compra-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .compra-card h4 {
+            margin: 0;
+            color: var(--gold, #d4af37);
+            font-family: 'Cinzel', serif;
+        }
+
+        .compra-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            background: rgba(212,175,55,0.16);
+            color: var(--gold, #d4af37);
+        }
+
+        .compra-meta {
+            color: var(--text-muted, #9a8fb4);
+            font-size: 0.82rem;
+            margin: 6px 0 0;
+        }
+
+        .compra-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .btn-compra {
+            border: 1px solid rgba(212,175,55,0.28);
+            background: transparent;
+            color: var(--gold, #d4af37);
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .modal-pedido {
+            position: fixed;
+            inset: 0;
+            background: rgba(6,4,12,0.82);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-pedido.activo {
+            display: flex;
+        }
+
+        .modal-pedido-contenido {
+            width: min(760px, 100%);
+            max-height: 85vh;
+            overflow: auto;
+            background: linear-gradient(145deg, rgba(26,21,40,0.98), rgba(16,12,26,1));
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+        }
+
+        .factura-form-perfil {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .factura-preview {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.16), rgba(255,255,255,0.04));
+            border: 1px solid rgba(212,175,55,0.22);
+        }
+
+        .factura-preview h4 {
+            margin: 0 0 10px;
+            color: var(--gold, #d4af37);
+            font-family: 'Cinzel', serif;
+        }
+
+        .factura-grid {
+            display: grid;
+            gap: 8px;
+        }
+
+        .factura-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .factura-row span {
+            color: var(--text-muted, #9a8fb4);
+        }
+    </style>
 </head>
 
 <body data-page="perfil">
@@ -48,7 +174,9 @@
 
             <div class="info-card" style="flex:1 1 300px;max-width:400px;">
                 <h3>Mis Compras</h3>
-                <p>Próximamente podrás consultar todos tus artefactos adquiridos.</p>
+                <div id="historialCompras" class="compras-lista">
+                    <p style="color:var(--text-muted);font-size:0.85rem;">Cargando tus pedidos...</p>
+                </div>
             </div>
 
             <div class="info-card" style="flex:1 1 300px;max-width:400px;">
@@ -84,6 +212,15 @@
             <a href="politicas.html">Políticas de Compra y Venta</a>
         </div>
     </footer>
+
+    <div class="modal-pedido" id="modalPedido" role="dialog" aria-modal="true">
+        <div class="modal-pedido-contenido">
+            <div style="display:flex; justify-content:flex-end;">
+                <button type="button" class="btn-compra" id="btnCerrarModalPedido">Cerrar</button>
+            </div>
+            <div id="detallePedidoContenido"></div>
+        </div>
+    </div>
 
     <!-- MENSAJE DE CIERRE -->
     <div id="mensaje-cierre" class="mensaje-login">
@@ -161,10 +298,189 @@
             `).join('') + (mias.length > 3 ? `<p style="font-size:0.75rem;color:var(--text-muted);">+${mias.length - 3} más...</p>` : '');
         })();
 
-        // Actualizar contador del carrito
+        function obtenerPedidos() {
+            return JSON.parse(localStorage.getItem('wizardly_pedidos') || '[]');
+        }
+
+        function guardarPedidos(pedidos) {
+            localStorage.setItem('wizardly_pedidos', JSON.stringify(pedidos));
+        }
+
+        function renderHistorialCompras() {
+            const contenedor = document.getElementById('historialCompras');
+            if (!contenedor) return;
+
+            const pedidos = obtenerPedidos();
+            if (!pedidos.length) {
+                contenedor.innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">Aún no tienes compras registradas.</p>';
+                return;
+            }
+
+            contenedor.innerHTML = pedidos.map(pedido => `
+                <div class="compra-card">
+                    <div class="compra-card-header">
+                        <div>
+                            <h4>${pedido.folio}</h4>
+                            <p class="compra-meta">${pedido.fecha} • ${pedido.hora}</p>
+                        </div>
+                        <span class="compra-badge">${pedido.estado}</span>
+                    </div>
+                    <p class="compra-meta">${pedido.productos?.length || 0} productos • Total: $${Number(pedido.total || 0).toFixed(2)} MXN</p>
+                    <div class="compra-actions">
+                        <button class="btn-compra" onclick="verDetallePedido('${pedido.folio}')">Ver detalle</button>
+                        <button class="btn-compra" onclick="verFacturaPedido('${pedido.folio}')">${pedido.factura?.solicitada ? 'Ver factura' : 'Solicitar factura'}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function verDetallePedido(folio) {
+            const pedidos = obtenerPedidos();
+            const pedido = pedidos.find(item => item.folio === folio);
+            const modal = document.getElementById('modalPedido');
+            const contenido = document.getElementById('detallePedidoContenido');
+            if (!pedido || !modal || !contenido) return;
+
+            const productosHtml = (pedido.productos || []).map(producto => `
+                <div style="display:flex;justify-content:space-between;gap:12px; margin-bottom:10px;">
+                    <span>${producto.nombre} <small style="color:var(--gold);">x${producto.cantidad || 1}</small></span>
+                    <strong>$${Number(producto.subtotal || 0).toFixed(2)} MXN</strong>
+                </div>
+            `).join('');
+
+            contenido.innerHTML = `
+                <h3 style="color:var(--gold); font-family:'Cinzel', serif;">${pedido.folio}</h3>
+                <p style="color:var(--text-muted);">${pedido.fecha} • ${pedido.hora}</p>
+                <p style="margin-top:8px;"><strong>Estado:</strong> ${pedido.estado}</p>
+                <p><strong>Método de pago:</strong> ${pedido.metodoPago}</p>
+                <p><strong>Cliente:</strong> ${pedido.cliente?.nombre || 'Cliente Wizardly'}</p>
+                <div style="margin-top:18px;">
+                    ${productosHtml}
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.08);">
+                    <strong>Subtotal</strong>
+                    <strong>$${Number(pedido.subtotal || 0).toFixed(2)} MXN</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:6px;">
+                    <span>Descuento</span>
+                    <span>$${Number(pedido.descuento || 0).toFixed(2)} MXN</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:1.05rem;">
+                    <strong>Total</strong>
+                    <strong style="color:var(--gold);">$${Number(pedido.total || 0).toFixed(2)} MXN</strong>
+                </div>
+            `;
+            modal.classList.add('activo');
+        }
+
+        function verFacturaPedido(folio) {
+            const pedidos = obtenerPedidos();
+            const pedido = pedidos.find(item => item.folio === folio);
+            const modal = document.getElementById('modalPedido');
+            const contenido = document.getElementById('detallePedidoContenido');
+            if (!pedido || !modal || !contenido) return;
+
+            const factura = pedido.factura || {};
+            const datosFactura = [
+                ['Razón social', factura.razonSocial || 'Wizardly S.A. de C.V.'],
+                ['RFC', factura.rfc || 'WIZ2026001A'],
+                ['Código Postal', factura.codigoPostal || '01000'],
+                ['Régimen Fiscal', factura.regimenFiscal || 'General de Ley Personas Morales'],
+                ['Uso CFDI', factura.usoCFDI || 'G03'],
+                ['Correo', factura.correoElectronico || 'factura@wizardly.mx'],
+                ['Receptor', factura.nombreReceptor || 'Cliente Wizardly']
+            ];
+
+            const facturaMarkup = pedido.factura?.solicitada ? `
+                <div class="factura-preview">
+                    <h4>Factura Wizardly</h4>
+                    <p style="margin:0 0 12px; color:var(--text-muted);">Comprobante fiscal asociado a este pedido.</p>
+                    <div class="factura-grid">
+                        ${datosFactura.map(([label, value]) => `
+                            <div class="factura-row">
+                                <span>${label}</span>
+                                <strong>${value}</strong>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : `
+                <div class="factura-preview">
+                    <h4>Solicitar factura</h4>
+                    <p style="margin:0 0 12px; color:var(--text-muted);">Puedes completar estos datos opcionales y guardarlos para este pedido.</p>
+                    <div class="factura-form-perfil" id="formFacturaPerfil">
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="text" id="razonFacturaPerfil" placeholder="Razón social (opcional)">
+                        </div>
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="text" id="rfcFacturaPerfil" placeholder="RFC (opcional)">
+                        </div>
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="text" id="codigoPostalFacturaPerfil" placeholder="Código Postal (opcional)">
+                        </div>
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="text" id="regimenFacturaPerfil" placeholder="Régimen Fiscal (opcional)">
+                        </div>
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="text" id="usoFacturaPerfil" placeholder="Uso CFDI (opcional)">
+                        </div>
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="email" id="correoFacturaPerfil" placeholder="Correo electrónico (opcional)">
+                        </div>
+                        <div class="input-group" style="flex:1; min-width:220px;">
+                            <input type="text" id="nombreReceptorFacturaPerfil" placeholder="Nombre del receptor (opcional)">
+                        </div>
+                        <button class="btn-compra" onclick="guardarFacturaPedido('${pedido.folio}')">Guardar factura</button>
+                    </div>
+                </div>
+            `;
+
+            contenido.innerHTML = `
+                <h3 style="color:var(--gold); font-family:'Cinzel', serif;">${pedido.folio}</h3>
+                <p style="color:var(--text-muted);">${pedido.fecha} • ${pedido.hora}</p>
+                <p style="margin-top:8px;"><strong>Estado:</strong> ${pedido.estado}</p>
+                <p><strong>Total:</strong> $${Number(pedido.total || 0).toFixed(2)} MXN</p>
+                ${facturaMarkup}
+            `;
+            modal.classList.add('activo');
+        }
+
+        function guardarFacturaPedido(folio) {
+            const pedidos = obtenerPedidos();
+            const pedido = pedidos.find(item => item.folio === folio);
+            if (!pedido) return;
+
+            pedido.factura = {
+                solicitada: true,
+                razonSocial: document.getElementById('razonFacturaPerfil')?.value.trim() || '',
+                rfc: document.getElementById('rfcFacturaPerfil')?.value.trim() || '',
+                codigoPostal: document.getElementById('codigoPostalFacturaPerfil')?.value.trim() || '',
+                regimenFiscal: document.getElementById('regimenFacturaPerfil')?.value.trim() || '',
+                usoCFDI: document.getElementById('usoFacturaPerfil')?.value.trim() || '',
+                correoElectronico: document.getElementById('correoFacturaPerfil')?.value.trim() || '',
+                nombreReceptor: document.getElementById('nombreReceptorFacturaPerfil')?.value.trim() || ''
+            };
+            pedido.estado = 'Factura solicitada';
+            guardarPedidos(pedidos);
+            verFacturaPedido(folio);
+            renderHistorialCompras();
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof actualizarContador === 'function') {
                 actualizarContador();
+            }
+            renderHistorialCompras();
+
+            const cerrar = document.getElementById('btnCerrarModalPedido');
+            const modal = document.getElementById('modalPedido');
+            if (cerrar && modal) {
+                cerrar.addEventListener('click', () => modal.classList.remove('activo'));
+            }
+            if (modal) {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) modal.classList.remove('activo');
+                });
             }
         });
     </script>
