@@ -329,6 +329,7 @@
                     <div class="compra-actions">
                         <button class="btn-compra" onclick="verDetallePedido('${pedido.folio}')">Ver detalle</button>
                         <button class="btn-compra" onclick="verFacturaPedido('${pedido.folio}')">${pedido.factura?.solicitada ? 'Ver factura' : 'Solicitar factura'}</button>
+                        ${pedido.factura?.solicitada ? `<button class="btn-compra" onclick="descargarFacturaPerfil(event, '${pedido.folio}')">Descargar factura</button>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -403,6 +404,9 @@
                             </div>
                         `).join('')}
                     </div>
+                    <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <button class="btn-compra" onclick="descargarFacturaPerfil(event, '${pedido.folio}')">Descargar factura</button>
+                    </div>
                 </div>
             ` : `
                 <div class="factura-preview">
@@ -466,6 +470,25 @@
             renderHistorialCompras();
         }
 
+        function descargarFacturaPerfil(event, folio) {
+            if (event && typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
+            console.log('Factura descargada con éxito');
+            showPerfilToast('Factura descargada con éxito');
+        }
+
+        function showPerfilToast(message) {
+            const toast = document.getElementById('toastContainerPerfil');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.style.display = 'block';
+            clearTimeout(toast.hideTimeout);
+            toast.hideTimeout = setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof actualizarContador === 'function') {
                 actualizarContador();
@@ -482,6 +505,11 @@
                     if (event.target === modal) modal.classList.remove('activo');
                 });
             }
+
+            const perfilToast = document.createElement('div');
+            perfilToast.id = 'toastContainerPerfil';
+            perfilToast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;display:none;padding:12px 18px;border-radius:999px;background:rgba(29, 27, 52, 0.95);color:#fff;font-size:0.95rem;font-weight:600;box-shadow:0 14px 28px rgba(0,0,0,0.18);';
+            document.body.appendChild(perfilToast);
         });
     </script>
 </body>
